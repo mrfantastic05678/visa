@@ -1,0 +1,143 @@
+/* Fonts are self-hosted via next/font (see src/app/fonts.ts) for performance —
+   no render-blocking @import. CSS variables --font-clash / --font-satoshi /
+   --font-jetbrains are set on <html> by next/font. */
+
+@import "tailwindcss";
+
+@theme {
+  /* ── Typography ─────────────────────────────────────── */
+  --font-display: var(--font-clash), "Clash Display", sans-serif;
+  --font-sans:    var(--font-satoshi), system-ui, sans-serif;
+  --font-mono:    var(--font-jetbrains), "JetBrains Mono", monospace;
+  --font-brand:   var(--font-montserrat), "Montserrat", sans-serif;
+
+  /* ── Brand Colours ──────────────────────────────────── */
+  --color-navy:       #062B5B; /* deep blue-navy — bg + headings (from design) */
+  --color-navy-2:     #0A3A78; /* lighter blue-navy for gradients/cards */
+  --color-ink:        #1A2332;
+  --color-ink-2:      #21407A;
+  --color-blue:       #0057FF;
+  --color-blue-hover: #0046CC;
+  --color-mist:       #F8F9FB;
+  --color-mist-2:     #EFF1F5;
+  --color-line:       #E5E7EC;
+  --color-muted:      #6B7280;
+
+  /* ── Status Colours ─────────────────────────────────── */
+  --color-success:  #14935C;
+  --color-whatsapp: #25D366;
+  --color-whatsapp-hover: #20BD5A;
+  --color-info:     #286CB0;
+  --color-warning:  #B77F1F;
+  --color-danger:   #B53A3A;
+
+  /* ── Radius scale ───────────────────────────────────── */
+  --radius-sm:  4px;
+  --radius:     6px;
+  --radius-md:  8px;
+  --radius-lg:  10px;
+  --radius-xl:  12px;
+  --radius-2xl: 16px;
+}
+
+/* ── Base ─────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+code, kbd, pre, [class*="mono"], [class*="app-id"] {
+  font-family: var(--font-mono);
+}
+
+/* ── Themed Scrollbar ───────────────────────────────── */
+*,
+*::before,
+*::after {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-line);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-muted);
+}
+
+/* Scrollbar for dark backgrounds */
+.dark-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: var(--color-line);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-muted);
+}
+
+/* ── Global Reach Map Animations ────────────────────── */
+.arc-dash {
+  animation: arc-flow 1.8s linear infinite;
+}
+
+@keyframes arc-flow {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+.pin-pulse {
+  animation: pin-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pin-pulse {
+  0%, 100% { opacity: 0.3; r: 1.5; }
+  50%      { opacity: 0.8; r: 2.8; }
+}
