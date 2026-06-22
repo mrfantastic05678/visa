@@ -11,7 +11,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  secret: process.env.BETTER_AUTH_SECRET!,
+  secret: process.env.BETTER_AUTH_SECRET ?? "build-time-placeholder-replace-in-production",
   baseURL: process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
   trustedOrigins: [
     process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
