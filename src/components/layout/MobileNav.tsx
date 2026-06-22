@@ -1,10 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { X } from "lucide-react";
+import { WHATSAPP_URL } from "@/lib/constants";
+import { ArrowRight, X } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 import { useEffect } from "react";
-import { Button } from "../ui/Button";
 import { Logo } from "../ui/Logo";
 
 interface MobileNavProps {
@@ -39,11 +40,11 @@ export function MobileNav({ links, open, onClose }: MobileNavProps) {
       {/* Drawer */}
       <aside
         className={cn(
-          "fixed inset-y-0 right-0 z-50 w-72 bg-navy shadow-2xl transition-transform duration-300 lg:hidden",
+          "fixed inset-y-0 right-0 z-50 w-72 bg-navy shadow-2xl transition-transform duration-300 lg:hidden flex flex-col",
           open ? "translate-x-0" : "translate-x-full"
         )}
       >
-        <div className="flex h-16 items-center justify-between px-6">
+        <div className="flex h-16 items-center justify-between px-6 flex-shrink-0">
           <Logo variant="light" />
           <button
             onClick={onClose}
@@ -67,12 +68,28 @@ export function MobileNav({ links, open, onClose }: MobileNavProps) {
           ))}
         </nav>
 
-        <div className="px-6 pt-4">
+        <div className="px-6 pb-6 space-y-3 flex-shrink-0 mt-auto">
           <Link href="/apply" onClick={onClose}>
-            <Button variant="primary" size="lg" className="w-full">
+            <button className="w-full h-12 rounded-xl bg-blue text-white font-semibold font-sans text-sm flex items-center justify-center gap-2 hover:bg-blue-hover transition-colors">
               Apply Now
-            </Button>
+              <ArrowRight className="h-4 w-4 flex-shrink-0" />
+            </button>
           </Link>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onClose}
+            className="w-full h-12 rounded-xl bg-whatsapp text-white font-semibold font-sans text-sm flex items-center justify-center gap-2 hover:bg-whatsapp-hover transition-colors"
+          >
+            <FaWhatsapp className="h-4 w-4 flex-shrink-0" />
+            WhatsApp Us
+          </a>
+          <div className="pt-4 border-t border-white/10">
+            <p className="text-[11px] text-white/30 font-sans leading-relaxed">
+              &copy; {new Date().getFullYear()} Visati Visa Services LLC &middot; Dubai, UAE
+            </p>
+          </div>
         </div>
       </aside>
     </>

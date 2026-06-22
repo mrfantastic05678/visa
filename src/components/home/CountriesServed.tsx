@@ -1,4 +1,7 @@
+"use client";
+
 import { AE, AU, CA, CN, EU, GB, IN, JP, KR, SA, SG, US } from "country-flag-icons/react/3x2";
+import { FadeIn } from "@/components/ui/FadeIn";
 
 const COUNTRIES = [
   { Flag: AE, name: "UAE" },
@@ -21,33 +24,40 @@ export function CountriesServed() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-10">
           <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-widest text-blue font-sans mb-3">
-              Countries
-            </p>
-            <h2 className="font-display font-bold text-3xl lg:text-5xl text-navy">
-              184 nationalities served.
-            </h2>
+            <FadeIn direction="up" delay={0}>
+              <p className="text-xs font-semibold uppercase tracking-widest text-blue font-sans mb-3">
+                Countries
+              </p>
+            </FadeIn>
+            <FadeIn direction="up" delay={100}>
+              <h2 className="font-display font-bold text-3xl lg:text-5xl text-navy">
+                184 nationalities served.
+              </h2>
+            </FadeIn>
           </div>
-          <p className="text-sm text-muted font-sans max-w-sm lg:text-right">
-            We process UAE visas for nearly every passport on earth, from
-            Mumbai to Manchester and beyond.
-          </p>
+          <FadeIn direction="up" delay={200}>
+            <p className="text-sm text-muted font-sans max-w-sm lg:text-right">
+              We process UAE visas for nearly every passport on earth, from
+              Mumbai to Manchester and beyond.
+            </p>
+          </FadeIn>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {COUNTRIES.map(({ Flag, name }) => (
-            <div
-              key={name}
-              className="flex items-center gap-3 rounded-lg border border-line bg-white px-4 py-3 hover:border-blue/30 transition-colors"
-            >
-              <Flag
-                className="h-4 w-6 rounded-[2px] flex-shrink-0 ring-1 ring-line"
-                title={name}
-              />
-              <span className="text-sm font-sans font-medium text-ink truncate">
-                {name}
-              </span>
-            </div>
+          {COUNTRIES.map(({ Flag, name }, i) => (
+            <FadeIn key={name} direction="up" delay={100 + i * 50}>
+              <div
+                className="flex items-center gap-3 rounded-lg border border-line bg-white px-4 py-3 hover:border-blue/30 transition-colors"
+              >
+                <Flag
+                  className="h-4 w-6 rounded-[2px] flex-shrink-0 ring-1 ring-line"
+                  title={name}
+                />
+                <span className="text-sm font-sans font-medium text-ink truncate">
+                  {name}
+                </span>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>

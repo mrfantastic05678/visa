@@ -52,7 +52,7 @@ export function QuickApplyWidget({ visaTypes }: QuickApplyWidgetProps) {
     "text-[11px] font-semibold uppercase tracking-widest text-white/50 font-sans";
 
   return (
-    <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 shadow-2xl">
+    <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 shadow-2xl relative z-20">
       <div className="flex items-start justify-between gap-3 mb-5">
         <div className="min-w-0">
           <p className="text-[11px] font-semibold uppercase tracking-widest text-blue font-sans mb-1.5">

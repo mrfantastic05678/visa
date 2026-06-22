@@ -1,12 +1,12 @@
 /* ── Contact Details ─────────────────────────────────── */
 export const CONTACT = {
-  whatsapp: "971000000000",
+  whatsapp: "971585542344",
   whatsappText: "Hello Visati, I'd like to enquire about a UAE visa.",
   whatsappReplyTime: "Average reply 2 min",
-  email: "concierge@visati.ae",
+  email: "visa@visati.ae",
   emailReplyTime: "Reply within 1 hour",
   adminEmail: "admin@visati.ae",
-  phone: "+971 4 1234 5678",
+  phone: "+971 58 554 2344",
   phoneHours: "Sun–Thu, 9am–6pm GST",
   office: "Boulevard Plaza Tower 1\nDowntown Dubai, UAE",
   officeNote: "By appointment",

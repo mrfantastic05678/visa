@@ -1,4 +1,5 @@
 import { CountriesServed } from "@/components/home/CountriesServed";
+import { FooterCTA } from "@/components/home/FooterCTA";
 import { GlobalReach } from "@/components/home/GlobalReach";
 import { Hero } from "@/components/home/Hero";
 import { HomeFAQ } from "@/components/home/HomeFAQ";
@@ -61,6 +62,9 @@ export default async function HomePage() {
       <FadeIn delay={100}>
         <HomeFAQ />
       </FadeIn>
+
+      {/* 9 — CTA before footer */}
+      <FooterCTA />
     </>
   );
 }

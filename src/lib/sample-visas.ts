@@ -35,12 +35,12 @@ function make(
 }
 
 export const SAMPLE_VISA_TYPES: VisaType[] = [
-  make(1, "30d-single", "Tourist · 30 days", "single", 30, 349, true, 1),
-  make(2, "60d-single", "Tourist · 60 days", "single", 60, 549, true, 2),
-  make(3, "90d-multi", "Multi-Entry · 90 days", "multiple", 90, 1049, true, 3),
-  make(4, "14d-single", "Business Visa", "single", 14, 749, true, 4),
-  make(5, "96h-transit", "Transit Visa", "single", 4, 149, true, 5),
-  make(6, "5y-multi", "Family Residence", "multiple", 1825, 2949, false, 6),
+  make(1, "14d-single", "14 Days – Single Entry", "single", 14, 459, true, 1),
+  make(2, "30d-single", "30 Days – Single Entry", "single", 30, 549, true, 2),
+  make(3, "60d-single", "60 Days – Single Entry", "single", 60, 918, true, 3),
+  make(4, "30d-multi", "30 Days – Multi Entry", "multiple", 30, 918, true, 4),
+  make(5, "60d-multi", "60 Days – Multi Entry", "multiple", 60, 1285, true, 5),
+  make(6, "visa-extension", "Visa Extension – Inside UAE", "single", 30, 1285, false, 6),
 ];
 
 /** Marketing blurbs and feature lists keyed by visa slug. */
@@ -48,40 +48,40 @@ export const VISA_DETAILS: Record<
   string,
   { tagline: string; processing: string; features: string[] }
 > = {
+  "14d-single": {
+    tagline: "Quick visit visa for short trips, stopovers, or brief business travel.",
+    processing: "24–72h",
+    features: ["Single entry", "60-day entry validity", "Photo & passport scan only"],
+  },
   "30d-single": {
     tagline: "Single entry, perfect for short visits, leisure and family stays.",
     processing: "24–72h",
-    features: ["Single entry", "Photo & passport scan only", "Free re-submission if rejected"],
+    features: ["Single entry", "60-day entry validity", "Free re-submission if rejected"],
   },
   "60d-single": {
-    tagline: "Extended stay, single or multiple entry options available.",
+    tagline: "Extended stay for longer holidays, family visits, or medical travel.",
     processing: "24–72h",
-    features: ["Extended stay", "Family bundle discount", "Express upgrade available"],
+    features: ["Single entry", "60-day entry validity", "Express upgrade available"],
   },
-  "90d-multi": {
-    tagline: "Frequent travellers. Multiple entries within validity period.",
+  "30d-multi": {
+    tagline: "Multiple entries within 60 days. Ideal for business travellers.",
     processing: "48–72h",
-    features: ["Multiple entries", "Ideal for frequent travel", "Valid for 1 year"],
+    features: ["Multiple entries", "60-day entry validity", "Frequent travel friendly"],
   },
-  "14d-single": {
-    tagline: "For business travellers. Conferences, meetings, and sponsor letters.",
-    processing: "24h Express",
-    features: ["Conferences & meetings", "Letter from sponsor accepted", "Priority embassy queue"],
+  "60d-multi": {
+    tagline: "Extended multiple entry for complex itineraries across the region.",
+    processing: "48–72h",
+    features: ["Multiple entries", "60-day entry validity", "Family bundle discount"],
   },
-  "96h-transit": {
-    tagline: "Quick stop-over visa for travellers connecting through UAE.",
-    processing: "12h",
-    features: ["Stop-over visa", "Onward ticket required", "Issued same day"],
-  },
-  "5y-multi": {
-    tagline: "Long-term multiple entry. End-to-end documentation support.",
-    processing: "7–10 days",
-    features: ["Spouse & children", "End-to-end documentation", "Renewal support"],
+  "visa-extension": {
+    tagline: "Extend your current UAE visa without leaving the country.",
+    processing: "3–5 days",
+    features: ["Inside UAE", "30-day extension", "No exit required"],
   },
 };
 
 /** Comparison table data for the three most popular visas. */
-export const COMPARE_SLUGS = ["30d-single", "60d-single", "90d-multi"] as const;
+export const COMPARE_SLUGS = ["30d-single", "60d-single", "60d-multi"] as const;
 
 export interface CompareRow {
   label: string;
@@ -89,12 +89,11 @@ export interface CompareRow {
 }
 
 export const COMPARE_ROWS: CompareRow[] = [
-  { label: "Price", values: ["AED 349", "AED 549", "AED 1,049"] },
-  { label: "Duration", values: ["30 days", "60 days", "90 days"] },
+  { label: "Price", values: ["AED 549", "AED 918", "AED 1,285"] },
+  { label: "Duration", values: ["30 days", "60 days", "60 days"] },
   { label: "Entry", values: ["Single", "Single", "Multiple"] },
+  { label: "Entry Validity", values: ["60 days", "60 days", "60 days"] },
   { label: "Processing", values: ["24–72h", "24–72h", "48–72h"] },
   { label: "Express Available", values: [true, true, true] },
-  { label: "Family Discount", values: [false, true, true] },
   { label: "Refund Guarantee", values: [true, true, true] },
-  { label: "Validity", values: ["58 days from issue", "58 days from issue", "1 year"] },
 ];
