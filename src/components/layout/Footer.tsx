@@ -1,6 +1,14 @@
 import { BRAND, CONTACT, SOCIAL, WHATSAPP_URL } from "@/lib/constants";
 import { Logo } from "../ui/Logo";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Twitter,
+} from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 
@@ -12,15 +20,8 @@ const FOOTER_LINKS = {
     { label: "Business", href: "/visa-types" },
     { label: "Transit", href: "/visa-types" },
   ],
-  Services: [
-    { label: "Apply", href: "/apply" },
-    { label: "Track", href: "/track" },
-    { label: "Renew", href: "/contact" },
-    { label: "Corporate", href: "/contact" },
-    { label: "Travel Insurance", href: "/contact" },
-  ],
   Company: [
-    { label: "About", href: "/" },
+    { label: "About", href: "/about" },
     { label: "Careers", href: "/contact" },
     { label: "Press", href: "/contact" },
     { label: "Partners", href: "/contact" },
@@ -81,7 +82,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Main footer grid */}
+        {/* Main footer grid: brand(2) + Visas + Company + Support + Contact = 6 cols */}
         <div className="grid grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-10">
           {/* Brand */}
           <div className="col-span-2">
@@ -105,7 +106,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Link columns */}
+          {/* 3 menu link columns */}
           {Object.entries(FOOTER_LINKS).map(([section, links]) => (
             <div key={section} className="min-w-0">
               <h4 className="text-xs font-semibold uppercase tracking-widest text-white/40 font-sans mb-4">
@@ -125,13 +126,55 @@ export function Footer() {
               </ul>
             </div>
           ))}
+
+          {/* Contact info column */}
+          <div className="min-w-0 col-span-2 sm:col-span-1">
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-white/40 font-sans mb-4">
+              Contact
+            </h4>
+            <div className="space-y-4">
+              <div className="flex items-start gap-2.5">
+                <MapPin className="h-3.5 w-3.5 text-blue flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-white/60 font-sans leading-snug whitespace-pre-line">
+                  {CONTACT.office}
+                </p>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <Mail className="h-3.5 w-3.5 text-blue flex-shrink-0" />
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="text-sm text-white/60 hover:text-white font-sans transition-colors break-all"
+                >
+                  {CONTACT.email}
+                </a>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <Phone className="h-3.5 w-3.5 text-blue flex-shrink-0" />
+                <a
+                  href={`tel:${CONTACT.phone}`}
+                  className="text-sm text-white/60 hover:text-white font-sans transition-colors"
+                >
+                  {CONTACT.phone}
+                </a>
+              </div>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-whatsapp font-sans transition-colors"
+              >
+                <FaWhatsapp className="h-3.5 w-3.5 flex-shrink-0" />
+                WhatsApp (24/7)
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-xs text-white/40 font-sans">
-            &copy; {new Date().getFullYear()} {BRAND.legalName} · {BRAND.location} ·
-            Trade Licence {CONTACT.tradeLicence}
+            &copy; {new Date().getFullYear()} {BRAND.legalName} &middot;{" "}
+            {BRAND.location} &middot; Trade Licence {CONTACT.tradeLicence}
           </p>
           <div className="flex flex-wrap items-center gap-5">
             <Link
