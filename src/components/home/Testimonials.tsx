@@ -47,7 +47,7 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: "start" },
+    { loop: true, align: "start", slidesToScroll: 1 },
     [Autoplay({ delay: 5000, stopOnInteraction: true })]
   );
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -72,7 +72,7 @@ export function Testimonials() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="py-16 lg:py-24 bg-white">
+    <section className="py-16 lg:py-24 bg-white overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-10">
           <div className="min-w-0">
@@ -99,13 +99,13 @@ export function Testimonials() {
         </div>
 
         {/* Carousel */}
-        <div className="relative">
+        <div className="relative px-5 -mx-5">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex gap-5">
               {TESTIMONIALS.map((t) => (
                 <div
                   key={t.name}
-                  className="flex-none w-[85vw] sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] rounded-2xl border border-line bg-white p-6 flex flex-col"
+                  className="flex-none w-[85vw] sm:w-[calc(50%-10px)] lg:w-[calc((100%-40px)/3)] rounded-2xl border border-line bg-white p-6 flex flex-col"
                 >
                   <div className="flex mb-4">
                     {[1, 2, 3, 4, 5].map((i) => (

@@ -65,14 +65,14 @@ export function GlobalReach() {
             <img
               src="/world-map.svg"
               alt="World map"
-              className="absolute inset-0 w-full h-full opacity-40 pointer-events-none select-none"
+              className="absolute inset-0 w-full h-full opacity-40 pointer-events-none select-none translate-y-[15%] lg:translate-y-0"
               aria-hidden="true"
             />
 
             {/* Animated arcs + pulsing pins */}
             <svg
               viewBox="0 0 107 54"
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full translate-y-[15%] lg:translate-y-0"
               aria-hidden="true"
             >
               {ARCS.map(({ from, to }) => {
@@ -136,7 +136,7 @@ export function GlobalReach() {
           </div>
 
           {/* --- Content on top of map --- */}
-          <div className="relative z-10 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-8">
+          <div className="relative z-10 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-52 lg:gap-8">
 
             {/* Left copy */}
             <div className="max-w-md">

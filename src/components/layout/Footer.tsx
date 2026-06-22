@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const FOOTER_LINKS = {
   Visas: [
@@ -45,12 +47,13 @@ const SOCIAL_ICONS = [
   { key: "linkedin", Icon: Linkedin, url: SOCIAL.linkedin },
 ];
 
-function scrollToTop(e: React.MouseEvent<HTMLAnchorElement>) {
-  e.preventDefault();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
 export function Footer() {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <footer className="bg-navy text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-10">
@@ -89,7 +92,6 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      onClick={scrollToTop}
                       className="text-sm text-white/60 hover:text-white font-sans transition-colors"
                     >
                       {link.label}
@@ -101,7 +103,7 @@ export function Footer() {
           ))}
 
           {/* Contact info column — wider */}
-          <div className="min-w-0 col-span-2 lg:col-span-2">
+          <div className="min-w-0 lg:col-span-2">
             <h4 className="text-xs font-semibold uppercase tracking-widest text-white/40 font-sans mb-4">
               Contact
             </h4>
@@ -152,21 +154,18 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-5">
             <Link
               href="/privacy"
-              onClick={scrollToTop}
               className="text-xs text-white/40 hover:text-white font-sans transition-colors"
             >
               Privacy
             </Link>
             <Link
               href="/terms"
-              onClick={scrollToTop}
               className="text-xs text-white/40 hover:text-white font-sans transition-colors"
             >
               Terms
             </Link>
             <Link
               href="/cookies"
-              onClick={scrollToTop}
               className="text-xs text-white/40 hover:text-white font-sans transition-colors"
             >
               Cookies

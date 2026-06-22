@@ -38,13 +38,13 @@ export function Navbar() {
       >
         <div
           className={cn(
-            "mx-auto transition-all duration-300",
+            "transition-all duration-300",
             scrolled
-              ? "max-w-6xl bg-navy/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/20 border border-white/10"
-              : "max-w-7xl bg-navy"
+              ? "mx-auto max-w-6xl bg-navy/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/20 border border-white/10"
+              : "w-full bg-navy"
           )}
         >
-          <div className="flex h-14 items-center justify-between gap-4 px-4 sm:px-6">
+          <div className="mx-auto max-w-7xl flex h-14 items-center justify-between gap-4 px-4 sm:px-6">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0" aria-label="Visati home">
               <Logo variant="light" showTagline />
