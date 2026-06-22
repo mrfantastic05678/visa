@@ -29,7 +29,7 @@ const VALUES = [
   {
     Icon: Zap,
     title: "Speed without shortcuts",
-    body: "Most applications are reviewed and submitted within hours. Fast doesn't mean careless — we check every file before it goes in.",
+    body: "Most applications are reviewed and submitted within hours. Fast does not mean careless: we check every file before it goes in.",
   },
   {
     Icon: Shield,
@@ -39,7 +39,7 @@ const VALUES = [
   {
     Icon: Globe,
     title: "Based in Dubai",
-    body: "We know UAE immigration requirements the way locals do — the current rules, the edge cases, and when something changed last week.",
+    body: "We know UAE immigration requirements the way locals do, including the current rules and when something changed last week.",
   },
 ];
 
@@ -63,7 +63,7 @@ export default function AboutPage() {
           </h1>
           <p className="text-white/60 font-sans text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
             Too many portals, contradictory instructions, emails that go
-            nowhere. We built Visati to fix that — one clean process, a
+            nowhere. We built Visati to fix that: one clean process, a
             licensed consultant on every file, and WhatsApp for anything in
             between.
           </p>
@@ -119,14 +119,12 @@ export default function AboutPage() {
               </h2>
               <p className="text-muted font-sans text-sm leading-relaxed mb-4">
                 UAE immigration requirements change without much warning, and
-                the margin for error is zero. A missed document, a wrong photo
-                dimension, or an incorrect entry type can mean delays or costly
-                amendments.
+                the margin for error is zero. A missed document or wrong photo
+                dimension can mean delays or costly amendments.
               </p>
               <p className="text-muted font-sans text-sm leading-relaxed mb-8">
-                We handle the details. From picking the right visa category to
-                tracking submission status, our consultants stay with you from
-                the first upload to the final approval.
+                We handle the details. Our consultants stay with you from
+                picking the right visa category all the way to final approval.
               </p>
               <ul className="space-y-3">
                 {[

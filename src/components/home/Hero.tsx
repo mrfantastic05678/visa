@@ -71,8 +71,8 @@ export function Hero({ children }: { children?: React.ReactNode }) {
               </h1>
 
               <p className="mt-6 text-lg text-white/70 font-sans max-w-lg leading-relaxed">
-                Fast, Reliable and Secure Visa Processing for Residents Worldwide.
-                Dubai Based · Trusted Worldwide.
+                Visa processing for residents worldwide. Dubai based, trusted
+                internationally.
               </p>
 
               {/* CTA buttons */}
@@ -111,7 +111,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                   </span>
                 </div>
                 <span className="text-sm font-sans text-white/60 whitespace-nowrap">
-                  {BRAND.clientCount} Happy Clients Worldwide
+                  {BRAND.clientCount} clients served
                 </span>
               </div>
 

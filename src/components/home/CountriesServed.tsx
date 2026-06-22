@@ -29,8 +29,8 @@ export function CountriesServed() {
             </h2>
           </div>
           <p className="text-sm text-muted font-sans max-w-sm lg:text-right">
-            From Mumbai to Manchester, Tokyo to Toronto — we process UAE visas
-            for nearly every passport on earth.
+            We process UAE visas for nearly every passport on earth, from
+            Mumbai to Manchester and beyond.
           </p>
         </div>
 

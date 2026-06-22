@@ -30,7 +30,7 @@ export function ProcessSteps() {
             The Process
           </p>
           <h2 className="font-display font-bold text-3xl lg:text-5xl text-navy">
-            Four steps. Zero hassle.
+            Four simple steps.
           </h2>
         </div>
 

@@ -48,9 +48,9 @@ export function WhyChoose() {
               <br /> Difference.
             </h2>
             <p className="mt-5 text-muted font-sans leading-relaxed max-w-md">
-              We&apos;re not a form-filler. Visati handles every step — from
-              documentation to embassy follow-ups — so you can focus on the trip,
-              not the paperwork.
+              Visati handles every step, from documentation to embassy
+              follow-ups, so you can focus on the trip instead of the
+              paperwork.
             </p>
             <Link
               href="/contact"
