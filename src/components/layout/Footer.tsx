@@ -18,11 +18,12 @@ import { usePathname } from "next/navigation";
 
 const FOOTER_LINKS = {
   Visas: [
-    { label: "Tourist 30-day", href: "/visa-types" },
-    { label: "Tourist 60-day", href: "/visa-types" },
-    { label: "Multi-Entry", href: "/visa-types" },
-    { label: "Business", href: "/visa-types" },
-    { label: "Transit", href: "/visa-types" },
+    { label: "14-Day Tourist", href: "/visa-types" },
+    { label: "30-Day Tourist", href: "/visa-types" },
+    { label: "60-Day Tourist", href: "/visa-types" },
+    { label: "30-Day Multi-Entry", href: "/visa-types" },
+    { label: "60-Day Multi-Entry", href: "/visa-types" },
+    { label: "Visa Extension", href: "/visa-types" },
   ],
   Company: [
     { label: "About", href: "/about" },

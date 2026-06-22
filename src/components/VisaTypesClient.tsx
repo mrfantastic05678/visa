@@ -230,7 +230,7 @@ export function VisaTypesClient() {
           </FadeIn>
           <FadeIn direction="up" delay={200}>
             <p className="text-white/60 font-sans text-sm max-w-md mx-auto">
-              From a 96-hour transit to a 2-year family residence. Filter, compare, apply — all in one place.
+              From a 14-day tourist visa to a 60-day multi-entry. Filter, compare, apply — all in one place.
             </p>
           </FadeIn>
         </div>
