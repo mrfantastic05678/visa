@@ -30,6 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`h-full antialiased ${clashDisplay.variable} ${satoshi.variable} ${jetbrainsMono.variable} ${montserrat.variable}`}
     >
       <body className="min-h-full flex flex-col bg-white text-ink">
