@@ -10,6 +10,8 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ProcessSteps } from "@/components/home/ProcessSteps";
+import { HomeFAQ } from "@/components/home/HomeFAQ";
 
 export const metadata: Metadata = {
   title: `About ${BRAND.name} — ${BRAND.tagline}`,
@@ -27,40 +29,17 @@ const VALUES = [
   {
     Icon: Zap,
     title: "Speed without shortcuts",
-    body: "Our streamlined process means most applications are reviewed and submitted within hours. Fast doesn't mean careless — every file is checked before it goes in.",
+    body: "Most applications are reviewed and submitted within hours. Fast doesn't mean careless — we check every file before it goes in.",
   },
   {
     Icon: Shield,
-    title: "Accuracy you can trust",
-    body: "A missed document or incorrect entry type can cause costly delays. Every application is reviewed by a licensed consultant before submission.",
+    title: "Accuracy on every file",
+    body: "A missed document or wrong entry type can take days to fix. A licensed consultant reviews every application before submission.",
   },
   {
     Icon: Globe,
-    title: "Expert local knowledge",
-    body: "Based in Dubai, we know UAE immigration requirements inside out — the rules, the edge cases, and how they change. You benefit from that every time.",
-  },
-];
-
-const PROCESS = [
-  {
-    step: "01",
-    title: "Pick your visa",
-    body: "Browse visa types and select the one that matches your travel purpose and duration. Not sure? Our consultants are on WhatsApp.",
-  },
-  {
-    step: "02",
-    title: "Upload documents",
-    body: "Our checklist tells you exactly what you need. Upload securely — no back-and-forth, no guesswork.",
-  },
-  {
-    step: "03",
-    title: "We handle the rest",
-    body: "A licensed consultant reviews your application and submits it directly to UAE immigration on your behalf.",
-  },
-  {
-    step: "04",
-    title: "Receive your visa",
-    body: "Your approved visa arrives by email. Track real-time progress from our portal or via WhatsApp updates.",
+    title: "Based in Dubai",
+    body: "We know UAE immigration requirements the way locals do — the current rules, the edge cases, and when something changed last week.",
   },
 ];
 
@@ -68,28 +47,27 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* ── Hero ──────────────────────────────────────────────── */}
+      {/* ── Hero (centered) ───────────────────────────────────── */}
       <section className="bg-navy relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full border border-white/5" />
           <div className="absolute top-8 -right-16 w-72 h-72 rounded-full border border-white/5" />
           <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full border border-white/5" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
           <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-4">
             About Visati
           </p>
-          <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-white max-w-3xl leading-tight mb-6">
-            The UAE visa process — finally uncomplicated.
+          <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-white leading-tight mb-6">
+            UAE visas shouldn&apos;t be this complicated.
           </h1>
-          <p className="text-white/60 font-sans text-base sm:text-lg leading-relaxed max-w-2xl mb-10">
-            We built Visati because applying for a UAE visa was harder than it
-            needed to be. Too many portals, unclear requirements, slow
-            responses. We built the consultancy we wished had existed —
-            concierge-grade service, transparent pricing, and real humans on
-            WhatsApp.
+          <p className="text-white/60 font-sans text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+            Too many portals, contradictory instructions, emails that go
+            nowhere. We built Visati to fix that — one clean process, a
+            licensed consultant on every file, and WhatsApp for anything in
+            between.
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 justify-center">
             <Link
               href="/apply"
               className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-blue text-white font-sans font-semibold text-sm hover:bg-blue-hover transition-colors"
@@ -140,22 +118,22 @@ export default function AboutPage() {
                 Visa approvals should be the easy part of your trip.
               </h2>
               <p className="text-muted font-sans text-sm leading-relaxed mb-4">
-                UAE immigration requirements change frequently — and the margin
-                for error is zero. A missed document, a wrong photo dimension,
-                or an incorrect entry type can mean delays, rejections, or
-                costly amendments.
+                UAE immigration requirements change without much warning, and
+                the margin for error is zero. A missed document, a wrong photo
+                dimension, or an incorrect entry type can mean delays or costly
+                amendments.
               </p>
               <p className="text-muted font-sans text-sm leading-relaxed mb-8">
-                We handle every detail so you don&apos;t have to. From picking the
-                right visa category to tracking submission status, our
-                consultants stay with you from start to stamp.
+                We handle the details. From picking the right visa category to
+                tracking submission status, our consultants stay with you from
+                the first upload to the final approval.
               </p>
               <ul className="space-y-3">
                 {[
                   "Licensed UAE immigration consultants",
                   "Document review before every submission",
-                  "Real-time status updates via WhatsApp",
-                  "Transparent pricing — no hidden fees",
+                  "Status updates via WhatsApp",
+                  "No hidden fees",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <CheckCircle className="h-4 w-4 text-blue flex-shrink-0 mt-0.5" />
@@ -165,10 +143,28 @@ export default function AboutPage() {
               </ul>
             </div>
 
-            {/* Right: trust card */}
-            <div className="relative">
-              <div className="rounded-2xl bg-navy p-8 lg:p-10">
-                <div className="flex items-center gap-2 mb-6">
+            {/* Right: Dubai photo + trust card stacked */}
+            <div className="flex flex-col gap-4">
+              {/* Stock photo — Dubai skyline */}
+              <div className="rounded-2xl overflow-hidden h-52 relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80"
+                  alt="Dubai skyline — Visati's home city"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-navy/30" />
+                <div className="absolute bottom-4 left-5">
+                  <p className="text-white font-sans text-xs font-semibold uppercase tracking-wider opacity-80">
+                    Downtown Dubai, UAE
+                  </p>
+                </div>
+              </div>
+
+              {/* Trust card */}
+              <div className="relative rounded-2xl bg-navy p-7">
+                <div className="flex items-center gap-2 mb-5">
                   <div className="flex">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star key={i} className="h-4 w-4 text-blue fill-blue" />
@@ -178,14 +174,14 @@ export default function AboutPage() {
                     {BRAND.rating} / 5.0 average rating
                   </span>
                 </div>
-                <blockquote className="text-white font-sans text-base leading-relaxed mb-6">
+                <blockquote className="text-white font-sans text-sm leading-relaxed mb-5">
                   &ldquo;Applied on Monday, visa in my inbox by Wednesday afternoon.
                   The team updated me via WhatsApp at every stage — never felt
                   in the dark for a moment.&rdquo;
                 </blockquote>
-                <div className="flex items-center gap-3 pt-6 border-t border-white/10">
-                  <div className="h-10 w-10 rounded-full bg-blue/20 flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-display font-bold text-sm">
+                <div className="flex items-center gap-3 pt-5 border-t border-white/10">
+                  <div className="h-9 w-9 rounded-full bg-blue/20 flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-display font-bold text-xs">
                       SR
                     </span>
                   </div>
@@ -198,17 +194,17 @@ export default function AboutPage() {
                     </p>
                   </div>
                 </div>
-              </div>
-              {/* Accent badge */}
-              <div className="absolute -bottom-4 -right-4 hidden lg:flex h-[72px] w-[72px] rounded-2xl bg-blue items-center justify-center flex-col shadow-lg">
-                <p className="font-display font-bold text-white text-lg leading-none">
-                  {BRAND.approvalRate}
-                </p>
-                <p className="text-white/75 font-sans text-[9px] mt-0.5 text-center leading-tight">
-                  approval
-                  <br />
-                  rate
-                </p>
+                {/* Accent badge */}
+                <div className="absolute -bottom-4 -right-4 hidden lg:flex h-[68px] w-[68px] rounded-2xl bg-blue items-center justify-center flex-col shadow-lg">
+                  <p className="font-display font-bold text-white text-lg leading-none">
+                    {BRAND.approvalRate}
+                  </p>
+                  <p className="text-white/75 font-sans text-[9px] mt-0.5 text-center leading-tight">
+                    approval
+                    <br />
+                    rate
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -247,39 +243,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── How we work ───────────────────────────────────────── */}
-      <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-3">
-              The Process
-            </p>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink">
-              How it works.
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-            {PROCESS.map(({ step, title, body }) => (
-              <div key={step}>
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="h-9 w-9 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center flex-shrink-0">
-                    <span className="font-mono text-xs text-blue font-bold">
-                      {step}
-                    </span>
-                  </div>
-                  <div className="h-px flex-1 bg-line" />
-                </div>
-                <h3 className="font-display font-bold text-lg text-ink mb-2">
-                  {title}
-                </h3>
-                <p className="text-muted font-sans text-sm leading-relaxed">
-                  {body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── Process (shared homepage component) ───────────────── */}
+      <ProcessSteps />
+
+      {/* ── FAQ (shared homepage component) ───────────────────── */}
+      <HomeFAQ />
 
       {/* ── CTA strip ─────────────────────────────────────────── */}
       <section className="bg-navy py-16 lg:py-20">
@@ -288,11 +256,10 @@ export default function AboutPage() {
             Ready to start?
           </p>
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-white mb-4 max-w-2xl mx-auto leading-tight">
-            Your UAE visa, handled by experts.
+            Your UAE visa, handled by people who know it.
           </h2>
           <p className="text-white/55 font-sans text-sm mb-8 max-w-sm mx-auto">
-            Join {BRAND.clientCount} travellers who trusted Visati with their
-            UAE visa application.
+            {BRAND.clientCount} travellers have already applied through Visati.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link

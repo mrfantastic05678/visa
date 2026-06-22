@@ -47,43 +47,8 @@ export function Footer() {
   return (
     <footer className="bg-navy text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-10">
-        {/* CTA card */}
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-navy-2 to-ink-2 p-7 sm:p-9 mb-14">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div className="min-w-0">
-              <p className="text-xs font-semibold uppercase tracking-widest text-blue font-sans mb-2">
-                Need Help?
-              </p>
-              <h2 className="font-display font-bold text-2xl sm:text-3xl text-white mb-2">
-                Talk to a visa consultant.
-              </h2>
-              <p className="text-sm text-white/60 font-sans">
-                Real humans, average response under 2 minutes. WhatsApp is the
-                fastest route.
-              </p>
-            </div>
-            <div className="flex items-center gap-3 flex-wrap flex-shrink-0">
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 h-11 px-5 rounded-lg bg-whatsapp text-white text-sm font-semibold font-sans hover:bg-whatsapp-hover transition-colors whitespace-nowrap"
-              >
-                <FaWhatsapp className="h-[18px] w-[18px] flex-shrink-0" />
-                WhatsApp Us
-              </a>
-              <Link
-                href="/contact"
-                className="inline-flex items-center h-11 px-5 rounded-xl border border-white/20 text-white text-sm font-semibold font-sans hover:bg-white/10 transition-colors whitespace-nowrap"
-              >
-                Send Inquiry
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Main footer grid: brand(2) + Visas + Company + Support + Contact = 6 cols */}
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-10">
+        {/* Main footer grid: brand(2) + Visas + Company + Support + Contact(2) = 7 cols */}
+        <div className="grid grid-cols-2 lg:grid-cols-7 gap-8 lg:gap-10">
           {/* Brand */}
           <div className="col-span-2">
             <Logo variant="light" />
@@ -127,8 +92,8 @@ export function Footer() {
             </div>
           ))}
 
-          {/* Contact info column */}
-          <div className="min-w-0 col-span-2 sm:col-span-1">
+          {/* Contact info column — wider */}
+          <div className="min-w-0 col-span-2 lg:col-span-2">
             <h4 className="text-xs font-semibold uppercase tracking-widest text-white/40 font-sans mb-4">
               Contact
             </h4>
