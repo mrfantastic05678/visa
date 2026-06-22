@@ -64,27 +64,10 @@ export function GlobalReach() {
   return (
     <section className="bg-navy overflow-hidden">
       <div className="max-w-[1400px] mx-auto py-12 lg:py-16 px-4 sm:px-6 lg:px-10">
-        <div className="rounded-3xl bg-[#0a1a3a]/60 backdrop-blur-sm p-8 lg:p-12 flex flex-col xl:flex-row gap-10 xl:items-center relative">
+        <div className="rounded-3xl bg-[#0a1a3a]/60 backdrop-blur-sm p-8 lg:p-12 relative overflow-hidden min-h-[300px] lg:min-h-[380px]">
 
-          {/* --- Left copy --- */}
-          <div className="xl:w-[220px] flex-shrink-0 relative z-10">
-            <h2 className="font-display font-bold text-[28px] lg:text-[34px] leading-tight text-white tracking-tight">
-              Trusted by Applicants Across the Globe
-            </h2>
-            <p className="mt-4 text-[13px] lg:text-sm leading-relaxed text-white/60 font-sans max-w-sm">
-              We are a Dubai based visa agency serving residents of all
-              nationalities across USA, UK, Canada, Australia and Europe.
-            </p>
-            <Link
-              href="/about"
-              className="mt-6 inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/[0.04] px-5 py-2.5 text-xs font-semibold text-white font-sans hover:bg-white/[0.08] transition-colors"
-            >
-              More About Us
-            </Link>
-          </div>
-
-          {/* --- Map + Pins overlay --- */}
-          <div className="flex-1 relative hidden sm:block py-4 min-h-[300px] lg:min-h-[400px]">
+          {/* --- Map + Pins overlay (full width behind text) --- */}
+          <div className="absolute inset-0 hidden sm:block py-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/world-map.svg"
@@ -183,6 +166,23 @@ export function GlobalReach() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* --- Left copy (on top of map) --- */}
+          <div className="relative z-10 max-w-md">
+            <h2 className="font-display font-bold text-[28px] lg:text-[34px] leading-tight text-white tracking-tight">
+              Trusted by Applicants Across the Globe
+            </h2>
+            <p className="mt-4 text-[13px] lg:text-sm leading-relaxed text-white/60 font-sans max-w-sm">
+              We are a Dubai based visa agency serving residents of all
+              nationalities across USA, UK, Canada, Australia and Europe.
+            </p>
+            <Link
+              href="/about"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/[0.04] px-5 py-2.5 text-xs font-semibold text-white font-sans hover:bg-white/[0.08] transition-colors"
+            >
+              More About Us
+            </Link>
           </div>
         </div>
       </div>
