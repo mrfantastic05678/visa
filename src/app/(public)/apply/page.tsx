@@ -26,7 +26,7 @@ export default async function ApplyPage({ searchParams }: ApplyPageProps) {
 
   if (params.success === "1" && params.id) {
     return (
-      <div className="min-h-screen bg-mist py-12 px-4">
+      <div className="min-h-screen bg-mist pt-28 pb-12 px-4">
         <div className="mx-auto max-w-2xl">
           <Step5Success applicationId={params.id} />
         </div>
@@ -40,7 +40,7 @@ export default async function ApplyPage({ searchParams }: ApplyPageProps) {
   return (
     <div className="min-h-screen bg-mist">
       {/* Header */}
-      <section className="py-10 px-4">
+      <section className="pt-28 pb-10 px-4">
         <div className="mx-auto max-w-6xl">
           <Link
             href="/"

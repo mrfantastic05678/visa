@@ -32,7 +32,7 @@ function matchesDuration(visa: VisaType, filter: string): boolean {
 
 function VisaCard({ visa }: { visa: VisaType }) {
   const details = VISA_DETAILS[visa.slug];
-  const isPopular = visa.slug === "60d-single";
+  const isPopular = visa.slug === "30d-single";
 
   return (
     <div
@@ -211,7 +211,7 @@ export function VisaTypesClient() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <section className="bg-navy py-14 px-4">
+      <section className="bg-navy pt-28 pb-14 px-4">
         <div className="mx-auto max-w-5xl">
           <FadeIn direction="up" delay={0}>
             <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-2">

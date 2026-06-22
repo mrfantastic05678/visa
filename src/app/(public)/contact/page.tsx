@@ -93,7 +93,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <section className="py-14 px-4">
+      <section className="pt-28 pb-14 px-4">
         <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12">
 
           {/* Left Column */}

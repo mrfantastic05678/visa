@@ -24,7 +24,7 @@ function durationBadge(days: number): string {
 }
 
 export function VisaTypeCard({ visa }: { visa: VisaType }) {
-  const isPopular = visa.slug === "60d-single";
+  const isPopular = visa.slug === "30d-single";
 
   return (
     <div

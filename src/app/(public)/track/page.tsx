@@ -83,7 +83,7 @@ export default function TrackPage() {
   return (
     <div className="min-h-screen bg-mist">
       {/* Header */}
-      <section className="py-16 px-4">
+      <section className="pt-28 pb-16 px-4">
         <div className="mx-auto max-w-2xl text-center">
           <FadeIn direction="up" delay={0}>
             <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-3">

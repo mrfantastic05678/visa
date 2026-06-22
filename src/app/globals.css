@@ -122,6 +122,49 @@ code, kbd, pre, [class*="mono"], [class*="app-id"] {
   background-color: var(--color-muted);
 }
 
+/* ── Hero entrance animations ──────────────────────── */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-appear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes hero-slide {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes hero-bg-zoom {
+  from { transform: scale(1.4); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.hero-enter {
+  animation: hero-rise 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-appear {
+  animation: hero-appear 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-slide {
+  animation: hero-slide 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-bg {
+  animation: hero-bg-zoom 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter, .hero-appear, .hero-slide, .hero-bg {
+    animation: hero-appear 0.2s ease both;
+  }
+}
+
 /* ── Global Reach Map Animations ────────────────────── */
 .arc-dash {
   animation: arc-flow 1.8s linear infinite;

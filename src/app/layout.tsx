@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: "%s | Visati",
   },
   description:
-    "Apply for UAE tourist, transit, and long-stay visas online. Fast processing, 98% approval rate, trusted by 15,000+ travellers worldwide.",
+    "Apply for UAE tourist, transit, and long-stay visas online. Fast processing, 99% approval rate, trusted by 1,000+ travellers worldwide.",
   metadataBase: new URL("https://visati.ae"),
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],

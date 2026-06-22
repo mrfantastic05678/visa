@@ -10,6 +10,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+/* Hallmark · component: hero-entrance · genre: modern-minimal · theme: existing-navy
+ * states: load (staggered CSS @keyframes, no JS required)
+ * contrast: pass · prefers-reduced-motion: collapse to 0.2s opacity
+ */
+
 const TRUST_BADGES = ["Dubai Based", "Trusted Worldwide"];
 
 const TRUST_ICONS = [
@@ -23,21 +28,30 @@ export function Hero({ children }: { children?: React.ReactNode }) {
   return (
     <>
       <section className="relative overflow-hidden bg-navy">
-        {/* Background gradient */}
+        {/* Background gradient — slow zoom-in */}
         <div
-          className="absolute inset-0 opacity-40"
-          style={{
-            background:
-              "radial-gradient(ellipse at 70% 30%, #0057FF22 0%, transparent 70%)",
-          }}
-        />
+          className="absolute inset-0 hero-bg"
+          style={{ animationDelay: "0ms" }}
+          aria-hidden="true"
+        >
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              background:
+                "radial-gradient(ellipse at 70% 30%, #0057FF22 0%, transparent 70%)",
+            }}
+          />
+        </div>
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 lg:pt-20 pb-16">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 lg:pt-32 pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
             {/* Left column */}
             <div className="lg:col-span-7">
-              {/* Eyebrow */}
-              <div className="flex items-center gap-2 mb-6 flex-wrap">
+              {/* Eyebrow badges */}
+              <div
+                className="flex items-center gap-2 mb-6 flex-wrap hero-enter"
+                style={{ animationDelay: "0ms" }}
+              >
                 {TRUST_BADGES.map((label) => (
                   <span
                     key={label}
@@ -49,23 +63,36 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                 ))}
               </div>
 
-              {/* Headline */}
+              {/* Headline — each line staggered */}
               <h1 className="font-display font-bold text-white leading-[0.95]">
-                <span className="block text-5xl sm:text-6xl lg:text-7xl">
+                <span
+                  className="block text-5xl sm:text-6xl lg:text-7xl hero-enter"
+                  style={{ animationDelay: "80ms" }}
+                >
                   Dubai Visa
                 </span>
-                <span className="block text-5xl sm:text-6xl lg:text-7xl text-blue">
+                <span
+                  className="block text-5xl sm:text-6xl lg:text-7xl text-blue hero-enter"
+                  style={{ animationDelay: "200ms" }}
+                >
                   Made Simple.
                 </span>
               </h1>
 
-              <p className="mt-6 text-lg text-white/70 font-sans max-w-lg leading-relaxed">
+              {/* Subheading */}
+              <p
+                className="mt-6 text-lg text-white/70 font-sans max-w-lg leading-relaxed hero-enter"
+                style={{ animationDelay: "340ms" }}
+              >
                 Visa processing for residents worldwide. Dubai based, trusted
                 internationally.
               </p>
 
               {/* CTA buttons */}
-              <div className="mt-8 flex items-center gap-3 flex-wrap">
+              <div
+                className="mt-8 flex items-center gap-3 flex-wrap hero-enter"
+                style={{ animationDelay: "460ms" }}
+              >
                 <Link
                   href="/apply"
                   className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-blue text-white text-sm font-semibold font-sans hover:bg-blue-hover transition-colors whitespace-nowrap"
@@ -82,7 +109,10 @@ export function Hero({ children }: { children?: React.ReactNode }) {
               </div>
 
               {/* Social proof row */}
-              <div className="mt-7 flex items-center gap-4 flex-wrap">
+              <div
+                className="mt-7 flex items-center gap-4 flex-wrap hero-appear"
+                style={{ animationDelay: "580ms" }}
+              >
                 <div className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
                   <div className="flex">
                     {[1, 2, 3, 4, 5].map((i) => (
@@ -92,11 +122,16 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                       />
                     ))}
                   </div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/google-logo.png"
+                    alt="Google"
+                    className="h-4 w-auto"
+                  />
                   <span className="text-xs font-sans text-white/80 whitespace-nowrap">
                     <span className="font-semibold text-white">
                       {BRAND.rating}/5
-                    </span>{" "}
-                    on Google
+                    </span>
                   </span>
                 </div>
                 <span className="text-sm font-sans text-white/60 whitespace-nowrap">
@@ -104,12 +139,16 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                 </span>
               </div>
 
-              {/* Trust icons row */}
-              <div className="mt-8 flex items-center gap-x-6 gap-y-3 flex-wrap">
-                {TRUST_ICONS.map(({ icon: Icon, label }) => (
+              {/* Trust icons row — staggered per icon */}
+              <div
+                className="mt-8 flex items-center gap-x-6 gap-y-3 flex-wrap hero-appear"
+                style={{ animationDelay: "680ms" }}
+              >
+                {TRUST_ICONS.map(({ icon: Icon, label }, i) => (
                   <span
                     key={label}
-                    className="inline-flex items-center gap-2 text-xs font-sans text-white/80 whitespace-nowrap"
+                    className="inline-flex items-center gap-2 text-xs font-sans text-white/80 whitespace-nowrap hero-appear"
+                    style={{ animationDelay: `${680 + i * 60}ms` }}
                   >
                     <Icon className="h-4 w-4 text-white/60 flex-shrink-0" />
                     {label}
@@ -118,20 +157,29 @@ export function Hero({ children }: { children?: React.ReactNode }) {
               </div>
             </div>
 
-            {/* Right column — Quick Apply widget */}
+            {/* Right column — Quick Apply widget slides in from right */}
             {children && (
-              <div className="lg:col-span-5 w-full">{children}</div>
+              <div
+                className="lg:col-span-5 w-full hero-slide"
+                style={{ animationDelay: "220ms" }}
+              >
+                {children}
+              </div>
             )}
           </div>
         </div>
       </section>
 
-      {/* Stats bar — separate background */}
+      {/* Stats bar */}
       <section className="bg-navy-2">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8">
-            {HERO_STATS.map((stat) => (
-              <div key={stat.label} className="px-2 lg:px-6 text-center lg:text-left">
+            {HERO_STATS.map((stat, i) => (
+              <div
+                key={stat.label}
+                className="px-2 lg:px-6 text-center lg:text-left hero-appear"
+                style={{ animationDelay: `${900 + i * 80}ms` }}
+              >
                 <p className="font-display font-bold text-3xl lg:text-4xl text-white">
                   {stat.type === "static" ? (
                     stat.value

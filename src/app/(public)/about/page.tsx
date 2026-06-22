@@ -49,7 +49,7 @@ export default function AboutPage() {
           <div className="absolute top-8 -right-16 w-72 h-72 rounded-full border border-white/5" />
           <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full border border-white/5" />
         </div>
-        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-28 lg:pt-32 pb-20 lg:pb-28 text-center">
           <FadeIn direction="up" delay={0}>
             <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-4">
               About Visati

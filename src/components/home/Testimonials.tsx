@@ -90,10 +90,12 @@ export function Testimonials() {
                   <Star key={i} className="h-4 w-4 text-blue fill-blue" />
                 ))}
               </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/google-logo.png" alt="Google" className="h-4 w-auto" />
               <span className="font-display font-bold text-navy text-lg">{BRAND.rating}</span>
             </div>
             <p className="text-xs text-muted font-sans mt-1">
-              Based on {BRAND.clientCount} reviews on Trustpilot &amp; Google
+              Based on {BRAND.googleReviews} reviews on Trustpilot &amp; Google
             </p>
           </div>
         </div>

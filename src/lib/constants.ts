@@ -35,11 +35,12 @@ export const BRAND = {
   location: "Dubai, UAE",
   url: "https://visati.ae",
   rating: "4.9",
-  clientCount: "15,000+",
-  approvalRate: "98%",
+  clientCount: "1,000+",
+  approvalRate: "99%",
   avgProcessing: "24–72h",
   countriesServed: "184",
-  visasProcessed: "1,20,000+",
+  visasProcessed: "1,000+",
+  googleReviews: "100+",
 };
 
 /* ── Stats Data (centralized for reuse) ──────────────── */
@@ -49,9 +50,6 @@ import {
   CheckCircle,
   Star,
   Clock,
-  Building2,
-  ShieldCheck,
-  Zap,
 } from "lucide-react";
 import type { ComponentType } from "react";
 
@@ -60,24 +58,24 @@ type StatItem =
   | { type: "static"; value: string; label: string; Icon: ComponentType<{ className?: string; strokeWidth?: number }> };
 
 export const HERO_STATS: StatItem[] = [
-  { type: "countup", end: 120000, suffix: "+", locale: "en-IN", label: "Visas Issued", Icon: Users },
-  { type: "countup", end: 98, suffix: "%", label: "Approval Rate", Icon: CheckCircle },
+  { type: "countup", end: 1000, suffix: "+", label: "Happy Travelers", Icon: Users },
+  { type: "countup", end: 99, suffix: "%", label: "Approval Rate", Icon: CheckCircle },
   { type: "static", value: BRAND.avgProcessing, label: "Avg. Processing", Icon: Clock },
-  { type: "countup", end: 184, label: "Countries Served", Icon: Globe },
+  { type: "countup", end: 100, suffix: "+", label: "Google Reviews", Icon: Star },
 ];
 
 export const GLOBAL_STATS: StatItem[] = [
-  { type: "countup", end: 42, suffix: "+", label: "Countries Served", Icon: Globe },
-  { type: "countup", end: 120000, suffix: "+", locale: "en-IN", label: "Visas Processed", Icon: Users },
-  { type: "countup", end: 98, suffix: "%", label: "Approval Rate", Icon: CheckCircle },
-  { type: "countup", end: 4.9, decimals: 1, suffix: "/5", label: "Customer Rating", Icon: Star },
+  { type: "countup", end: 1000, suffix: "+", label: "Happy Travelers", Icon: Users },
+  { type: "countup", end: 99, suffix: "%", label: "Approval Rate", Icon: CheckCircle },
+  { type: "countup", end: 100, suffix: "+", label: "Google Reviews", Icon: Star },
+  { type: "countup", end: 4.9, decimals: 1, suffix: "/5", label: "Customer Rating", Icon: Globe },
 ];
 
 export const ABOUT_STATS: StatItem[] = [
-  { type: "countup", end: 15000, suffix: "+", locale: "en-IN", label: "Travellers served", Icon: Users },
-  { type: "countup", end: 98, suffix: "%", label: "Approval rate", Icon: CheckCircle },
-  { type: "countup", end: 184, label: "Countries served", Icon: Globe },
-  { type: "static", value: BRAND.avgProcessing, label: "Avg. processing time", Icon: Clock },
+  { type: "countup", end: 1000, suffix: "+", label: "Happy Travelers", Icon: Users },
+  { type: "countup", end: 99, suffix: "%", label: "Approval Rate", Icon: CheckCircle },
+  { type: "countup", end: 100, suffix: "+", label: "Google Reviews", Icon: Star },
+  { type: "static", value: BRAND.avgProcessing, label: "Avg. Processing", Icon: Clock },
 ];
 
 /* ── Express Surcharge ────────────────────────────────── */

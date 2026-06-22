@@ -30,7 +30,7 @@ export function VisaCard({
   compact = false,
   className,
 }: VisaCardProps) {
-  const isPopular = visa.slug === "60d-single";
+  const isPopular = visa.slug === "30d-single";
 
   return (
     <div

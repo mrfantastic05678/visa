@@ -30,7 +30,7 @@ const FAQ_DATA: FAQItem[] = [
     _id: "2",
     question: "How is Visati different from other agencies?",
     answer:
-      "We combine concierge-grade service with real-time tracking, transparent pricing, and a 98% approval rate. Every application is assigned a dedicated consultant.",
+      "We combine concierge-grade service with real-time tracking, transparent pricing, and a 99% approval rate. Every application is assigned a dedicated consultant.",
     category: "General",
   },
   {
@@ -206,7 +206,7 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* ── Header ─────────────────────────────────────── */}
-      <section className="bg-navy py-14 px-4">
+      <section className="bg-navy pt-28 pb-14 px-4">
         <div className="mx-auto max-w-3xl text-center">
           <FadeIn direction="up" delay={0}>
             <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-2">
