@@ -163,7 +163,7 @@ export function GlobalReach() {
             </div>
 
             {/* Stats right */}
-            <div className="xl:w-[200px] flex-shrink-0">
+            <div className="xl:w-[200px] flex-shrink-0 self-center">
               <div className="grid grid-cols-2 gap-4 xl:grid-cols-1 xl:gap-5">
                 {STATS.map((s) => (
                   <div key={s.label} className="flex items-center gap-3">

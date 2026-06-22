@@ -7,6 +7,7 @@ import { QuickApplyWidget } from "@/components/home/QuickApplyWidget";
 import { Testimonials } from "@/components/home/Testimonials";
 import { VisaShowcase } from "@/components/home/VisaShowcase";
 import { WhyChoose } from "@/components/home/WhyChoose";
+import { FadeIn } from "@/components/ui/FadeIn";
 import { getDisplayVisaTypes } from "@/lib/visa-data";
 import type { Metadata } from "next";
 
@@ -26,26 +27,40 @@ export default async function HomePage() {
         <QuickApplyWidget visaTypes={visaTypes} />
       </Hero>
 
-      {/* 2 — Visa types: "Pick the visa that fits your trip." */}
-      {visaTypes.length > 0 && <VisaShowcase visaTypes={visaTypes} />}
+      {/* 2 — Visa types */}
+      <FadeIn delay={100}>
+        {visaTypes.length > 0 && <VisaShowcase visaTypes={visaTypes} />}
+      </FadeIn>
 
       {/* 3 — Global reach + stats */}
-      <GlobalReach />
+      <FadeIn delay={100}>
+        <GlobalReach />
+      </FadeIn>
 
-      {/* 4 — Process: "Four steps. Zero hassle." */}
-      <ProcessSteps />
+      {/* 4 — Process */}
+      <FadeIn delay={100}>
+        <ProcessSteps />
+      </FadeIn>
 
-      {/* 5 — Countries: "184 nationalities served." */}
-      <CountriesServed />
+      {/* 5 — Countries */}
+      <FadeIn delay={100}>
+        <CountriesServed />
+      </FadeIn>
 
-      {/* 6 — Why Choose: "The VISATI Difference." */}
-      <WhyChoose />
+      {/* 6 — Why Choose */}
+      <FadeIn delay={100}>
+        <WhyChoose />
+      </FadeIn>
 
-      {/* 7 — Testimonials: "Loved by travellers." */}
-      <Testimonials />
+      {/* 7 — Testimonials */}
+      <FadeIn delay={100}>
+        <Testimonials />
+      </FadeIn>
 
-      {/* 8 — FAQ: "Questions, answered." */}
-      <HomeFAQ />
+      {/* 8 — FAQ */}
+      <FadeIn delay={100}>
+        <HomeFAQ />
+      </FadeIn>
     </>
   );
 }
