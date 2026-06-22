@@ -2,13 +2,11 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { ChevronDown, Search } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
-import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { CONTACT, WHATSAPP_URL } from "@/lib/constants";
 import { Logo } from "@/components/ui/Logo";
-import Link from "next/link";
+import { SectionCTA } from "@/components/ui/SectionCTA";
 
 interface FAQItem {
   _id: string;
@@ -206,8 +204,13 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* ── Header ─────────────────────────────────────── */}
-      <section className="bg-navy pt-28 pb-14 px-4">
-        <div className="mx-auto max-w-3xl text-center">
+      <section className="bg-navy relative overflow-hidden pt-28 pb-14 px-4">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full border border-white/10" />
+          <div className="absolute top-8 -right-16 w-72 h-72 rounded-full border border-white/10" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full border border-white/10" />
+        </div>
+        <div className="relative mx-auto max-w-3xl text-center">
           <FadeIn direction="up" delay={0}>
             <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-2">
               Help Centre
@@ -325,40 +328,24 @@ export default function FAQPage() {
       </section>
 
       {/* ── CTA ────────────────────────────────────────── */}
-      <section className="pb-14 px-4">
-        <div className="mx-auto max-w-3xl">
-          <FadeIn direction="up" delay={0}>
-            <div className="bg-navy rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <p className="text-white/60 text-xs font-sans font-semibold uppercase tracking-wider mb-1">
-                  Need help?
-                </p>
-                <p className="text-white font-sans font-semibold text-base">
-                  Talk to a consultant directly.
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-whatsapp text-white font-sans font-semibold text-sm hover:bg-whatsapp-hover transition-colors"
-                >
-                  <FaWhatsapp className="h-4 w-4" />
-                  WhatsApp
-                </a>
-                <Link
-                  href="/apply"
-                  className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-blue text-white font-sans font-semibold text-sm hover:bg-blue-hover transition-colors"
-                >
-                  Apply Now
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
+      <SectionCTA
+        tag="Need help?"
+        title="Talk to a consultant directly."
+        subtitle="Real humans, average response under 2 minutes."
+        buttons={[
+          {
+            label: "WhatsApp",
+            href: WHATSAPP_URL,
+            external: true,
+            variant: "whatsapp",
+          },
+          {
+            label: "Apply Now",
+            href: "/apply",
+            variant: "primary",
+          },
+        ]}
+      />
     </div>
   );
 }

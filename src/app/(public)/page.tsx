@@ -13,7 +13,6 @@ import { getDisplayVisaTypes } from "@/lib/visa-data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Visati — Dubai Visas. Simplified.",
   description:
     "Apply for UAE tourist, transit, and long-stay visas online. Fast processing, 99% approval rate, trusted by 1,000+ travellers.",
 };

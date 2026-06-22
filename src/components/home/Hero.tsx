@@ -28,12 +28,13 @@ export function Hero({ children }: { children?: React.ReactNode }) {
   return (
     <>
       <section className="relative overflow-hidden bg-navy">
-        {/* Background gradient — slow zoom-in */}
+        {/* Background — slow zoom-in */}
         <div
           className="absolute inset-0 hero-bg"
           style={{ animationDelay: "0ms" }}
           aria-hidden="true"
         >
+          {/* Base radial gradient */}
           <div
             className="absolute inset-0 opacity-40"
             style={{
@@ -41,6 +42,21 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                 "radial-gradient(ellipse at 70% 30%, #0057FF22 0%, transparent 70%)",
             }}
           />
+          {/* Blurred glow orbs — kept below the top edge */}
+          <div
+            className="absolute top-24 -right-24 w-[580px] h-[580px] rounded-full bg-blue opacity-[0.18]"
+            style={{ filter: "blur(130px)" }}
+          />
+          <div
+            className="absolute -bottom-24 -left-24 w-[440px] h-[440px] rounded-full bg-blue opacity-[0.09]"
+            style={{ filter: "blur(110px)" }}
+          />
+          <div
+            className="absolute top-1/3 left-1/4 w-[320px] h-[200px] rounded-full bg-white opacity-[0.04]"
+            style={{ filter: "blur(90px)" }}
+          />
+          {/* Top-edge mask — fades to solid navy so header and hero blend seamlessly */}
+          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-navy via-navy/80 to-transparent" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 lg:pt-32 pb-16">

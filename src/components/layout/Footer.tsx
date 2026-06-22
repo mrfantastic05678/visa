@@ -26,10 +26,10 @@ const FOOTER_LINKS = {
   ],
   Company: [
     { label: "About", href: "/about" },
-    { label: "Careers", href: "/contact" },
-    { label: "Press", href: "/contact" },
-    { label: "Partners", href: "/contact" },
-    { label: "Blog", href: "/" },
+    { label: "Services", href: "/services" },
+    { label: "Careers", href: "/careers" },
+    { label: "Blog", href: "/blog" },
+    { label: "Testimonials", href: "/#testimonials" },
   ],
   Support: [
     { label: "FAQ", href: "/faq" },
@@ -51,12 +51,26 @@ export function Footer() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (window.location.hash) return;
     window.scrollTo(0, 0);
   }, [pathname]);
 
   return (
-    <footer className="bg-navy text-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-10">
+    <footer className="bg-navy text-white relative overflow-hidden">
+      {/* Blurred glow orbs — kept away from the top edge */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute bottom-0 -left-20 w-[480px] h-[480px] rounded-full bg-blue opacity-[0.14]"
+          style={{ filter: "blur(120px)" }}
+        />
+        <div
+          className="absolute -bottom-16 right-0 w-[400px] h-[400px] rounded-full bg-blue opacity-[0.09]"
+          style={{ filter: "blur(100px)" }}
+        />
+        {/* Top-edge mask — keeps the top of the footer solid navy */}
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-navy to-transparent" />
+      </div>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-10">
         {/* Main footer grid: brand(2) + Visas + Company + Support + Contact(2) = 7 cols */}
         <div className="grid grid-cols-2 lg:grid-cols-7 gap-8 lg:gap-10">
           {/* Brand */}
@@ -88,16 +102,35 @@ export function Footer() {
                 {section}
               </h4>
               <ul className="space-y-2.5">
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-white/60 hover:text-white font-sans transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {links.map((link) => {
+                  const isHash = link.href.startsWith("/#") || link.href.startsWith("#");
+                  return (
+                    <li key={link.label}>
+                      {isHash ? (
+                        <a
+                          href={link.href}
+                          onClick={(e) => {
+                            if (pathname === "/") {
+                              e.preventDefault();
+                              const id = link.href.replace(/^\/?#/, "");
+                              document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }}
+                          className="text-sm text-white/60 hover:text-white font-sans transition-colors"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="text-sm text-white/60 hover:text-white font-sans transition-colors"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

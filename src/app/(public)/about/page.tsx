@@ -14,9 +14,10 @@ import type { Metadata } from "next";
 import { ProcessSteps } from "@/components/home/ProcessSteps";
 import { HomeFAQ } from "@/components/home/HomeFAQ";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { SectionCTA } from "@/components/ui/SectionCTA";
 
 export const metadata: Metadata = {
-  title: `About ${BRAND.name} — ${BRAND.tagline}`,
+  title: `About Us — ${BRAND.tagline}`,
   description: `Learn about Visati, Dubai's trusted UAE visa consultancy. ${BRAND.clientCount} clients served with a ${BRAND.approvalRate} approval rate across ${BRAND.countriesServed} countries.`,
 };
 
@@ -45,9 +46,9 @@ export default function AboutPage() {
       {/* ── Hero (centered) ───────────────────────────────────── */}
       <section className="bg-navy relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full border border-white/5" />
-          <div className="absolute top-8 -right-16 w-72 h-72 rounded-full border border-white/5" />
-          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full border border-white/5" />
+          <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full border border-white/10" />
+          <div className="absolute top-8 -right-16 w-72 h-72 rounded-full border border-white/10" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full border border-white/10" />
         </div>
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-28 lg:pt-32 pb-20 lg:pb-28 text-center">
           <FadeIn direction="up" delay={0}>
@@ -266,43 +267,24 @@ export default function AboutPage() {
       {/* ── FAQ (shared homepage component) ───────────────────── */}
       <HomeFAQ />
 
-      {/* ── CTA strip ─────────────────────────────────────────── */}
-      <section className="bg-navy py-16 lg:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <FadeIn direction="up" delay={0}>
-            <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-4">
-              Ready to start?
-            </p>
-          </FadeIn>
-          <FadeIn direction="up" delay={100}>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl text-white mb-4 max-w-2xl mx-auto leading-tight">
-              Your UAE visa, handled by people who know it.
-            </h2>
-          </FadeIn>
-          <FadeIn direction="up" delay={200}>
-            <p className="text-white/55 font-sans text-sm mb-8 max-w-sm mx-auto">
-              {BRAND.clientCount} travellers have already applied through Visati.
-            </p>
-          </FadeIn>
-          <FadeIn direction="up" delay={300}>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/apply"
-                className="inline-flex items-center gap-2 h-12 px-8 rounded-xl bg-blue text-white font-sans font-semibold text-sm hover:bg-blue-hover transition-colors"
-              >
-                Start Application
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/visa-types"
-                className="inline-flex items-center h-12 px-8 rounded-xl border border-white/20 text-white font-sans font-semibold text-sm hover:bg-white/10 transition-colors"
-              >
-                Browse Visa Types
-              </Link>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
+      {/* ── CTA ─────────────────────────────────────────── */}
+      <SectionCTA
+        tag="Ready to start?"
+        title="Your UAE visa, handled by people who know it."
+        subtitle={`${BRAND.clientCount} travellers have already applied through Visati.`}
+        buttons={[
+          {
+            label: "Start Application",
+            href: "/apply",
+            variant: "primary",
+          },
+          {
+            label: "Browse Visa Types",
+            href: "/visa-types",
+            variant: "outline",
+          },
+        ]}
+      />
 
     </div>
   );

@@ -211,8 +211,13 @@ export function VisaTypesClient() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <section className="bg-navy pt-28 pb-14 px-4">
-        <div className="mx-auto max-w-5xl">
+      <section className="bg-navy relative overflow-hidden pt-28 pb-14 px-4">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full border border-white/10" />
+          <div className="absolute top-8 -right-16 w-72 h-72 rounded-full border border-white/10" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full border border-white/10" />
+        </div>
+        <div className="relative mx-auto max-w-5xl text-center">
           <FadeIn direction="up" delay={0}>
             <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-2">
               Visa Catalogue
@@ -220,11 +225,11 @@ export function VisaTypesClient() {
           </FadeIn>
           <FadeIn direction="up" delay={100}>
             <h1 className="font-display font-bold text-4xl lg:text-5xl text-white mb-3 leading-tight">
-              Explore UAE<br />visa options.
+              Explore UAE visa options.
             </h1>
           </FadeIn>
           <FadeIn direction="up" delay={200}>
-            <p className="text-white/60 font-sans text-sm max-w-md">
+            <p className="text-white/60 font-sans text-sm max-w-md mx-auto">
               From a 96-hour transit to a 2-year family residence. Filter, compare, apply — all in one place.
             </p>
           </FadeIn>
