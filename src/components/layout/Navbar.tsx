@@ -58,9 +58,6 @@ export function Navbar() {
 
             {/* CTA + mobile toggle */}
             <div className="flex items-center gap-3 flex-shrink-0">
-              <span className="hidden md:inline-flex items-center text-sm font-sans font-medium text-white/70">
-                EN
-              </span>
               <Link
                 href="/apply"
                 className="hidden sm:inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-blue text-white text-sm font-semibold font-sans hover:bg-blue-hover transition-colors whitespace-nowrap"
