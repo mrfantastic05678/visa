@@ -5,6 +5,7 @@ import { ChevronDown, Search } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FadeIn } from "@/components/ui/FadeIn";
 import { CONTACT, WHATSAPP_URL } from "@/lib/constants";
 import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
@@ -207,41 +208,49 @@ export default function FAQPage() {
       {/* ── Header ─────────────────────────────────────── */}
       <section className="bg-navy py-14 px-4">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-2">
-            Help Centre
-          </p>
-          <h1 className="font-display font-bold text-4xl text-white mb-6">
-            How can we help?
-          </h1>
+          <FadeIn direction="up" delay={0}>
+            <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-2">
+              Help Centre
+            </p>
+          </FadeIn>
+          <FadeIn direction="up" delay={100}>
+            <h1 className="font-display font-bold text-4xl text-white mb-6">
+              How can we help?
+            </h1>
+          </FadeIn>
 
-          {/* Search Bar */}
-          <div className="relative max-w-xl mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search questions — try 'processing time'"
-              className="w-full h-14 pl-12 pr-28 rounded-full bg-white text-ink font-sans text-sm placeholder:text-muted/60 border border-white focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-colors"
-            />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 h-10 px-6 rounded-full bg-blue text-white font-sans font-semibold text-sm hover:bg-blue-hover transition-colors">
-              Search
-            </button>
-          </div>
-
-          {/* Popular Tags */}
-          <div className="flex items-center justify-center gap-2 mt-4 flex-wrap">
-            <span className="text-white/50 text-xs font-sans">Popular:</span>
-            {POPULAR_TAGS.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setSearch(tag)}
-                className="h-7 px-3 rounded-full border border-white/20 text-white/80 text-xs font-sans hover:bg-white/10 transition-colors"
-              >
-                {tag}
+          <FadeIn direction="up" delay={200}>
+            {/* Search Bar */}
+            <div className="relative max-w-xl mx-auto">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search questions — try 'processing time'"
+                className="w-full h-14 pl-12 pr-28 rounded-full bg-white text-ink font-sans text-sm placeholder:text-muted/60 border border-white focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-colors"
+              />
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 h-10 px-6 rounded-full bg-blue text-white font-sans font-semibold text-sm hover:bg-blue-hover transition-colors">
+                Search
               </button>
-            ))}
-          </div>
+            </div>
+          </FadeIn>
+
+          <FadeIn direction="up" delay={300}>
+            {/* Popular Tags */}
+            <div className="flex items-center justify-center gap-2 mt-4 flex-wrap">
+              <span className="text-white/50 text-xs font-sans">Popular:</span>
+              {POPULAR_TAGS.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => setSearch(tag)}
+                  className="h-7 px-3 rounded-full border border-white/20 text-white/80 text-xs font-sans hover:bg-white/10 transition-colors"
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -318,34 +327,36 @@ export default function FAQPage() {
       {/* ── CTA ────────────────────────────────────────── */}
       <section className="pb-14 px-4">
         <div className="mx-auto max-w-3xl">
-          <div className="bg-navy rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <p className="text-white/60 text-xs font-sans font-semibold uppercase tracking-wider mb-1">
-                Need help?
-              </p>
-              <p className="text-white font-sans font-semibold text-base">
-                Talk to a consultant directly.
-              </p>
+          <FadeIn direction="up" delay={0}>
+            <div className="bg-navy rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <p className="text-white/60 text-xs font-sans font-semibold uppercase tracking-wider mb-1">
+                  Need help?
+                </p>
+                <p className="text-white font-sans font-semibold text-base">
+                  Talk to a consultant directly.
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-whatsapp text-white font-sans font-semibold text-sm hover:bg-whatsapp-hover transition-colors"
+                >
+                  <FaWhatsapp className="h-4 w-4" />
+                  WhatsApp
+                </a>
+                <Link
+                  href="/apply"
+                  className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-blue text-white font-sans font-semibold text-sm hover:bg-blue-hover transition-colors"
+                >
+                  Apply Now
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
-            <div className="flex items-center gap-3">
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-whatsapp text-white font-sans font-semibold text-sm hover:bg-whatsapp-hover transition-colors"
-              >
-                <FaWhatsapp className="h-4 w-4" />
-                WhatsApp
-              </a>
-              <Link
-                href="/apply"
-                className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-blue text-white font-sans font-semibold text-sm hover:bg-blue-hover transition-colors"
-              >
-                Apply Now
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
     </div>

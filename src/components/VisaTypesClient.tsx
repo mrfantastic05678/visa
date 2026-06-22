@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { ArrowRight, Check, Minus } from "lucide-react";
 import Link from "next/link";
 import { cn, formatAed } from "@/lib/utils";
+import { FadeIn } from "@/components/ui/FadeIn";
 import { DropdownCompact } from "@/components/ui/Dropdown";
 import { SAMPLE_VISA_TYPES, VISA_DETAILS, COMPARE_SLUGS, COMPARE_ROWS } from "@/lib/sample-visas";
 import type { VisaType } from "@/types/db";
@@ -212,15 +213,21 @@ export function VisaTypesClient() {
       {/* Header */}
       <section className="bg-navy py-14 px-4">
         <div className="mx-auto max-w-5xl">
-          <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-2">
-            Visa Catalogue
-          </p>
-          <h1 className="font-display font-bold text-4xl lg:text-5xl text-white mb-3 leading-tight">
-            Explore UAE<br />visa options.
-          </h1>
-          <p className="text-white/60 font-sans text-sm max-w-md">
-            From a 96-hour transit to a 2-year family residence. Filter, compare, apply — all in one place.
-          </p>
+          <FadeIn direction="up" delay={0}>
+            <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-2">
+              Visa Catalogue
+            </p>
+          </FadeIn>
+          <FadeIn direction="up" delay={100}>
+            <h1 className="font-display font-bold text-4xl lg:text-5xl text-white mb-3 leading-tight">
+              Explore UAE<br />visa options.
+            </h1>
+          </FadeIn>
+          <FadeIn direction="up" delay={200}>
+            <p className="text-white/60 font-sans text-sm max-w-md">
+              From a 96-hour transit to a 2-year family residence. Filter, compare, apply — all in one place.
+            </p>
+          </FadeIn>
         </div>
       </section>
 

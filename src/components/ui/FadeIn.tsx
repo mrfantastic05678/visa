@@ -15,7 +15,7 @@ export function FadeIn({
   className = "",
   delay = 0,
   direction = "up",
-  duration = 600,
+  duration = 700,
 }: FadeInProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -24,16 +24,16 @@ export function FadeIn({
     if (!el) return;
 
     const directionStyles: Record<string, string> = {
-      up: "translateY(24px)",
-      down: "translateY(-24px)",
-      left: "translateX(24px)",
-      right: "translateX(-24px)",
+      up: "translateY(16px)",
+      down: "translateY(-16px)",
+      left: "translateX(16px)",
+      right: "translateX(-16px)",
       none: "none",
     };
 
     el.style.opacity = "0";
     el.style.transform = directionStyles[direction];
-    el.style.transition = `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`;
+    el.style.transition = `opacity ${duration}ms cubic-bezier(0.33, 1, 0.68, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.33, 1, 0.68, 1) ${delay}ms`;
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -43,7 +43,7 @@ export function FadeIn({
           io.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
     );
     io.observe(el);
     return () => io.disconnect();

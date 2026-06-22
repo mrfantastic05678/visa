@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { StatusTimeline } from "@/components/ui/StatusTimeline";
 import type { TrackResponse } from "@/types/api";
 import { APP_ID_REGEX } from "@/lib/utils";
+import { FadeIn } from "@/components/ui/FadeIn";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { inputClasses } from "@/components/ui/FormInput";
 import { cn } from "@/lib/utils";
@@ -84,15 +85,21 @@ export default function TrackPage() {
       {/* Header */}
       <section className="py-16 px-4">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-3">
-            Track
-          </p>
-          <h1 className="font-display font-bold text-4xl lg:text-5xl text-ink mb-3">
-            Where&apos;s your visa?
-          </h1>
-          <p className="text-muted font-sans text-sm">
-            Enter your Application ID to see real-time status, team notes, and expected decision date.
-          </p>
+          <FadeIn direction="up" delay={0}>
+            <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-3">
+              Track
+            </p>
+          </FadeIn>
+          <FadeIn direction="up" delay={100}>
+            <h1 className="font-display font-bold text-4xl lg:text-5xl text-ink mb-3">
+              Where&apos;s your visa?
+            </h1>
+          </FadeIn>
+          <FadeIn direction="up" delay={200}>
+            <p className="text-muted font-sans text-sm">
+              Enter your Application ID to see real-time status, team notes, and expected decision date.
+            </p>
+          </FadeIn>
         </div>
       </section>
 

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/Button";
 import { FormInput, FormTextarea } from "@/components/ui/FormInput";
 import { Dropdown } from "@/components/ui/Dropdown";
+import { FadeIn } from "@/components/ui/FadeIn";
 import { CONTACT, WHATSAPP_URL } from "@/lib/constants";
 import { Clock, Mail, MapPin, Phone, X } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
@@ -97,102 +98,111 @@ export default function ContactPage() {
 
           {/* Left Column */}
           <div className="space-y-8">
-            <div>
-              <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-3">
-                Contact
-              </p>
-              <h1 className="font-display font-bold text-4xl lg:text-5xl text-ink mb-4">
-                Get in touch.
-              </h1>
-              <p className="text-muted font-sans text-sm leading-relaxed max-w-md">
-                Whether you&apos;re applying, tracking, or just exploring options —
-                our consultants are around. Pick the channel that suits you.
-              </p>
-            </div>
-
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-whatsapp text-white font-sans font-semibold text-sm rounded-full px-8 py-4 hover:bg-whatsapp-hover transition-colors"
-            >
-              <FaWhatsapp className="h-5 w-5" />
-              WhatsApp &middot; {CONTACT.whatsappReplyTime}
-            </a>
-
-            <div className="grid grid-cols-2 gap-6">
+            <FadeIn direction="left" delay={0}>
               <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-8 w-8 rounded-full bg-blue/10 flex items-center justify-center">
-                    <Mail className="h-4 w-4 text-blue" />
-                  </div>
-                  <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-muted">Email</span>
-                </div>
-                <a href={`mailto:${CONTACT.email}`} className="text-sm text-ink font-sans font-medium hover:underline break-all block">
-                  {CONTACT.email}
-                </a>
-                <p className="text-xs text-muted font-sans mt-0.5">{CONTACT.emailReplyTime}</p>
+                <p className="text-blue text-xs font-sans font-semibold uppercase tracking-widest mb-3">
+                  Contact
+                </p>
+                <h1 className="font-display font-bold text-4xl lg:text-5xl text-ink mb-4">
+                  Get in touch.
+                </h1>
+                <p className="text-muted font-sans text-sm leading-relaxed max-w-md">
+                  Whether you&apos;re applying, tracking, or just exploring options —
+                  our consultants are around. Pick the channel that suits you.
+                </p>
               </div>
+            </FadeIn>
 
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-8 w-8 rounded-full bg-blue/10 flex items-center justify-center">
-                    <Phone className="h-4 w-4 text-blue" />
+            <FadeIn direction="left" delay={100}>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-whatsapp text-white font-sans font-semibold text-sm rounded-full px-8 py-4 hover:bg-whatsapp-hover transition-colors"
+              >
+                <FaWhatsapp className="h-5 w-5" />
+                WhatsApp &middot; {CONTACT.whatsappReplyTime}
+              </a>
+            </FadeIn>
+
+            <FadeIn direction="left" delay={200}>
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="h-8 w-8 rounded-full bg-blue/10 flex items-center justify-center">
+                      <Mail className="h-4 w-4 text-blue" />
+                    </div>
+                    <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-muted">Email</span>
                   </div>
-                  <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-muted">Phone</span>
+                  <a href={`mailto:${CONTACT.email}`} className="text-sm text-ink font-sans font-medium hover:underline break-all block">
+                    {CONTACT.email}
+                  </a>
+                  <p className="text-xs text-muted font-sans mt-0.5">{CONTACT.emailReplyTime}</p>
                 </div>
-                <a href={`tel:${CONTACT.phone}`} className="text-sm text-ink font-sans font-medium hover:underline block">
-                  {CONTACT.phone}
-                </a>
-                <p className="text-xs text-muted font-sans mt-0.5">{CONTACT.phoneHours}</p>
-              </div>
 
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-8 w-8 rounded-full bg-blue/10 flex items-center justify-center">
-                    <MapPin className="h-4 w-4 text-blue" />
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="h-8 w-8 rounded-full bg-blue/10 flex items-center justify-center">
+                      <Phone className="h-4 w-4 text-blue" />
+                    </div>
+                    <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-muted">Phone</span>
                   </div>
-                  <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-muted">Office</span>
+                  <a href={`tel:${CONTACT.phone}`} className="text-sm text-ink font-sans font-medium hover:underline block">
+                    {CONTACT.phone}
+                  </a>
+                  <p className="text-xs text-muted font-sans mt-0.5">{CONTACT.phoneHours}</p>
                 </div>
-                <p className="text-sm text-ink font-sans font-medium whitespace-pre-line">{CONTACT.office}</p>
-                <p className="text-xs text-muted font-sans mt-0.5">{CONTACT.officeNote}</p>
-              </div>
 
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-8 w-8 rounded-full bg-blue/10 flex items-center justify-center">
-                    <Clock className="h-4 w-4 text-blue" />
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="h-8 w-8 rounded-full bg-blue/10 flex items-center justify-center">
+                      <MapPin className="h-4 w-4 text-blue" />
+                    </div>
+                    <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-muted">Office</span>
                   </div>
-                  <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-muted">Hours</span>
+                  <p className="text-sm text-ink font-sans font-medium whitespace-pre-line">{CONTACT.office}</p>
+                  <p className="text-xs text-muted font-sans mt-0.5">{CONTACT.officeNote}</p>
                 </div>
-                <p className="text-sm text-ink font-sans font-medium whitespace-pre-line">{CONTACT.hours}</p>
-                <p className="text-xs text-muted font-sans mt-0.5">{CONTACT.hoursNote}</p>
-              </div>
-            </div>
 
-            <div className="rounded-2xl overflow-hidden border border-line h-56">
-              <iframe
-                title="Visati Office — Boulevard Plaza Tower 1, Downtown Dubai"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1835!2d55.2708!3d25.1972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f434f9d1e1a1b%3A0x1234567890abcdef!2sBoulevard%20Plaza%20Tower%201%2C%20Downtown%20Dubai!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="rounded-2xl"
-              />
-            </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="h-8 w-8 rounded-full bg-blue/10 flex items-center justify-center">
+                      <Clock className="h-4 w-4 text-blue" />
+                    </div>
+                    <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-muted">Hours</span>
+                  </div>
+                  <p className="text-sm text-ink font-sans font-medium whitespace-pre-line">{CONTACT.hours}</p>
+                  <p className="text-xs text-muted font-sans mt-0.5">{CONTACT.hoursNote}</p>
+                </div>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="up" delay={300}>
+              <div className="rounded-2xl overflow-hidden border border-line h-56">
+                <iframe
+                  title="Visati Office — Boulevard Plaza Tower 1, Downtown Dubai"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1835!2d55.2708!3d25.1972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f434f9d1e1a1b%3A0x1234567890abcdef!2sBoulevard%20Plaza%20Tower%201%2C%20Downtown%20Dubai!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="rounded-2xl"
+                />
+              </div>
+            </FadeIn>
           </div>
 
           {/* Right Column: Form */}
-          <div className="rounded-2xl bg-mist p-6 lg:p-8">
-            <h2 className="font-display font-bold text-2xl text-ink mb-1">
-              Send an inquiry.
-            </h2>
-            <p className="text-muted font-sans text-sm mb-6">
-              For everything that isn&apos;t a live application.
-            </p>
+          <FadeIn direction="right" delay={200}>
+            <div className="rounded-2xl bg-mist p-6 lg:p-8">
+              <h2 className="font-display font-bold text-2xl text-ink mb-1">
+                Send an inquiry.
+              </h2>
+              <p className="text-muted font-sans text-sm mb-6">
+                For everything that isn&apos;t a live application.
+              </p>
 
             {success ? (
               <div className="rounded-2xl border border-line bg-white p-6 shadow-sm">
@@ -277,7 +287,8 @@ export default function ContactPage() {
                 </p>
               </form>
             )}
-          </div>
+            </div>
+          </FadeIn>
         </div>
       </section>
     </div>
