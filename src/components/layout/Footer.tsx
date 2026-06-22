@@ -1,3 +1,5 @@
+"use client";
+
 import { BRAND, CONTACT, SOCIAL, WHATSAPP_URL } from "@/lib/constants";
 import { Logo } from "../ui/Logo";
 import {
