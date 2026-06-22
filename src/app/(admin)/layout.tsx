@@ -1,4 +1,5 @@
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,7 +15,8 @@ export default function AdminLayout({
   return (
     <div className="flex min-h-screen bg-mist">
       <AdminSidebar />
-      <main className="flex-1 min-w-0 overflow-auto">{children}</main>
+      <main className="flex-1 min-w-0 pb-20 lg:pb-0">{children}</main>
+      <AdminMobileNav />
     </div>
   );
 }

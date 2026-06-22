@@ -29,7 +29,7 @@ const ARC_CURVES: Record<string, number> = {
   "uae-uk": -14,
   "uae-us": 22,
   "uae-ca": -26,
-  "uae-eu": -20,
+  "uae-eu": 20,
   "uae-in": 6,
   "uae-jp": -10,
   "uae-sg": -24,
@@ -67,7 +67,7 @@ export function GlobalReach() {
         <div className="rounded-3xl bg-[#0a1a3a]/60 backdrop-blur-sm p-8 lg:p-12 flex flex-col xl:flex-row gap-10 xl:items-center relative">
 
           {/* --- Left copy --- */}
-          <div className="xl:w-[280px] flex-shrink-0 relative z-10">
+          <div className="xl:w-[220px] flex-shrink-0 relative z-10">
             <h2 className="font-display font-bold text-[28px] lg:text-[34px] leading-tight text-white tracking-tight">
               Trusted by Applicants Across the Globe
             </h2>
@@ -84,7 +84,7 @@ export function GlobalReach() {
           </div>
 
           {/* --- Map + Pins overlay --- */}
-          <div className="flex-1 relative hidden sm:block py-4" style={{ aspectRatio: "107 / 54" }}>
+          <div className="flex-1 relative hidden sm:block py-4 min-h-[300px] lg:min-h-[400px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/world-map.svg"
@@ -99,12 +99,8 @@ export function GlobalReach() {
               className="absolute inset-0 w-full h-full"
               aria-hidden="true"
             >
-              {ARCS.map(({ from, to }, i) => {
+              {ARCS.map(({ from, to }) => {
                 const path = getArcPath(from, to);
-                const fp = PINS.find((p) => p.id === from)!;
-                const tp = PINS.find((p) => p.id === to)!;
-                const mx = (fp.cx + tp.cx) / 2;
-                const my = (fp.cy + tp.cy) / 2 + ARC_CURVES[`${from}-${to}`];
                 return (
                   <g key={`${from}-${to}`}>
                     <path
@@ -123,19 +119,9 @@ export function GlobalReach() {
                       strokeDasharray="3 7"
                       className="arc-dash"
                     />
-                    <text x={mx} y={my} fill="#facc15" fontSize="3" fontWeight="bold" textAnchor="middle" dominantBaseline="middle">
-                      {i + 1}
-                    </text>
                   </g>
                 );
               })}
-
-              {/* Temporary pin labels */}
-              {PINS.map((pin) => (
-                <text key={pin.id} x={pin.cx} y={pin.cy - 3} fill="#facc15" fontSize="2.5" fontWeight="bold" textAnchor="middle">
-                  {pin.id}
-                </text>
-              ))}
 
               <defs>
                 <radialGradient id="pinGlow" cx="50%" cy="50%" r="50%">
@@ -174,7 +160,7 @@ export function GlobalReach() {
           </div>
 
           {/* --- Stats right --- */}
-          <div className="xl:w-[240px] flex-shrink-0 relative z-10">
+          <div className="xl:w-[200px] flex-shrink-0 relative z-10">
             <div className="grid grid-cols-2 gap-4 xl:grid-cols-1 xl:gap-5">
               {STATS.map((s) => (
                 <div key={s.label} className="flex items-center gap-3">

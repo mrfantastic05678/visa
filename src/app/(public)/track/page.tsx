@@ -98,10 +98,10 @@ export default function TrackPage() {
 
       {/* Search */}
       <section className="pb-12 px-4">
-        <div className="mx-auto max-w-2xl">
+        <div className="mx-auto max-w-3xl">
           <form
             onSubmit={handleSubmit}
-            className="bg-white rounded-2xl border border-line p-4 shadow-sm flex items-center gap-3"
+            className="bg-white rounded-2xl border border-line p-4 shadow-sm flex items-center gap-3 max-w-2xl mx-auto"
           >
             <Search className="h-5 w-5 text-muted flex-shrink-0 ml-2" />
             <input
@@ -128,10 +128,10 @@ export default function TrackPage() {
           </form>
 
           {error && (
-            <p className="mt-3 text-sm text-danger font-sans text-center">{error}</p>
+            <p className="mt-3 text-sm text-danger font-sans text-center max-w-2xl mx-auto">{error}</p>
           )}
 
-          <p className="text-center text-xs text-muted font-sans mt-3">
+          <p className="text-center text-xs text-muted font-sans mt-3 max-w-2xl mx-auto">
             Can&apos;t find your ID? Check your email or{" "}
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-blue hover:underline">
               WhatsApp us

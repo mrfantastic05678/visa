@@ -2,8 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { ApplicationForm } from "@/components/apply/ApplicationForm";
 import { Step5Success } from "@/components/apply/steps/Step5Success";
-import { SAMPLE_VISA_TYPES } from "@/lib/sample-visas";
-import type { VisaTypesResponse } from "@/types/api";
+import { getDisplayVisaTypes } from "@/lib/visa-data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,20 +10,6 @@ export const metadata: Metadata = {
   description:
     "Complete your UAE visa application online in minutes. Secure, fast, and trusted.",
 };
-
-async function getVisaTypes() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"}/api/visa-types`,
-      { cache: "no-store" }
-    );
-    if (!res.ok) return SAMPLE_VISA_TYPES;
-    const data: VisaTypesResponse = await res.json();
-    return data.visa_types.length > 0 ? data.visa_types : SAMPLE_VISA_TYPES;
-  } catch {
-    return SAMPLE_VISA_TYPES;
-  }
-}
 
 interface ApplyPageProps {
   searchParams: Promise<{
@@ -49,7 +34,7 @@ export default async function ApplyPage({ searchParams }: ApplyPageProps) {
     );
   }
 
-  const visaTypes = await getVisaTypes();
+  const visaTypes = await getDisplayVisaTypes();
   const prefilledVisa = visaTypes.find((v) => v.slug === params.visa) ?? null;
 
   return (

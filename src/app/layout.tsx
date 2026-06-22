@@ -11,9 +11,9 @@ export const metadata: Metadata = {
     "Apply for UAE tourist, transit, and long-stay visas online. Fast processing, 98% approval rate, trusted by 15,000+ travellers worldwide.",
   metadataBase: new URL("https://visati.ae"),
   icons: {
-    icon: "/logo-mark.svg",
-    shortcut: "/logo-mark.svg",
-    apple: "/logo-mark.svg",
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: "/icon.svg",
+    apple: "/apple-icon.svg",
   },
   openGraph: {
     type: "website",

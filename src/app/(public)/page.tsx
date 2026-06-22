@@ -7,8 +7,7 @@ import { QuickApplyWidget } from "@/components/home/QuickApplyWidget";
 import { Testimonials } from "@/components/home/Testimonials";
 import { VisaShowcase } from "@/components/home/VisaShowcase";
 import { WhyChoose } from "@/components/home/WhyChoose";
-import { SAMPLE_VISA_TYPES } from "@/lib/sample-visas";
-import type { VisaTypesResponse } from "@/types/api";
+import { getDisplayVisaTypes } from "@/lib/visa-data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,22 +16,8 @@ export const metadata: Metadata = {
     "Apply for UAE tourist, transit, and long-stay visas online. Fast processing, 98% approval rate, trusted by 15,000+ travellers.",
 };
 
-async function getVisaTypes() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"}/api/visa-types`,
-      { cache: "no-store" }
-    );
-    if (!res.ok) return SAMPLE_VISA_TYPES;
-    const data: VisaTypesResponse = await res.json();
-    return data.visa_types.length > 0 ? data.visa_types : SAMPLE_VISA_TYPES;
-  } catch {
-    return SAMPLE_VISA_TYPES;
-  }
-}
-
 export default async function HomePage() {
-  const visaTypes = await getVisaTypes();
+  const visaTypes = await getDisplayVisaTypes();
 
   return (
     <>
