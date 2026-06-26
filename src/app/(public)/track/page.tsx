@@ -8,7 +8,7 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { WHATSAPP_URL, BRAND, CONTACT } from "@/lib/constants";
 import { inputClasses } from "@/components/ui/FormInput";
 import { cn } from "@/lib/utils";
-import { Search, Download, Phone } from "lucide-react";
+import { Search, Printer, Phone } from "lucide-react";
 import { useState } from "react";
 
 function formatDate(iso: string) {
@@ -49,53 +49,76 @@ function getStatusLabel(status: string) {
   }
 }
 
-async function downloadReceipt(result: TrackResponse) {
-  const { default: html2pdf } = await import("html2pdf.js");
+function printReceipt(result: TrackResponse) {
+  const statusColor =
+    result.status === "approved" ? "#16a34a" :
+    result.status === "rejected" ? "#dc2626" : "#0A1628";
 
-  const statusColor = result.status === "approved" ? "#16a34a" : result.status === "rejected" ? "#dc2626" : "#0A1628";
+  const win = window.open("", "_blank", "width=900,height=700");
+  if (!win) {
+    alert("Please allow pop-ups for this site to print your receipt.");
+    return;
+  }
 
-  const container = document.createElement("div");
-  container.style.cssText = "position:fixed;left:-9999px;top:0;width:600px;background:#fff;padding:40px 20px;font-family:system-ui,sans-serif;color:#1a1a1a;z-index:-1;";
-  container.innerHTML = `
-    <div style="text-align:center;border-bottom:2px solid #0A1628;padding-bottom:20px;margin-bottom:20px;">
-      <svg viewBox="0 0 191.5 267" style="height:32px;margin-bottom:8px;" aria-hidden="true">
+  win.document.write(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Visati Receipt — ${result.application_id}</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{font-family:system-ui,-apple-system,sans-serif;color:#1a1a1a;background:#fff;padding:48px;max-width:640px;margin:0 auto}
+    .header{display:flex;justify-content:space-between;align-items:center;padding-bottom:24px;margin-bottom:28px;border-bottom:2px solid #0A1628}
+    .logo-wrap{display:flex;align-items:center;gap:10px}
+    .brand{font-size:20px;font-weight:700;color:#0A1628;letter-spacing:.05em;line-height:1}
+    .tagline{font-size:10px;color:#999;margin-top:3px}
+    .receipt-ref{text-align:right}
+    .receipt-ref p:first-child{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.06em}
+    .receipt-ref p:last-child{font-size:14px;font-weight:700;font-family:monospace;color:#0A1628;margin-top:3px}
+    table{width:100%;border-collapse:collapse;margin-bottom:32px}
+    td{padding:11px 0;border-bottom:1px solid #eee;vertical-align:middle}
+    td:first-child{font-size:10px;color:#999;text-transform:uppercase;letter-spacing:.06em;width:42%}
+    td:last-child{font-size:13px;font-weight:500;text-align:right}
+    .badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;color:#fff}
+    .footer{border-top:2px solid #0A1628;padding-top:20px;text-align:center;font-size:10px;color:#bbb;line-height:1.7}
+    @media print{body{padding:0}@page{margin:1.5cm 1cm;size:A4}}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo-wrap">
+      <svg style="height:32px;flex-shrink:0" viewBox="0 0 191.5 267" aria-hidden="true">
         <path d="M 191.5 65 L 0 133.5 L 0.5 56.5 L 118.5 0 L 191.5 0 L 191.5 65 Z" fill="#3D7BFF"/>
         <path transform="translate(0,101)" d="M 0 166 L 0 32 L 89 0 L 137 10 C 74.6 52.4 19.667 131.667 0 166 Z" fill="#0057FF"/>
         <path transform="translate(0,101)" d="M 137 10 L 0 32.5 L 90 0 L 137 10 Z" fill="#0042C4"/>
       </svg>
-      <p style="font-size:20px;font-weight:bold;color:#0A1628;margin:0;font-family:Montserrat,sans-serif;letter-spacing:0.04em;">VISATI</p>
-      <p style="font-size:11px;color:#666;margin:4px 0 0;">Dubai Visas. Simplified.</p>
+      <div>
+        <p class="brand">VISATI</p>
+        <p class="tagline">Dubai Visas. Simplified.</p>
+      </div>
     </div>
-    <h2 style="text-align:center;font-size:16px;margin-bottom:20px;">Application Receipt</h2>
-    <table style="width:100%;border-collapse:collapse;">
-      <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:11px;color:#666;text-transform:uppercase;width:40%;">Application ID</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;font-weight:500;text-align:right;font-family:monospace;">${result.application_id}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:11px;color:#666;text-transform:uppercase;">Applicant</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;font-weight:500;text-align:right;">${result.applicant_name}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:11px;color:#666;text-transform:uppercase;">Visa Type</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;font-weight:500;text-align:right;">${result.visa_type_name}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:11px;color:#666;text-transform:uppercase;">Status</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;font-weight:500;text-align:right;"><span style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;color:#fff;background:${statusColor};">${getStatusLabel(result.status)}</span></td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:11px;color:#666;text-transform:uppercase;">Submitted</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;font-weight:500;text-align:right;">${formatDate(result.created_at)}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:11px;color:#666;text-transform:uppercase;">Travel Date</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;font-weight:500;text-align:right;">${result.travel_date ? formatDate(result.travel_date) : "TBD"}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:11px;color:#666;text-transform:uppercase;">Last Updated</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;font-weight:500;text-align:right;">${result.updated_at ? formatDateTime(result.updated_at) : "N/A"}</td></tr>
-    </table>
-    <div style="margin-top:30px;padding-top:20px;border-top:2px solid #0A1628;text-align:center;font-size:11px;color:#999;">
-      <p style="margin:0;">${BRAND.legalName} &middot; ${BRAND.location}</p>
-      <p style="margin:4px 0 0;">${CONTACT.email} &middot; ${CONTACT.phone}</p>
-      <p style="margin-top:10px;">This is an auto-generated receipt. For questions, contact us on WhatsApp.</p>
+    <div class="receipt-ref">
+      <p>Application Receipt</p>
+      <p>${result.application_id}</p>
     </div>
-  `;
-  document.body.appendChild(container);
-
-  await html2pdf()
-    .set({
-      margin: [0.5, 0.5, 0.5, 0.5],
-      filename: `Visati-Receipt-${result.application_id}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, logging: false },
-      jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-    })
-    .from(container)
-    .save();
-
-  document.body.removeChild(container);
+  </div>
+  <table>
+    <tr><td>Applicant</td><td>${result.applicant_name}</td></tr>
+    <tr><td>Visa Type</td><td>${result.visa_type_name}</td></tr>
+    <tr><td>Status</td><td><span class="badge" style="background:${statusColor}">${getStatusLabel(result.status)}</span></td></tr>
+    <tr><td>Submitted</td><td>${formatDate(result.created_at)}</td></tr>
+    <tr><td>Travel Date</td><td>${result.travel_date ? formatDate(result.travel_date) : "TBD"}</td></tr>
+    ${result.updated_at ? `<tr><td>Last Updated</td><td>${formatDateTime(result.updated_at)}</td></tr>` : ""}
+  </table>
+  <div class="footer">
+    <p>${BRAND.legalName} &middot; ${BRAND.location}</p>
+    <p>${CONTACT.email} &middot; ${CONTACT.phone}</p>
+    <p style="margin-top:8px">Auto-generated receipt. For questions, contact us on WhatsApp.</p>
+  </div>
+  <script>window.addEventListener('load',function(){window.print()});<\/script>
+</body>
+</html>`);
+  win.document.close();
 }
 
 export default function TrackPage() {
@@ -277,9 +300,9 @@ export default function TrackPage() {
                     Last updated: {result.updated_at ? formatDateTime(result.updated_at) : "N/A"}
                   </p>
                   <div className="flex items-center gap-3">
-                    <Button variant="secondary" size="sm" onClick={() => downloadReceipt(result)}>
-                      <Download className="h-4 w-4 mr-1.5" />
-                      Download Receipt
+                    <Button variant="secondary" size="sm" onClick={() => printReceipt(result)}>
+                      <Printer className="h-4 w-4 mr-1.5" />
+                      Print / Save
                     </Button>
                     <a
                       href={WHATSAPP_URL}
