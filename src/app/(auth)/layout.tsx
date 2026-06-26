@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: { default: "Visati Admin", template: "%s | Visati Admin" },
+  title: { default: "Sign In", template: "%s | Visati Admin" },
   robots: { index: false, follow: false },
 };
 

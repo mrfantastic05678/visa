@@ -1,10 +1,14 @@
 "use client";
 
-import { CURRENT_USER } from "@/lib/admin-sample-data";
+import { useState, useRef, useEffect } from "react";
 import { Avatar } from "./ui";
-import { Bell, Search } from "lucide-react";
+import { signOutAndRedirect } from "@/lib/admin-auth";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useAvatar } from "@/hooks/useAvatar";
+import { Bell, Search, User, Settings, LogOut, ChevronDown, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface AdminPageHeaderProps {
   title: string;
@@ -20,13 +24,35 @@ export function AdminPageHeader({
   action,
 }: AdminPageHeaderProps) {
   const router = useRouter();
+  const currentUser = useCurrentUser();
+  const { src: avatarSrc } = useAvatar();
   const [q, setQ] = useState("");
+  const [open, setOpen] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Close on outside click
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    if (open) document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [open]);
+
+  // Close on Escape
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    if (open) document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     const term = q.trim();
     if (!term) return;
-    // Route to whichever section is most likely given the query shape
     if (/^VIS-/i.test(term)) {
       router.push(`/admin/applications?q=${encodeURIComponent(term)}`);
     } else if (/@/.test(term)) {
@@ -35,6 +61,11 @@ export function AdminPageHeader({
       router.push(`/admin/applications?q=${encodeURIComponent(term)}`);
     }
     setQ("");
+  }
+
+  async function handleLogout() {
+    setLoggingOut(true);
+    await signOutAndRedirect();
   }
 
   return (
@@ -52,7 +83,36 @@ export function AdminPageHeader({
             <button className="h-9 w-9 grid place-items-center rounded-lg bg-white/10 text-white">
               <Bell className="h-4 w-4" />
             </button>
-            <Avatar initials={CURRENT_USER.initials} className="h-9 w-9 text-xs" />
+            <div ref={ref} className="relative">
+              <button
+                onClick={() => setOpen(!open)}
+                className="flex items-center cursor-pointer"
+              >
+                <Avatar initials={currentUser.initials} src={avatarSrc} className="h-9 w-9 text-xs" />
+              </button>
+              {open && (
+                <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-lg border border-line overflow-hidden z-50">
+                  <div className="px-4 py-3 border-b border-line">
+                    <p className="text-sm font-semibold text-navy font-sans truncate">{currentUser.name}</p>
+                    <p className="text-xs text-muted font-sans truncate mt-0.5">{currentUser.email}</p>
+                  </div>
+                  <div className="py-1">
+                    <Link href="/admin/settings" onClick={() => setOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-sans text-ink hover:bg-mist transition-colors">
+                      <User className="h-4 w-4 text-muted" />
+                      Profile & Settings
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      disabled={loggingOut}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-sans text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50 cursor-pointer"
+                    >
+                      {loggingOut ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
+                      {loggingOut ? "Signing out..." : "Sign out"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -76,7 +136,44 @@ export function AdminPageHeader({
               className="h-10 w-72 pl-9 pr-3 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue"
             />
           </form>
-          <Avatar initials={CURRENT_USER.initials} className="h-9 w-9 text-xs" />
+
+          {/* Profile dropdown */}
+          <div ref={ref} className="relative">
+            <button
+              onClick={() => setOpen(!open)}
+              className={cn(
+                "flex items-center gap-2 h-9 px-2 rounded-lg transition-colors cursor-pointer",
+                open ? "bg-mist" : "hover:bg-mist"
+              )}
+            >
+              <Avatar initials={currentUser.initials} src={avatarSrc} className="h-7 w-7 text-[11px]" />
+              <ChevronDown className={cn("h-3.5 w-3.5 text-muted transition-transform", open && "rotate-180")} />
+            </button>
+
+            {open && (
+              <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-lg border border-line overflow-hidden z-50">
+                <div className="px-4 py-3 border-b border-line">
+                  <p className="text-sm font-semibold text-navy font-sans truncate">{currentUser.name}</p>
+                  <p className="text-xs text-muted font-sans truncate mt-0.5">{currentUser.email}</p>
+                </div>
+                <div className="py-1">
+                  <Link href="/admin/settings" onClick={() => setOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-sans text-ink hover:bg-mist transition-colors">
+                    <User className="h-4 w-4 text-muted" />
+                    Profile & Settings
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    disabled={loggingOut}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-sans text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50 cursor-pointer"
+                  >
+                    {loggingOut ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
+                    {loggingOut ? "Signing out..." : "Sign out"}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
           {action}
         </div>
       </div>

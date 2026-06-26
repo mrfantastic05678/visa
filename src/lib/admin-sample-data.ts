@@ -17,6 +17,7 @@ export interface Consultant {
   name: string;
   initials: string;
   color: string; // tailwind bg utility
+  photo?: string;
 }
 
 export const CURRENT_USER = {
@@ -27,10 +28,10 @@ export const CURRENT_USER = {
 };
 
 export const CONSULTANTS: Record<string, Consultant> = {
-  layla: { name: "Layla", initials: "L", color: "bg-blue" },
-  omar: { name: "Omar", initials: "O", color: "bg-purple-500" },
-  aisha: { name: "Aisha", initials: "A", color: "bg-emerald-500" },
-  hana: { name: "Hana", initials: "H", color: "bg-amber-500" },
+  layla: { name: "Layla", initials: "L", color: "bg-blue", photo: "https://i.pravatar.cc/150?img=47" },
+  omar: { name: "Omar", initials: "O", color: "bg-purple-500", photo: "https://i.pravatar.cc/150?img=53" },
+  aisha: { name: "Aisha", initials: "A", color: "bg-emerald-500", photo: "https://i.pravatar.cc/150?img=44" },
+  hana: { name: "Hana", initials: "H", color: "bg-amber-500", photo: "https://i.pravatar.cc/150?img=45" },
 };
 
 export interface AdminDocument {

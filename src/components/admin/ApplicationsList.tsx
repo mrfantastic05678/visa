@@ -268,7 +268,7 @@ export function ApplicationsList() {
                   <td className="px-3 py-3.5 font-sans text-muted whitespace-nowrap">{a.submitted}</td>
                   <td className="px-3 py-3.5">
                     <div className="flex items-center gap-2">
-                      <Avatar initials={c.initials} color={c.color} className="h-6 w-6 text-[10px]" />
+                      <Avatar initials={c.initials} src={c.photo} color={c.color} className="h-6 w-6 text-[10px]" />
                       <span className="font-sans text-ink">{c.name}</span>
                     </div>
                   </td>

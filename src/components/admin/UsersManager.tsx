@@ -81,7 +81,7 @@ export function UsersManager() {
               <tr key={u.id} className="hover:bg-mist transition-colors">
                 <td className="px-5 py-3.5">
                   <div className="flex items-center gap-3 min-w-0">
-                    <Avatar initials={u.initials} color={u.color} className="h-9 w-9 text-xs flex-shrink-0" />
+                    <Avatar initials={u.initials} src={u.photo} color={u.color} className="h-9 w-9 text-xs flex-shrink-0" />
                     <div className="min-w-0">
                       <p className="font-sans font-medium text-ink truncate">{u.name}</p>
                       <p className="text-xs text-muted font-sans truncate">{u.email}</p>
@@ -128,7 +128,7 @@ export function UsersManager() {
         {users.map((u) => (
           <div key={u.id} className="bg-white rounded-xl border border-line p-4">
             <div className="flex items-center gap-3">
-              <Avatar initials={u.initials} color={u.color} className="h-10 w-10 text-xs flex-shrink-0" />
+              <Avatar initials={u.initials} src={u.photo} color={u.color} className="h-10 w-10 text-xs flex-shrink-0" />
               <div className="min-w-0 flex-1">
                 <p className="font-sans font-semibold text-ink truncate">{u.name}</p>
                 <p className="text-xs text-muted font-sans truncate">{u.role} · {u.lastActive}</p>
@@ -163,7 +163,7 @@ export function UsersManager() {
               <X className="h-5 w-5" />
             </button>
             <div className="flex items-center gap-3 mb-6">
-              <Avatar initials={activityUser.initials} color={activityUser.color} className="h-12 w-12 text-sm flex-shrink-0" />
+              <Avatar initials={activityUser.initials} src={activityUser.photo} color={activityUser.color} className="h-12 w-12 text-sm flex-shrink-0" />
               <div className="min-w-0">
                 <p className="font-display font-bold text-navy truncate">{activityUser.name}</p>
                 <p className="text-xs text-muted font-sans truncate">{activityUser.email}</p>

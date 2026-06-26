@@ -88,3 +88,45 @@ export async function sendAdminNotificationEmail(params: {
     console.error("[resend] sendAdminNotificationEmail failed", err);
   }
 }
+
+export async function sendPasswordResetEmail(params: {
+  to: string;
+  userName: string;
+  resetUrl: string;
+}): Promise<void> {
+  try {
+    await resend.emails.send({
+      from: FROM,
+      to: params.to,
+      subject: "Reset Your Visati Admin Password",
+      html: `
+        <div style="font-family: system-ui, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px 20px; color: #1a1a1a;">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <h1 style="font-size: 22px; font-weight: bold; color: #0A1628; margin: 0;">VISATI</h1>
+            <p style="font-size: 11px; color: #666; margin: 4px 0 0;">Dubai Visas. Simplified.</p>
+          </div>
+          <h2 style="font-size: 18px; margin-bottom: 12px;">Reset your password</h2>
+          <p style="font-size: 14px; color: #444; line-height: 1.6;">
+            Hi ${params.userName},
+          </p>
+          <p style="font-size: 14px; color: #444; line-height: 1.6;">
+            We received a request to reset your admin dashboard password. Click the button below to set a new password:
+          </p>
+          <div style="text-align: center; margin: 28px 0;">
+            <a href="${params.resetUrl}" style="display: inline-block; padding: 12px 32px; background: #0A1628; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none;">
+              Reset Password
+            </a>
+          </div>
+          <p style="font-size: 13px; color: #888; line-height: 1.5;">
+            This link expires in 1 hour. If you did not request a password reset, you can safely ignore this email.
+          </p>
+          <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #eee; text-align: center; font-size: 11px; color: #999;">
+            <p style="margin: 0;">Visati Visa Services LLC &middot; Dubai, UAE</p>
+          </div>
+        </div>
+      `,
+    });
+  } catch (err) {
+    console.error("[resend] sendPasswordResetEmail failed", err);
+  }
+}

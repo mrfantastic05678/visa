@@ -1,3 +1,5 @@
+"use client";
+
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AppStatusBadge, FlagIcon } from "@/components/admin/ui";
 import { NewApplicationButton } from "@/components/admin/NewApplicationButton";
@@ -6,14 +8,13 @@ import {
   APPLICATIONS,
   DASHBOARD_STATS,
   RECENT_ACTIVITY,
-  CURRENT_USER,
 } from "@/lib/admin-sample-data";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
-export const metadata = { title: "Dashboard" };
-
 export default function AdminDashboard() {
+  const currentUser = useCurrentUser();
   const recent = APPLICATIONS.slice(0, 5);
   const today = new Date().toLocaleDateString("en-GB", {
     weekday: "long",
@@ -26,7 +27,7 @@ export default function AdminDashboard() {
     <>
       <AdminPageHeader
         title="Dashboard"
-        subtitle={`${today} · Good afternoon, ${CURRENT_USER.name.split(" ")[0]}`}
+        subtitle={`${today} · Good afternoon, ${currentUser.name.split(" ")[0]}`}
         action={<NewApplicationButton />}
       />
 

@@ -25,13 +25,24 @@ export function FlagIcon({ country, className }: { country: string; className?: 
 
 export function Avatar({
   initials,
+  src,
   color = "bg-blue",
   className,
 }: {
   initials: string;
+  src?: string | null;
   color?: string;
   className?: string;
 }) {
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={initials}
+        className={cn("inline-block rounded-full object-cover", className)}
+      />
+    );
+  }
   return (
     <span
       className={cn(

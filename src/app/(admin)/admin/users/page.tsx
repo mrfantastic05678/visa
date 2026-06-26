@@ -2,11 +2,13 @@ import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { UsersManager } from "@/components/admin/UsersManager";
 import { Avatar } from "@/components/admin/ui";
 import { ADMINISTRATOR } from "@/lib/admin-users";
+import { requireAdminRole } from "@/lib/admin-guard";
 import { ShieldCheck } from "lucide-react";
 
 export const metadata = { title: "Users" };
 
-export default function AdminUsersPage() {
+export default async function AdminUsersPage() {
+  await requireAdminRole();
   return (
     <>
       <AdminPageHeader

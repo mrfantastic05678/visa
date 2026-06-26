@@ -1,9 +1,12 @@
-import { Avatar } from "@/components/admin/ui";
-import { CURRENT_USER } from "@/lib/admin-sample-data";
-import { ChevronRight, LogOut, Settings, ShieldCheck } from "lucide-react";
-import Link from "next/link";
+"use client";
 
-export const metadata = { title: "More" };
+import { Avatar } from "@/components/admin/ui";
+import { signOutAndRedirect } from "@/lib/admin-auth";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useAvatar } from "@/hooks/useAvatar";
+import { ChevronRight, LogOut, Loader2, Settings, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 const STATS = [
   { value: "48", label: "Processed" },
@@ -17,17 +20,26 @@ const LINKS = [
 ];
 
 export default function AdminMorePage() {
+  const currentUser = useCurrentUser();
+  const { src: avatarSrc } = useAvatar();
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  async function handleLogout() {
+    setLoggingOut(true);
+    await signOutAndRedirect();
+  }
+
   return (
     <div className="px-4 lg:px-8 pt-6 lg:pt-7 pb-10 max-w-xl">
       <h1 className="font-display font-bold text-2xl text-navy mb-5">More</h1>
 
       {/* Profile card */}
       <div className="rounded-xl bg-navy p-5 flex items-center gap-4 mb-4">
-        <Avatar initials={CURRENT_USER.initials} className="h-14 w-14 text-lg flex-shrink-0" />
+        <Avatar initials={currentUser.initials} src={avatarSrc} className="h-14 w-14 text-lg flex-shrink-0" />
         <div className="min-w-0">
-          <p className="font-display font-bold text-lg text-white truncate">{CURRENT_USER.name}</p>
-          <p className="text-sm text-white/60 font-sans truncate">{CURRENT_USER.role}</p>
-          <p className="text-xs text-blue font-sans truncate mt-0.5">{CURRENT_USER.email}</p>
+          <p className="font-display font-bold text-lg text-white truncate">{currentUser.name}</p>
+          <p className="text-sm text-white/60 font-sans truncate">{currentUser.role}</p>
+          <p className="text-xs text-blue font-sans truncate mt-0.5">{currentUser.email}</p>
         </div>
       </div>
 
@@ -61,12 +73,18 @@ export default function AdminMorePage() {
         ))}
       </div>
 
-      <Link
-        href="/admin/login"
-        className="flex items-center justify-center gap-2 w-full h-12 rounded-xl bg-red-50 text-red-500 font-semibold font-sans text-sm hover:bg-red-100 transition-colors"
+      <button
+        onClick={handleLogout}
+        disabled={loggingOut}
+        className="flex items-center justify-center gap-2 w-full h-12 rounded-xl bg-red-50 text-red-500 font-semibold font-sans text-sm hover:bg-red-100 transition-colors disabled:opacity-50 cursor-pointer"
       >
-        <LogOut className="h-4 w-4" /> Sign Out
-      </Link>
+        {loggingOut ? (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        ) : (
+          <LogOut className="h-4 w-4" />
+        )}
+        {loggingOut ? "Signing out..." : "Sign Out"}
+      </button>
       <p className="text-center text-xs text-muted font-sans mt-4">Visati Admin · v3.18.2</p>
     </div>
   );

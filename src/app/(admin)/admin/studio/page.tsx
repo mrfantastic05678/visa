@@ -1,4 +1,5 @@
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { requireAdminRole } from "@/lib/admin-guard";
 import { ExternalLink, PenLine } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -12,7 +13,8 @@ const SCHEMAS = [
   { name: "contactDetails", label: "Contact Details", desc: "WhatsApp number, email, office address, hours" },
 ];
 
-export default function AdminStudioPage() {
+export default async function AdminStudioPage() {
+  await requireAdminRole();
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
   const isConfigured = projectId && projectId !== "placeholder";
 

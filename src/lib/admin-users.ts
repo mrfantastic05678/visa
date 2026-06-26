@@ -17,6 +17,7 @@ export interface StaffUser {
   name: string;
   initials: string;
   color: string;
+  photo?: string;
   email: string;
   role: UserRole;
   status: UserStatus;
@@ -32,6 +33,7 @@ export const ADMINISTRATOR: StaffUser = {
   name: "Mariam Khalid",
   initials: "MK",
   color: "bg-navy",
+  photo: "https://i.pravatar.cc/150?img=43",
   email: "mariam@visati.ae",
   role: "Administrator",
   status: "active",
@@ -51,6 +53,7 @@ export const STAFF_USERS: StaffUser[] = [
     name: "Aisha Bahar",
     initials: "AB",
     color: "bg-blue",
+    photo: "https://i.pravatar.cc/150?img=44",
     email: "aisha@visati.ae",
     role: "Senior Consultant",
     status: "active",
@@ -68,6 +71,7 @@ export const STAFF_USERS: StaffUser[] = [
     name: "Omar Farouk",
     initials: "O",
     color: "bg-purple-500",
+    photo: "https://i.pravatar.cc/150?img=53",
     email: "omar@visati.ae",
     role: "Visa Consultant",
     status: "active",
@@ -84,6 +88,7 @@ export const STAFF_USERS: StaffUser[] = [
     name: "Layla Hassan",
     initials: "L",
     color: "bg-emerald-500",
+    photo: "https://i.pravatar.cc/150?img=47",
     email: "layla@visati.ae",
     role: "Visa Consultant",
     status: "active",
@@ -100,6 +105,7 @@ export const STAFF_USERS: StaffUser[] = [
     name: "Hana Said",
     initials: "H",
     color: "bg-amber-500",
+    photo: "https://i.pravatar.cc/150?img=45",
     email: "hana@visati.ae",
     role: "Visa Consultant",
     status: "pending",
@@ -113,6 +119,7 @@ export const STAFF_USERS: StaffUser[] = [
     name: "Yusuf Demir",
     initials: "Y",
     color: "bg-rose-500",
+    photo: "https://i.pravatar.cc/150?img=51",
     email: "yusuf@visati.ae",
     role: "Visa Consultant",
     status: "pending",
@@ -126,6 +133,7 @@ export const STAFF_USERS: StaffUser[] = [
     name: "Karl Meyer",
     initials: "KM",
     color: "bg-slate-400",
+    photo: "https://i.pravatar.cc/150?img=52",
     email: "karl@visati.ae",
     role: "Visa Consultant",
     status: "banned",

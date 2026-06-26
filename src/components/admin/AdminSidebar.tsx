@@ -1,9 +1,15 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { CURRENT_USER } from "@/lib/admin-sample-data";
 import { Logo } from "@/components/ui/Logo";
 import { Avatar } from "./ui";
+import { signOutAndRedirect } from "@/lib/admin-auth";
+import { usePreviewRole } from "@/hooks/usePreviewRole";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useAvatar } from "@/hooks/useAvatar";
 import {
   LayoutDashboard,
   FileText,
@@ -13,23 +19,55 @@ import {
   ShieldCheck,
   Settings,
   PenLine,
+  LogOut,
+  User,
+  ChevronUp,
+  Loader2,
 } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export const ADMIN_NAV = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, count: null },
-  { href: "/admin/applications", label: "Applications", icon: FileText, exact: false, count: 142 },
-  { href: "/admin/inquiries", label: "Inquiries", icon: MessageSquare, exact: false, count: 38 },
-  { href: "/admin/documents", label: "Documents", icon: FolderOpen, exact: false, count: null },
-  { href: "/admin/clients", label: "Clients", icon: Users, exact: false, count: null },
-  { href: "/admin/users", label: "Users", icon: ShieldCheck, exact: false, count: 2 },
-  { href: "/admin/settings", label: "Settings", icon: Settings, exact: false, count: null },
-  { href: "/admin/studio", label: "CMS Studio", icon: PenLine, exact: false, count: null },
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, count: null, adminOnly: false },
+  { href: "/admin/applications", label: "Applications", icon: FileText, exact: false, count: 142, adminOnly: false },
+  { href: "/admin/inquiries", label: "Inquiries", icon: MessageSquare, exact: false, count: 38, adminOnly: false },
+  { href: "/admin/documents", label: "Documents", icon: FolderOpen, exact: false, count: null, adminOnly: false },
+  { href: "/admin/clients", label: "Clients", icon: Users, exact: false, count: null, adminOnly: false },
+  { href: "/admin/users", label: "Users", icon: ShieldCheck, exact: false, count: 2, adminOnly: true },
+  { href: "/admin/settings", label: "Settings", icon: Settings, exact: false, count: null, adminOnly: false },
+  { href: "/admin/studio", label: "CMS Studio", icon: PenLine, exact: false, count: null, adminOnly: true },
 ];
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const role = usePreviewRole();
+  const currentUser = useCurrentUser();
+  const { src: avatarSrc } = useAvatar();
+  const [open, setOpen] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const isAdmin = role === "admin";
+
+  // Close on outside click
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    if (open) document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [open]);
+
+  // Close on Escape
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    if (open) document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  async function handleLogout() {
+    setLoggingOut(true);
+    await signOutAndRedirect();
+  }
 
   return (
     <aside className="hidden lg:flex w-60 flex-shrink-0 flex-col bg-navy min-h-screen sticky top-0">
@@ -44,7 +82,7 @@ export function AdminSidebar() {
           Workspace
         </p>
         <div className="space-y-1">
-          {ADMIN_NAV.map(({ href, label, icon: Icon, exact, count }) => {
+          {ADMIN_NAV.filter((item) => !item.adminOnly || isAdmin).map(({ href, label, icon: Icon, exact, count }) => {
             const active = exact ? pathname === href : pathname.startsWith(href);
             return (
               <Link
@@ -75,15 +113,67 @@ export function AdminSidebar() {
         </div>
       </nav>
 
-      {/* User */}
-      <div className="p-3 m-3 rounded-xl bg-white/5 flex items-center gap-3">
-        <Avatar initials={CURRENT_USER.initials} className="h-9 w-9 text-xs flex-shrink-0" />
-        <div className="min-w-0">
-          <p className="text-sm font-sans font-semibold text-white truncate">
-            {CURRENT_USER.name}
-          </p>
-          <p className="text-xs font-sans text-white/50 truncate">{CURRENT_USER.role}</p>
-        </div>
+      {/* User Profile Dropdown */}
+      <div ref={ref} className="relative p-3 m-3 mb-4">
+        <button
+          onClick={() => setOpen(!open)}
+          className={cn(
+            "w-full flex items-center gap-3 rounded-xl p-2 transition-colors cursor-pointer",
+            open ? "bg-white/10" : "bg-white/5 hover:bg-white/8"
+          )}
+        >
+          <Avatar initials={currentUser.initials} src={avatarSrc} className="h-9 w-9 text-xs flex-shrink-0" />
+          <div className="min-w-0 flex-1 text-left">
+            <p className="text-sm font-sans font-semibold text-white truncate">
+              {currentUser.name}
+            </p>
+            <p className="text-xs font-sans text-white/50 truncate">{currentUser.role}</p>
+          </div>
+          <ChevronUp
+            className={cn(
+              "h-4 w-4 text-white/40 transition-transform",
+              open ? "rotate-0" : "rotate-180"
+            )}
+          />
+        </button>
+
+        {open && (
+          <div className="absolute bottom-full left-0 right-0 mb-2 bg-white rounded-xl shadow-lg border border-line overflow-hidden z-50">
+            {/* User info header */}
+            <div className="px-4 py-3 border-b border-line">
+              <p className="text-sm font-semibold text-navy font-sans truncate">
+                {currentUser.name}
+              </p>
+              <p className="text-xs text-muted font-sans truncate mt-0.5">
+                {currentUser.email}
+              </p>
+            </div>
+
+            {/* Menu items */}
+            <div className="py-1">
+              <Link
+                href="/admin/settings"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 px-4 py-2.5 text-sm font-sans text-ink hover:bg-mist transition-colors"
+              >
+                <User className="h-4 w-4 text-muted" />
+                Profile & Settings
+              </Link>
+              <button
+                onClick={handleLogout}
+                disabled={loggingOut}
+                className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-sans text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50 cursor-pointer"
+              >
+                {loggingOut ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <LogOut className="h-4 w-4" />
+                )}
+                {loggingOut ? "Signing out..." : "Sign out"}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </aside>
   );

@@ -3,6 +3,7 @@
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { ArrowRight, Loader2 } from "lucide-react";
 const inputCls =
   "w-full h-11 px-3.5 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue transition-colors";
@@ -123,9 +124,9 @@ export function LoginForm() {
           />
           Remember me
         </label>
-        <button type="button" className="text-sm font-sans font-medium text-blue hover:underline">
+        <Link href="/admin/forgot-password" className="text-sm font-sans font-medium text-blue hover:underline">
           Forgot password?
-        </button>
+        </Link>
       </div>
 
       {error && <p className="text-sm text-danger font-sans">{error}</p>}
