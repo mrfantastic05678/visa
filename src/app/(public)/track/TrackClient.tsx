@@ -52,7 +52,7 @@ function getStatusLabel(status: string) {
 function printReceipt(result: TrackResponse) {
   const statusColor =
     result.status === "approved" ? "#16a34a" :
-    result.status === "rejected" ? "#dc2626" : "#0A1628";
+    result.status === "rejected" ? "#dc2626" : "#080F1E";
 
   const win = window.open("", "_blank", "width=900,height=700");
   if (!win) {
@@ -68,19 +68,19 @@ function printReceipt(result: TrackResponse) {
   <style>
     *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
     body{font-family:system-ui,-apple-system,sans-serif;color:#1a1a1a;background:#fff;padding:48px;max-width:640px;margin:0 auto}
-    .header{display:flex;justify-content:space-between;align-items:center;padding-bottom:24px;margin-bottom:28px;border-bottom:2px solid #0A1628}
+    .header{display:flex;justify-content:space-between;align-items:center;padding-bottom:24px;margin-bottom:28px;border-bottom:2px solid #080F1E}
     .logo-wrap{display:flex;align-items:center;gap:10px}
-    .brand{font-size:20px;font-weight:700;color:#0A1628;letter-spacing:.05em;line-height:1}
+    .brand{font-size:20px;font-weight:700;color:#080F1E;letter-spacing:.05em;line-height:1}
     .tagline{font-size:10px;color:#999;margin-top:3px}
     .receipt-ref{text-align:right}
     .receipt-ref p:first-child{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.06em}
-    .receipt-ref p:last-child{font-size:14px;font-weight:700;font-family:monospace;color:#0A1628;margin-top:3px}
+    .receipt-ref p:last-child{font-size:14px;font-weight:700;font-family:monospace;color:#080F1E;margin-top:3px}
     table{width:100%;border-collapse:collapse;margin-bottom:32px}
     td{padding:11px 0;border-bottom:1px solid #eee;vertical-align:middle}
     td:first-child{font-size:10px;color:#999;text-transform:uppercase;letter-spacing:.06em;width:42%}
     td:last-child{font-size:13px;font-weight:500;text-align:right}
     .badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;color:#fff}
-    .footer{border-top:2px solid #0A1628;padding-top:20px;text-align:center;font-size:10px;color:#bbb;line-height:1.7}
+    .footer{border-top:2px solid #080F1E;padding-top:20px;text-align:center;font-size:10px;color:#bbb;line-height:1.7}
     @media print{body{padding:0}@page{margin:1.5cm 1cm;size:A4}}
   </style>
 </head>

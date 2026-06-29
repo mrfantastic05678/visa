@@ -102,7 +102,7 @@ export async function sendPasswordResetEmail(params: {
       html: `
         <div style="font-family: system-ui, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px 20px; color: #1a1a1a;">
           <div style="text-align: center; margin-bottom: 24px;">
-            <h1 style="font-size: 22px; font-weight: bold; color: #0A1628; margin: 0;">VISATI</h1>
+            <h1 style="font-size: 22px; font-weight: bold; color: #080F1E; margin: 0;">VISATI</h1>
             <p style="font-size: 11px; color: #666; margin: 4px 0 0;">Dubai Visas. Simplified.</p>
           </div>
           <h2 style="font-size: 18px; margin-bottom: 12px;">Reset your password</h2>
@@ -113,7 +113,7 @@ export async function sendPasswordResetEmail(params: {
             We received a request to reset your admin dashboard password. Click the button below to set a new password:
           </p>
           <div style="text-align: center; margin: 28px 0;">
-            <a href="${params.resetUrl}" style="display: inline-block; padding: 12px 32px; background: #0A1628; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none;">
+            <a href="${params.resetUrl}" style="display: inline-block; padding: 12px 32px; background: #080F1E; color: #fff; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none;">
               Reset Password
             </a>
           </div>

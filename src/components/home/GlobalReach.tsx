@@ -101,8 +101,8 @@ export function GlobalReach() {
 
               <defs>
                 <radialGradient id="pinGlow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#C9A84C" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#C49A2C" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#C49A2C" stopOpacity="0" />
                 </radialGradient>
                 <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
                   <feGaussianBlur stdDeviation="1.2" result="blur" />
@@ -126,7 +126,7 @@ export function GlobalReach() {
                     cx={pin.cx}
                     cy={pin.cy}
                     r="0.8"
-                    fill="#C9A84C"
+                    fill="#C49A2C"
                     stroke="#e8d5a0"
                     strokeWidth="0.3"
                   />

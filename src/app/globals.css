@@ -12,10 +12,11 @@
   --font-brand:   var(--font-montserrat), "Montserrat", sans-serif;
 
   /* ── Brand Colours ──────────────────────────────────── */
-  --color-navy:       #0A1628; /* refined deep navy */
-  --color-navy-2:     #12203F; /* lighter navy for gradient sections */
-  --color-gold: #C9A84C; /* premium gold accent */
-  --color-ink:        #1A2332;
+  --color-navy:       #080F1E; /* deep dark Dubai navy */
+  --color-navy-2:     #0F1A2E; /* secondary dark sections */
+  --color-gold:       #C49A2C; /* warm amber-gold — primary accent */
+  --color-gold-hover: #AD8724; /* gold hover/pressed */
+  --color-ink:        #0F172A;
   --color-blue:       #1E5BBE;
   --color-blue-hover: #1749A0;
   --color-mist:       #F8F9FB;
@@ -41,6 +42,10 @@
 }
 
 /* ── Base ─────────────────────────────────────────────── */
+button, [role="button"], [type="button"], [type="submit"] {
+  cursor: pointer;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: #ffffff;
