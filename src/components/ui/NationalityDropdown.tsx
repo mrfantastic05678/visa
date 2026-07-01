@@ -250,7 +250,7 @@ export function NationalityDropdown({
                 }}
                 placeholder="Search..."
                 className={cn(
-                  "h-9 w-full rounded-md border px-3 text-sm font-sans focus:outline-none focus:border-blue",
+                  "h-9 w-full rounded-md border px-3 text-sm font-sans focus:outline-none focus:border-gold",
                   dark
                     ? "border-white/15 bg-white/5 text-white placeholder:text-white/40"
                     : "border-line"

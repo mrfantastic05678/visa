@@ -138,7 +138,10 @@ export function Dropdown({
           <ul
             ref={listRef}
             role="listbox"
-            className="absolute z-[60] mt-1.5 w-full max-h-60 overflow-auto rounded-lg border border-line bg-white shadow-lg py-1 font-sans text-sm scrollbar-thin"
+            className={cn(
+              "absolute z-[60] mt-1.5 w-full max-h-60 overflow-auto rounded-lg border shadow-lg py-1 font-sans text-sm scrollbar-thin",
+              dark ? "border-white/15 bg-navy" : "border-line bg-white"
+            )}
           >
             {options.map((opt, i) => {
               const isSelected = opt.value === value;
@@ -155,8 +158,8 @@ export function Dropdown({
                   onMouseEnter={() => setHighlightedIndex(i)}
                   className={cn(
                     "flex items-center justify-between px-4 py-2.5 cursor-pointer transition-colors",
-                    isHighlighted && "bg-gold/5",
-                    isSelected ? "text-gold font-medium" : "text-ink"
+                    isHighlighted && (dark ? "bg-white/10" : "bg-gold/5"),
+                    isSelected ? "text-gold font-medium" : dark ? "text-white" : "text-ink"
                   )}
                 >
                   {opt.label}
