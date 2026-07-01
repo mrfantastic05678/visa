@@ -38,14 +38,14 @@ export function AuthShell({
           className="pointer-events-none absolute inset-0 opacity-50"
           style={{
             background:
-              "radial-gradient(ellipse at 20% 20%, #0057FF33 0%, transparent 60%)",
+              "radial-gradient(ellipse at 20% 20%, #C49A2C20 0%, transparent 60%)",
           }}
         />
         <div className="relative">
           <Logo variant="light" showTagline />
         </div>
         <div className="relative max-w-md">
-          <p className="text-xs font-semibold uppercase tracking-widest text-blue font-sans mb-4">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gold font-sans mb-4">
             {eyebrow}
           </p>
           <h1 className="font-display font-bold text-5xl text-white leading-[1.05] whitespace-pre-line">
@@ -56,7 +56,7 @@ export function AuthShell({
             <ul className="mt-7 space-y-3">
               {bullets.map((b) => (
                 <li key={b} className="flex items-center gap-3 text-sm text-white/80 font-sans">
-                  <span className="h-5 w-5 rounded-full bg-blue grid place-items-center flex-shrink-0">
+                  <span className="h-5 w-5 rounded-full bg-gold grid place-items-center flex-shrink-0">
                     <Check className="h-3 w-3 text-white" />
                   </span>
                   {b}

@@ -213,7 +213,7 @@ export function NationalityDropdown({
               ? "border-white/15 bg-white/5 text-white placeholder:text-white/40"
               : "bg-white border-line",
             !selected && (dark ? "text-white/40" : "text-muted/60"),
-            open && "border-blue ring-2 ring-blue/20",
+            open && "border-gold ring-2 ring-gold/20",
             error && "border-danger"
           )}
         >
@@ -277,9 +277,9 @@ export function NationalityDropdown({
                     onMouseEnter={() => setHighlightedIndex(i)}
                     className={cn(
                       "flex items-center gap-2 px-4 py-2.5 cursor-pointer transition-colors",
-                      isHighlighted && (dark ? "bg-white/10" : "bg-blue/5"),
+                      isHighlighted && (dark ? "bg-white/10" : "bg-gold/5"),
                       isSelected
-                        ? "text-blue font-medium"
+                        ? "text-gold font-medium"
                         : dark ? "text-white" : "text-ink"
                     )}
                   >
@@ -287,7 +287,7 @@ export function NationalityDropdown({
                       <opt.Flag className="h-4 w-6 rounded-[2px] flex-shrink-0" title={opt.label} />
                     )}
                     <span className="flex-1 truncate">{opt.label}</span>
-                    {isSelected && <Check className="h-4 w-4 text-blue flex-shrink-0" />}
+                    {isSelected && <Check className="h-4 w-4 text-gold flex-shrink-0" />}
                   </li>
                 );
               })}

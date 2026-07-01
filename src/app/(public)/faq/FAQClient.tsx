@@ -279,7 +279,7 @@ export function FAQClient() {
                   className={cn(
                     "w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-sans text-left transition-colors",
                     activeCategory === cat && !search
-                      ? "bg-blue/5 text-gold font-medium"
+                      ? "bg-gold/5 text-gold font-medium"
                       : "text-ink hover:bg-mist"
                   )}
                 >

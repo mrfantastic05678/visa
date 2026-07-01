@@ -11,7 +11,7 @@ interface LogoProps {
 /**
  * Visati paper-plane brand mark + "VISATI" wordmark.
  * Geometry and colours come from the design asset (Visati Logo.dc.html):
- * body #0057FF, top facet #3D7BFF, fold tab #0042C4. Wordmark in Montserrat.
+ * body #C49A2C, top facet #F0C864, fold tab #AD8724. Wordmark in Montserrat.
  */
 function PaperPlane({ className }: { className?: string }) {
   return (
@@ -24,19 +24,19 @@ function PaperPlane({ className }: { className?: string }) {
       {/* light top facet */}
       <path
         d="M 191.5 65 L 0 133.5 L 0.5 56.5 L 118.5 0 L 191.5 0 L 191.5 65 Z"
-        fill="#3D7BFF"
+        fill="#F0C864"
       />
       {/* main body */}
       <path
         transform="translate(0,101)"
         d="M 0 166 L 0 32 L 89 0 L 137 10 C 74.6 52.4 19.667 131.667 0 166 Z"
-        fill="#0057FF"
+        fill="#C49A2C"
       />
       {/* dark fold tab */}
       <path
         transform="translate(0,101)"
         d="M 137 10 L 0 32.5 L 90 0 L 137 10 Z"
-        fill="#0042C4"
+        fill="#AD8724"
       />
     </svg>
   );

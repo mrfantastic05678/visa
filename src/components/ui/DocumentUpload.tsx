@@ -57,7 +57,7 @@ export function DocumentUpload({
 
       {currentFile ? (
         <div className="flex items-center gap-3 rounded-lg border border-line bg-mist p-3">
-          <FileText className="h-5 w-5 text-blue flex-shrink-0" />
+          <FileText className="h-5 w-5 text-gold flex-shrink-0" />
           <span className="flex-1 text-sm text-ink font-sans truncate">
             {currentFile.name}
           </span>
@@ -80,7 +80,7 @@ export function DocumentUpload({
         <div
           className={cn(
             "flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed p-6 transition-colors cursor-pointer",
-            dragOver ? "border-blue bg-blue/5" : "border-line hover:border-blue/40",
+            dragOver ? "border-gold bg-gold/5" : "border-line hover:border-gold/40",
             displayError && "border-danger"
           )}
           onDragOver={(e) => {
@@ -96,9 +96,9 @@ export function DocumentUpload({
           }}
           onClick={() => inputRef.current?.click()}
         >
-          <Upload className={cn("h-6 w-6", dragOver ? "text-blue" : "text-muted")} />
+          <Upload className={cn("h-6 w-6", dragOver ? "text-gold" : "text-muted")} />
           <p className="text-sm text-ink font-sans text-center">
-            <span className="text-blue font-medium">Click to upload</span> or drag and drop
+            <span className="text-gold font-medium">Click to upload</span> or drag and drop
           </p>
           <p className="text-xs text-muted font-sans">PDF, JPG, PNG — max 5 MB</p>
         </div>

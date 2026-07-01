@@ -84,7 +84,7 @@ function Dropdown({
         className={cn(
           "inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border text-sm font-sans transition-colors whitespace-nowrap",
           isFiltered
-            ? "border-blue bg-blue/5 text-blue font-semibold"
+            ? "border-gold bg-gold/5 text-gold font-semibold"
             : "border-line text-ink hover:bg-mist"
         )}
       >
@@ -103,7 +103,7 @@ function Dropdown({
               onClick={() => { onChange(o.value === value ? "" : o.value); setOpen(false); }}
               className={cn(
                 "w-full text-left px-4 py-2 text-sm font-sans hover:bg-mist transition-colors",
-                o.value === value ? "text-blue font-semibold" : "text-ink"
+                o.value === value ? "text-gold font-semibold" : "text-ink"
               )}
             >
               {o.label}
@@ -212,7 +212,7 @@ export function ApplicationsList() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search name, ID, passport…"
-              className="h-9 w-full lg:w-56 pl-9 pr-3 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue"
+              className="h-9 w-full lg:w-56 pl-9 pr-3 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold"
             />
           </div>
           <div className="hidden xl:flex items-center gap-2">
@@ -239,7 +239,7 @@ export function ApplicationsList() {
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left text-[11px] uppercase tracking-wider text-muted font-sans border-b border-line">
-              <th className="pl-5 pr-2 py-3 w-8"><input type="checkbox" className="h-4 w-4 rounded border-line accent-blue" /></th>
+              <th className="pl-5 pr-2 py-3 w-8"><input type="checkbox" className="h-4 w-4 rounded border-line accent-gold" /></th>
               <th className="px-3 py-3 font-semibold">App ID</th>
               <th className="px-3 py-3 font-semibold">Applicant</th>
               <th className="px-3 py-3 font-semibold">Visa Type</th>
@@ -254,9 +254,9 @@ export function ApplicationsList() {
               const c = CONSULTANTS[a.assigned];
               return (
                 <tr key={a.id} className="hover:bg-mist transition-colors group">
-                  <td className="pl-5 pr-2 py-3.5"><input type="checkbox" className="h-4 w-4 rounded border-line accent-blue" /></td>
+                  <td className="pl-5 pr-2 py-3.5"><input type="checkbox" className="h-4 w-4 rounded border-line accent-gold" /></td>
                   <td className="px-3 py-3.5">
-                    <Link href={`/admin/applications/${a.id}`} className="font-mono text-xs text-muted group-hover:text-blue">{a.id}</Link>
+                    <Link href={`/admin/applications/${a.id}`} className="font-mono text-xs text-muted group-hover:text-gold">{a.id}</Link>
                   </td>
                   <td className="px-3 py-3.5">
                     <Link href={`/admin/applications/${a.id}`} className="flex items-center gap-2.5 min-w-0">
@@ -285,7 +285,7 @@ export function ApplicationsList() {
           <div className="px-5 py-12 text-center">
             <p className="text-sm text-muted font-sans">No applications match your filters.</p>
             {hasFilters && (
-              <button onClick={clearAll} className="mt-2 text-sm text-blue font-sans font-medium hover:underline">Clear filters</button>
+              <button onClick={clearAll} className="mt-2 text-sm text-gold font-sans font-medium hover:underline">Clear filters</button>
             )}
           </div>
         )}
@@ -315,7 +315,7 @@ export function ApplicationsList() {
           <div className="py-12 text-center">
             <p className="text-sm text-muted font-sans">No applications match your filters.</p>
             {hasFilters && (
-              <button onClick={clearAll} className="mt-2 text-sm text-blue font-sans font-medium hover:underline">Clear filters</button>
+              <button onClick={clearAll} className="mt-2 text-sm text-gold font-sans font-medium hover:underline">Clear filters</button>
             )}
           </div>
         )}

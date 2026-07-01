@@ -93,7 +93,7 @@ export function ApplicationDetailClient({ app }: { app: AdminApplication }) {
                 <div ref={dropRef} className="relative">
                   <button
                     onClick={() => setDropOpen((o) => !o)}
-                    className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg bg-blue/10 text-blue text-xs font-semibold font-sans hover:bg-blue/20 transition-colors"
+                    className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg bg-gold/10 text-gold text-xs font-semibold font-sans hover:bg-gold/20 transition-colors"
                   >
                     {STATUS_LABEL[status]} <ChevronDown className="h-3.5 w-3.5" />
                   </button>
@@ -105,7 +105,7 @@ export function ApplicationDetailClient({ app }: { app: AdminApplication }) {
                           onClick={() => updateStatus(s)}
                           className={cn(
                             "w-full text-left px-4 py-2 text-sm font-sans hover:bg-mist transition-colors",
-                            s === status ? "text-blue font-semibold" : "text-ink"
+                            s === status ? "text-gold font-semibold" : "text-ink"
                           )}
                         >
                           {STATUS_LABEL[s]}
@@ -128,8 +128,8 @@ export function ApplicationDetailClient({ app }: { app: AdminApplication }) {
                     <div
                       className={cn(
                         "h-10 w-10 rounded-full grid place-items-center font-sans font-bold text-sm",
-                        done && "bg-blue text-white",
-                        active && "bg-blue text-white ring-4 ring-blue/15",
+                        done && "bg-navy text-white",
+                        active && "bg-gold text-navy ring-4 ring-gold/15",
                         !done && !active && "bg-mist-2 text-muted"
                       )}
                     >
@@ -154,13 +154,13 @@ export function ApplicationDetailClient({ app }: { app: AdminApplication }) {
                     <div className="flex flex-col items-center">
                       <div className={cn(
                         "h-8 w-8 rounded-full grid place-items-center font-sans font-bold text-xs flex-shrink-0",
-                        done && "bg-blue text-white",
-                        active && "bg-blue text-white",
+                        done && "bg-navy text-white",
+                        active && "bg-gold text-navy",
                         !done && !active && "bg-mist-2 text-muted"
                       )}>
                         {done ? <Check className="h-4 w-4" /> : i + 1}
                       </div>
-                      {i < TIMELINE.length - 1 && <div className={cn("w-0.5 flex-1 min-h-[28px]", done ? "bg-blue" : "bg-line")} />}
+                      {i < TIMELINE.length - 1 && <div className={cn("w-0.5 flex-1 min-h-[28px]", done ? "bg-navy" : "bg-line")} />}
                     </div>
                     <div className="pb-5">
                       <p className={cn("text-sm font-sans font-semibold", active || done ? "text-navy" : "text-muted")}>{step.label}</p>
@@ -203,7 +203,7 @@ export function ApplicationDetailClient({ app }: { app: AdminApplication }) {
                     </div>
                     <DocBadge status={d.status} />
                     <div className="hidden sm:flex items-center gap-1.5 flex-shrink-0">
-                      <button className="text-xs font-sans font-medium text-blue hover:underline px-2">View</button>
+                      <button className="text-xs font-sans font-medium text-gold hover:underline px-2">View</button>
                       <button className="inline-flex items-center gap-1 text-xs font-sans font-medium text-muted hover:text-ink px-2">
                         <Download className="h-3.5 w-3.5" /> Download
                       </button>
@@ -224,7 +224,7 @@ export function ApplicationDetailClient({ app }: { app: AdminApplication }) {
               <div className="space-y-2">
                 <button
                   onClick={approve}
-                  className="w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-lg bg-blue text-white text-sm font-semibold font-sans hover:bg-blue-hover transition-colors"
+                  className="w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity"
                 >
                   <Check className="h-4 w-4" /> Approve Application
                 </button>

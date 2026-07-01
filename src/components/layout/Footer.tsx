@@ -61,11 +61,11 @@ export function Footer() {
       {/* Blurred glow orbs — kept away from the top edge */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div
-          className="absolute bottom-0 -left-20 w-[480px] h-[480px] rounded-full bg-blue opacity-[0.14]"
+          className="absolute bottom-0 -left-20 w-[480px] h-[480px] rounded-full bg-gold opacity-[0.14]"
           style={{ filter: "blur(120px)" }}
         />
         <div
-          className="absolute -bottom-16 right-0 w-[400px] h-[400px] rounded-full bg-blue opacity-[0.09]"
+          className="absolute -bottom-16 right-0 w-[400px] h-[400px] rounded-full bg-gold opacity-[0.09]"
           style={{ filter: "blur(100px)" }}
         />
         {/* Top-edge mask — keeps the top of the footer solid navy */}

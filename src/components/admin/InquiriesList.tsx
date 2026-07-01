@@ -56,7 +56,7 @@ export function InquiriesList() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search inquiries…"
-            className="h-9 w-full sm:w-64 pl-9 pr-3 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue"
+            className="h-9 w-full sm:w-64 pl-9 pr-3 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold"
           />
         </div>
       </div>

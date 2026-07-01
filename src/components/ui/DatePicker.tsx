@@ -163,7 +163,7 @@ export function DatePicker({
             "h-11 w-full rounded-lg border px-4 text-left font-sans text-sm transition-colors",
             "bg-white border-line",
             !selected && "text-muted/60",
-            open && "border-blue ring-2 ring-blue/20",
+            open && "border-gold ring-2 ring-blue/20",
             error && "border-danger",
             className
           )}
@@ -189,14 +189,14 @@ export function DatePicker({
                     <button
                       type="button"
                       onClick={() => setViewMode("months")}
-                      className="font-sans font-semibold text-sm text-ink hover:text-blue transition-colors px-2 py-1 rounded hover:bg-blue/5"
+                      className="font-sans font-semibold text-sm text-ink hover:text-gold transition-colors px-2 py-1 rounded hover:bg-gold/5"
                     >
                       {MONTHS_FULL[viewMonth]}
                     </button>
                     <button
                       type="button"
                       onClick={() => setViewMode("years")}
-                      className="font-sans font-semibold text-sm text-ink hover:text-blue transition-colors px-2 py-1 rounded hover:bg-blue/5"
+                      className="font-sans font-semibold text-sm text-ink hover:text-gold transition-colors px-2 py-1 rounded hover:bg-gold/5"
                     >
                       {viewYear}
                     </button>
@@ -223,7 +223,7 @@ export function DatePicker({
                   <button
                     type="button"
                     onClick={() => setViewMode("years")}
-                    className="font-sans font-semibold text-sm text-ink hover:text-blue transition-colors px-2 py-1 rounded hover:bg-blue/5"
+                    className="font-sans font-semibold text-sm text-ink hover:text-gold transition-colors px-2 py-1 rounded hover:bg-gold/5"
                   >
                     {viewYear}
                   </button>
@@ -289,9 +289,9 @@ export function DatePicker({
                         className={cn(
                           "h-9 w-full flex items-center justify-center rounded-lg text-sm font-sans transition-colors",
                           isDisabled && "text-muted/30 cursor-not-allowed",
-                          !isDisabled && !isSelected && "hover:bg-blue/5 text-ink",
-                          isSelected && "bg-blue text-white font-medium",
-                          isToday && !isSelected && "border border-blue text-blue font-medium"
+                          !isDisabled && !isSelected && "hover:bg-gold/5 text-ink",
+                          isSelected && "bg-gold text-white font-medium",
+                          isToday && !isSelected && "border border-gold text-gold font-medium"
                         )}
                       >
                         {day}
@@ -315,8 +315,8 @@ export function DatePicker({
                       onClick={() => { setViewMonth(i); setViewMode("days"); }}
                       className={cn(
                         "h-10 rounded-lg text-sm font-sans font-medium transition-colors",
-                        isSelected ? "bg-blue text-white" : "text-ink hover:bg-blue/5",
-                        isCurrentMonth && !isSelected && "border border-blue text-blue"
+                        isSelected ? "bg-gold text-white" : "text-ink hover:bg-gold/5",
+                        isCurrentMonth && !isSelected && "border border-gold text-gold"
                       )}
                     >
                       {m}
@@ -339,8 +339,8 @@ export function DatePicker({
                       onClick={() => { setViewYear(y); setViewMode("months"); }}
                       className={cn(
                         "h-10 rounded-lg text-sm font-sans font-medium transition-colors",
-                        isSelected ? "bg-blue text-white" : "text-ink hover:bg-blue/5",
-                        isCurrentYear && !isSelected && "border border-blue text-blue"
+                        isSelected ? "bg-gold text-white" : "text-ink hover:bg-gold/5",
+                        isCurrentYear && !isSelected && "border border-gold text-gold"
                       )}
                     >
                       {y}
@@ -366,7 +366,7 @@ export function DatePicker({
                   setViewYear(today.getFullYear());
                   setViewMode("days");
                 }}
-                className="text-xs font-sans text-blue font-medium hover:underline"
+                className="text-xs font-sans text-gold font-medium hover:underline"
               >
                 Today
               </button>
@@ -477,7 +477,7 @@ export function DatePickerDark({
             "border-white/15 bg-white/5",
             !selected && "text-white/40",
             selected && "text-white",
-            open && "border-blue ring-2 ring-blue/30",
+            open && "border-gold ring-2 ring-blue/30",
             error && "border-danger",
             className
           )}
@@ -499,14 +499,14 @@ export function DatePickerDark({
                     <button
                       type="button"
                       onClick={() => setViewMode("months")}
-                      className="font-sans font-semibold text-sm text-ink hover:text-blue transition-colors px-2 py-1 rounded hover:bg-blue/5"
+                      className="font-sans font-semibold text-sm text-ink hover:text-gold transition-colors px-2 py-1 rounded hover:bg-gold/5"
                     >
                       {MONTHS_FULL[viewMonth]}
                     </button>
                     <button
                       type="button"
                       onClick={() => setViewMode("years")}
-                      className="font-sans font-semibold text-sm text-ink hover:text-blue transition-colors px-2 py-1 rounded hover:bg-blue/5"
+                      className="font-sans font-semibold text-sm text-ink hover:text-gold transition-colors px-2 py-1 rounded hover:bg-gold/5"
                     >
                       {viewYear}
                     </button>
@@ -525,7 +525,7 @@ export function DatePickerDark({
                   <button
                     type="button"
                     onClick={() => setViewMode("years")}
-                    className="font-sans font-semibold text-sm text-ink hover:text-blue transition-colors px-2 py-1 rounded hover:bg-blue/5"
+                    className="font-sans font-semibold text-sm text-ink hover:text-gold transition-colors px-2 py-1 rounded hover:bg-gold/5"
                   >
                     {viewYear}
                   </button>
@@ -575,9 +575,9 @@ export function DatePickerDark({
                         className={cn(
                           "h-9 w-full flex items-center justify-center rounded-lg text-sm font-sans transition-colors",
                           isDisabled && "text-muted/30 cursor-not-allowed",
-                          !isDisabled && !isSelected && "hover:bg-blue/5 text-ink",
-                          isSelected && "bg-blue text-white font-medium",
-                          isToday && !isSelected && "border border-blue text-blue font-medium"
+                          !isDisabled && !isSelected && "hover:bg-gold/5 text-ink",
+                          isSelected && "bg-gold text-white font-medium",
+                          isToday && !isSelected && "border border-gold text-gold font-medium"
                         )}
                       >
                         {day}
@@ -601,8 +601,8 @@ export function DatePickerDark({
                       onClick={() => { setViewMonth(i); setViewMode("days"); }}
                       className={cn(
                         "h-10 rounded-lg text-sm font-sans font-medium transition-colors",
-                        isSelected ? "bg-blue text-white" : "text-ink hover:bg-blue/5",
-                        isCurrentMonth && !isSelected && "border border-blue text-blue"
+                        isSelected ? "bg-gold text-white" : "text-ink hover:bg-gold/5",
+                        isCurrentMonth && !isSelected && "border border-gold text-gold"
                       )}
                     >
                       {m}
@@ -625,8 +625,8 @@ export function DatePickerDark({
                       onClick={() => { setViewYear(y); setViewMode("months"); }}
                       className={cn(
                         "h-10 rounded-lg text-sm font-sans font-medium transition-colors",
-                        isSelected ? "bg-blue text-white" : "text-ink hover:bg-blue/5",
-                        isCurrentYear && !isSelected && "border border-blue text-blue"
+                        isSelected ? "bg-gold text-white" : "text-ink hover:bg-gold/5",
+                        isCurrentYear && !isSelected && "border border-gold text-gold"
                       )}
                     >
                       {y}
@@ -644,7 +644,7 @@ export function DatePickerDark({
               <button
                 type="button"
                 onClick={() => { setViewMonth(today.getMonth()); setViewYear(today.getFullYear()); setViewMode("days"); }}
-                className="text-xs font-sans text-blue font-medium hover:underline"
+                className="text-xs font-sans text-gold font-medium hover:underline"
               >
                 Today
               </button>

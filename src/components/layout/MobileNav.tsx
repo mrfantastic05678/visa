@@ -68,9 +68,9 @@ export function MobileNav({ links, open, onClose }: MobileNavProps) {
           ))}
         </nav>
 
-        <div className="px-6 pb-6 space-y-3 flex-shrink-0 mt-auto">
+        <div className="px-6 pb-6 space-y-4 flex-shrink-0 mt-auto">
           <Link href="/apply" onClick={onClose}>
-            <button className="w-full h-12 rounded-xl bg-gradient-to-r from-gold to-[#F0C864] text-navy font-semibold font-sans text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+            <button className="w-full h-12 rounded-xl bg-gradient-to-r from-gold to-[#F0C864] text-navy font-semibold font-sans text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity mb-3">
               Apply Now
               <ArrowRight className="h-4 w-4 flex-shrink-0" />
             </button>

@@ -45,11 +45,11 @@ export function InternalNotes({ initial }: { initial: Note[] }) {
         onChange={(e) => setText(e.target.value)}
         rows={2}
         placeholder="Add a note…"
-        className="w-full px-3 py-2.5 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue resize-none"
+        className="w-full px-3 py-2.5 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold resize-none"
       />
       <button
         onClick={post}
-        className="mt-2 w-full h-10 rounded-lg bg-navy text-white text-sm font-semibold font-sans hover:bg-navy-2 transition-colors"
+        className="mt-2 w-full h-10 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity"
       >
         Post note
       </button>

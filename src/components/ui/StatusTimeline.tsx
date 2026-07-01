@@ -39,7 +39,7 @@ function StepIcon({
     return <CheckCircle className="h-5 w-5 text-success" />;
   }
   if (currentOrder === stepOrder) {
-    return <Clock className="h-5 w-5 text-blue" />;
+    return <Clock className="h-5 w-5 text-gold" />;
   }
   return <Circle className="h-5 w-5 text-line" />;
 }
@@ -77,7 +77,7 @@ export function StatusTimeline({
                 className={cn(
                   "h-10 w-10 rounded-full flex items-center justify-center bg-white border-2",
                   isPast && "border-success",
-                  isActive && "border-blue",
+                  isActive && "border-gold",
                   !isPast && !isActive && "border-line"
                 )}
               >
@@ -91,7 +91,7 @@ export function StatusTimeline({
               <span
                 className={cn(
                   "text-sm font-sans font-medium whitespace-nowrap",
-                  isActive && "text-blue",
+                  isActive && "text-gold",
                   isPast && "text-ink",
                   !isPast && !isActive && "text-muted"
                 )}
@@ -124,7 +124,7 @@ export function StatusTimeline({
                   className={cn(
                     "h-8 w-8 rounded-full flex items-center justify-center bg-white border-2",
                     isPast && "border-success",
-                    isActive && "border-blue",
+                    isActive && "border-gold",
                     !isPast && !isActive && "border-line"
                   )}
                 >
@@ -148,7 +148,7 @@ export function StatusTimeline({
                 <p
                   className={cn(
                     "font-sans font-medium text-sm",
-                    isActive && "text-blue",
+                    isActive && "text-gold",
                     isPast && "text-ink",
                     !isPast && !isActive && "text-muted"
                   )}

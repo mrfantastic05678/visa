@@ -39,7 +39,7 @@ export default function AdminMorePage() {
         <div className="min-w-0">
           <p className="font-display font-bold text-lg text-white truncate">{currentUser.name}</p>
           <p className="text-sm text-white/60 font-sans truncate">{currentUser.role}</p>
-          <p className="text-xs text-blue font-sans truncate mt-0.5">{currentUser.email}</p>
+          <p className="text-xs text-gold font-sans truncate mt-0.5">{currentUser.email}</p>
         </div>
       </div>
 
@@ -61,8 +61,8 @@ export default function AdminMorePage() {
             href={href}
             className="flex items-center gap-3 bg-white rounded-xl border border-line p-4 hover:bg-mist transition-colors"
           >
-            <span className="h-10 w-10 rounded-lg bg-blue/10 grid place-items-center flex-shrink-0">
-              <Icon className="h-5 w-5 text-blue" />
+            <span className="h-10 w-10 rounded-lg bg-gold/10 grid place-items-center flex-shrink-0">
+              <Icon className="h-5 w-5 text-gold" />
             </span>
             <div className="min-w-0 flex-1">
               <p className="font-sans font-semibold text-ink text-sm">{label}</p>

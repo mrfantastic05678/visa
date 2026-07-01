@@ -39,12 +39,12 @@ export function Hero({ children }: { children?: React.ReactNode }) {
             className="absolute inset-0 opacity-40"
             style={{
               background:
-                "radial-gradient(ellipse at 70% 30%, #0057FF22 0%, transparent 70%)",
+                "radial-gradient(ellipse at 70% 30%, #C49A2C18 0%, transparent 70%)",
             }}
           />
           {/* Blurred glow orbs — kept below the top edge */}
           <div
-            className="absolute top-24 -right-24 w-[580px] h-[580px] rounded-full bg-blue opacity-[0.18]"
+            className="absolute top-24 -right-24 w-[580px] h-[580px] rounded-full bg-gold opacity-[0.18]"
             style={{ filter: "blur(130px)" }}
           />
           <div
@@ -52,7 +52,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
             style={{ filter: "blur(100px)" }}
           />
           <div
-            className="absolute -bottom-24 -left-24 w-[440px] h-[440px] rounded-full bg-blue opacity-[0.09]"
+            className="absolute -bottom-24 -left-24 w-[440px] h-[440px] rounded-full bg-gold opacity-[0.09]"
             style={{ filter: "blur(110px)" }}
           />
           <div

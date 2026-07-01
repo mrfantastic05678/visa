@@ -119,7 +119,7 @@ export function Dropdown({
               ? "bg-white/5 border-white/15 text-white"
               : "bg-white border-line",
             !selected && (dark ? "text-white/40" : "text-muted/60"),
-            open && "border-blue ring-2 ring-blue/20",
+            open && "border-gold ring-2 ring-gold/20",
             error && "border-danger focus:border-danger focus:ring-danger/20",
             disabled && "opacity-50 cursor-not-allowed",
             className
@@ -155,12 +155,12 @@ export function Dropdown({
                   onMouseEnter={() => setHighlightedIndex(i)}
                   className={cn(
                     "flex items-center justify-between px-4 py-2.5 cursor-pointer transition-colors",
-                    isHighlighted && "bg-blue/5",
-                    isSelected ? "text-blue font-medium" : "text-ink"
+                    isHighlighted && "bg-gold/5",
+                    isSelected ? "text-gold font-medium" : "text-ink"
                   )}
                 >
                   {opt.label}
-                  {isSelected && <Check className="h-4 w-4 text-blue" />}
+                  {isSelected && <Check className="h-4 w-4 text-gold" />}
                 </li>
               );
             })}
@@ -229,12 +229,12 @@ export function DropdownCompact({
                 }}
                 className={cn(
                   "flex items-center justify-between px-4 py-2 cursor-pointer transition-colors whitespace-nowrap",
-                  "hover:bg-blue/5",
-                  isSelected ? "text-blue font-medium" : "text-ink"
+                  "hover:bg-gold/5",
+                  isSelected ? "text-gold font-medium" : "text-ink"
                 )}
               >
                 {opt.label}
-                {isSelected && <Check className="h-3.5 w-3.5 text-blue" />}
+                {isSelected && <Check className="h-3.5 w-3.5 text-gold" />}
               </li>
             );
           })}

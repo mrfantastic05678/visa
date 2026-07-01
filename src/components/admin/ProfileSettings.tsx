@@ -34,7 +34,7 @@ export function ProfileSettings() {
   }, []);
 
   const input =
-    "w-full h-10 px-3 rounded-lg border border-line bg-white text-sm font-sans text-navy focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue";
+    "w-full h-10 px-3 rounded-lg border border-line bg-white text-sm font-sans text-navy focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold";
   const label = "block text-sm font-sans font-semibold text-ink mb-1.5";
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -110,7 +110,7 @@ export function ProfileSettings() {
               <button
                 onClick={() => fileRef.current?.click()}
                 disabled={uploading}
-                className="inline-flex items-center gap-1.5 text-xs font-sans font-medium text-blue hover:underline cursor-pointer disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 text-xs font-sans font-medium text-gold hover:underline cursor-pointer disabled:opacity-50"
               >
                 <Upload className="h-3 w-3" />
                 {avatarSrc ? "Change photo" : "Upload photo"}
@@ -157,17 +157,17 @@ export function ProfileSettings() {
           <p className="text-sm font-sans font-semibold text-ink">Notifications</p>
           <label className="flex items-center justify-between gap-3 py-2">
             <span className="text-sm font-sans text-ink">Email alerts for new applications</span>
-            <input type="checkbox" checked={emailAlerts} onChange={(e) => setEmailAlerts(e.target.checked)} className="h-4 w-4 rounded border-line accent-blue" />
+            <input type="checkbox" checked={emailAlerts} onChange={(e) => setEmailAlerts(e.target.checked)} className="h-4 w-4 rounded border-line accent-gold" />
           </label>
           <label className="flex items-center justify-between gap-3 py-2">
             <span className="text-sm font-sans text-ink">WhatsApp alerts for client replies</span>
-            <input type="checkbox" checked={whatsappAlerts} onChange={(e) => setWhatsappAlerts(e.target.checked)} className="h-4 w-4 rounded border-line accent-blue" />
+            <input type="checkbox" checked={whatsappAlerts} onChange={(e) => setWhatsappAlerts(e.target.checked)} className="h-4 w-4 rounded border-line accent-gold" />
           </label>
         </div>
 
         <button
           onClick={save}
-          className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-blue text-white text-sm font-semibold font-sans hover:bg-blue-hover transition-colors"
+          className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity"
         >
           {saved && <Check className="h-4 w-4" />}
           {saved ? "Saved" : "Save Changes"}

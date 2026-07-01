@@ -27,8 +27,8 @@ export default async function AdminStudioPage() {
       <div className="px-4 lg:px-8 pb-10 max-w-3xl">
         {isConfigured ? (
           <div className="bg-white rounded-xl border border-line p-8 text-center space-y-4">
-            <div className="h-14 w-14 rounded-2xl bg-blue/10 grid place-items-center mx-auto">
-              <PenLine className="h-7 w-7 text-blue" />
+            <div className="h-14 w-14 rounded-2xl bg-gold/10 grid place-items-center mx-auto">
+              <PenLine className="h-7 w-7 text-gold" />
             </div>
             <div>
               <p className="font-display font-bold text-navy text-xl">Studio ready</p>
@@ -38,7 +38,7 @@ export default async function AdminStudioPage() {
               href={`https://${projectId}.sanity.studio/`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 h-11 px-5 rounded-lg bg-blue text-white text-sm font-semibold font-sans hover:bg-blue-hover transition-colors"
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity"
             >
               Open Studio <ExternalLink className="h-4 w-4" />
             </a>
@@ -70,7 +70,7 @@ export default async function AdminStudioPage() {
               <ul className="divide-y divide-line">
                 {SCHEMAS.map((s) => (
                   <li key={s.name} className="flex items-center gap-4 px-5 py-4">
-                    <code className="text-xs font-mono text-blue bg-blue/5 px-2 py-1 rounded w-44 flex-shrink-0 truncate">{s.name}</code>
+                    <code className="text-xs font-mono text-gold bg-gold/5 px-2 py-1 rounded w-44 flex-shrink-0 truncate">{s.name}</code>
                     <div className="min-w-0">
                       <p className="text-sm font-sans font-medium text-ink">{s.label}</p>
                       <p className="text-xs text-muted font-sans">{s.desc}</p>
@@ -83,10 +83,10 @@ export default async function AdminStudioPage() {
             <div className="mt-6 bg-mist rounded-xl border border-line p-5">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted font-sans mb-3">Setup steps</p>
               <ol className="space-y-2 text-sm font-sans text-ink">
-                <li className="flex gap-2.5"><span className="font-mono text-blue font-bold">1.</span> Run <code className="text-xs bg-white border border-line px-1.5 py-0.5 rounded font-mono">npx sanity@latest init</code> in the project root</li>
-                <li className="flex gap-2.5"><span className="font-mono text-blue font-bold">2.</span> Add the project ID and dataset to <code className="text-xs bg-white border border-line px-1.5 py-0.5 rounded font-mono">.env.local</code></li>
-                <li className="flex gap-2.5"><span className="font-mono text-blue font-bold">3.</span> Run <code className="text-xs bg-white border border-line px-1.5 py-0.5 rounded font-mono">/sp.adr sanity-setup</code> to document the CMS integration decision</li>
-                <li className="flex gap-2.5"><span className="font-mono text-blue font-bold">4.</span> Restart dev server — this page will switch to the "Studio ready" view</li>
+                <li className="flex gap-2.5"><span className="font-mono text-gold font-bold">1.</span> Run <code className="text-xs bg-white border border-line px-1.5 py-0.5 rounded font-mono">npx sanity@latest init</code> in the project root</li>
+                <li className="flex gap-2.5"><span className="font-mono text-gold font-bold">2.</span> Add the project ID and dataset to <code className="text-xs bg-white border border-line px-1.5 py-0.5 rounded font-mono">.env.local</code></li>
+                <li className="flex gap-2.5"><span className="font-mono text-gold font-bold">3.</span> Run <code className="text-xs bg-white border border-line px-1.5 py-0.5 rounded font-mono">/sp.adr sanity-setup</code> to document the CMS integration decision</li>
+                <li className="flex gap-2.5"><span className="font-mono text-gold font-bold">4.</span> Restart dev server — this page will switch to the "Studio ready" view</li>
               </ol>
             </div>
           </>

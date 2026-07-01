@@ -19,12 +19,12 @@ export function VisaTypeCard({ visa }: { visa: VisaTypeData }) {
       className={
         "relative rounded-xl bg-white p-7 flex flex-col transition-all " +
         (isPopular
-          ? "border-2 border-blue shadow-md"
+          ? "border-2 border-gold shadow-md"
           : "border border-line hover:border-gold/40 hover:shadow-sm")
       }
     >
       {visa.badge_text && (
-        <span className="absolute top-6 right-6 inline-flex items-center rounded-full bg-blue px-3 py-1 text-[11px] font-semibold text-white font-sans">
+        <span className="absolute top-6 right-6 inline-flex items-center rounded-full bg-navy px-3 py-1 text-[11px] font-semibold text-white font-sans">
           {visa.badge_text}
         </span>
       )}

@@ -35,14 +35,14 @@ export function NewApplicationButton() {
   }
 
   const input =
-    "w-full h-10 px-3 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue";
+    "w-full h-10 px-3 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold";
   const label = "block text-sm font-sans font-semibold text-ink mb-1.5";
 
   return (
     <>
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-blue text-white text-sm font-semibold font-sans hover:bg-blue-hover transition-colors whitespace-nowrap"
+        className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity whitespace-nowrap"
       >
         <Plus className="h-4 w-4" /> New Application
       </button>
@@ -91,7 +91,7 @@ export function NewApplicationButton() {
                     ))}
                   </select>
                 </div>
-                <button type="submit" className="w-full h-11 rounded-lg bg-blue text-white text-sm font-semibold font-sans hover:bg-blue-hover transition-colors">
+                <button type="submit" className="w-full h-11 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity">
                   Create Application
                 </button>
               </form>

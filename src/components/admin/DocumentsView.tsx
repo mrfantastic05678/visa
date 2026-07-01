@@ -77,13 +77,13 @@ export function DocumentsView() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search documents…"
-              className="h-9 w-full pl-9 pr-3 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue"
+              className="h-9 w-full pl-9 pr-3 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold"
             />
           </div>
           <select
             value={applicant}
             onChange={(e) => setApplicant(e.target.value)}
-            className="h-9 px-3 rounded-lg border border-line bg-white text-sm font-sans text-navy focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue"
+            className="h-9 px-3 rounded-lg border border-line bg-white text-sm font-sans text-navy focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold"
           >
             <option value="all">All clients</option>
             {applicants.map((a) => (
@@ -125,7 +125,7 @@ export function DocumentsView() {
                 <p className="text-xs text-muted font-sans truncate">{d.applicant} · {d.size}</p>
               </div>
               <DocBadge status={d.status} />
-              <button className="text-sm font-sans font-medium text-blue hover:underline flex-shrink-0 hidden sm:block">View</button>
+              <button className="text-sm font-sans font-medium text-gold hover:underline flex-shrink-0 hidden sm:block">View</button>
             </div>
           ))}
         </div>

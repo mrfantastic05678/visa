@@ -26,7 +26,7 @@ export function FlagIcon({ country, className }: { country: string; className?: 
 export function Avatar({
   initials,
   src,
-  color = "bg-blue",
+  color = "bg-navy",
   className,
 }: {
   initials: string;
@@ -59,7 +59,7 @@ export function Avatar({
 const appStatusStyles: Record<AdminAppStatus, string> = {
   submitted: "bg-mist-2 text-ink",
   reviewing: "bg-amber-50 text-amber-600",
-  processing: "bg-blue/10 text-blue",
+  processing: "bg-gold/10 text-gold",
   approved: "bg-emerald-50 text-emerald-600",
   rejected: "bg-red-50 text-red-500",
 };
@@ -80,7 +80,7 @@ export function AppStatusBadge({ status, className }: { status: AdminAppStatus; 
 }
 
 const inquiryStyles: Record<InquiryStatus, string> = {
-  new: "bg-blue/10 text-blue",
+  new: "bg-gold/10 text-gold",
   replied: "bg-emerald-50 text-emerald-600",
   closed: "bg-mist-2 text-muted",
 };
@@ -101,7 +101,7 @@ export function InquiryBadge({ status }: { status: InquiryStatus }) {
 
 const docStyles: Record<DocStatus, string> = {
   verified: "bg-emerald-50 text-emerald-600",
-  pending: "bg-blue/10 text-blue",
+  pending: "bg-gold/10 text-gold",
   rejected: "bg-red-50 text-red-500",
 };
 

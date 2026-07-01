@@ -88,9 +88,9 @@ function printReceipt(result: TrackResponse) {
   <div class="header">
     <div class="logo-wrap">
       <svg style="height:32px;flex-shrink:0" viewBox="0 0 191.5 267" aria-hidden="true">
-        <path d="M 191.5 65 L 0 133.5 L 0.5 56.5 L 118.5 0 L 191.5 0 L 191.5 65 Z" fill="#3D7BFF"/>
-        <path transform="translate(0,101)" d="M 0 166 L 0 32 L 89 0 L 137 10 C 74.6 52.4 19.667 131.667 0 166 Z" fill="#0057FF"/>
-        <path transform="translate(0,101)" d="M 137 10 L 0 32.5 L 90 0 L 137 10 Z" fill="#0042C4"/>
+        <path d="M 191.5 65 L 0 133.5 L 0.5 56.5 L 118.5 0 L 191.5 0 L 191.5 65 Z" fill="#F0C864"/>
+        <path transform="translate(0,101)" d="M 0 166 L 0 32 L 89 0 L 137 10 C 74.6 52.4 19.667 131.667 0 166 Z" fill="#C49A2C"/>
+        <path transform="translate(0,101)" d="M 137 10 L 0 32.5 L 90 0 L 137 10 Z" fill="#AD8724"/>
       </svg>
       <div>
         <p class="brand">VISATI</p>

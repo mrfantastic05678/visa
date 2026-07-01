@@ -76,7 +76,7 @@ export function InquiryThread({ inquiry }: { inquiry: AdminInquiry }) {
 
           {/* How replies work — visible only when thread has just the client's first message */}
           {messages.length === 1 && messages[0].from === "client" && (
-            <div className="rounded-lg bg-blue/5 border border-blue/15 px-4 py-3 mb-4 text-xs font-sans text-blue/80 leading-relaxed">
+            <div className="rounded-lg bg-gold/5 border border-gold/15 px-4 py-3 mb-4 text-xs font-sans text-gold/80 leading-relaxed">
               This inquiry came from the public contact form. Reply in-app below, or use WhatsApp/Email to reach the client directly.
             </div>
           )}
@@ -84,7 +84,7 @@ export function InquiryThread({ inquiry }: { inquiry: AdminInquiry }) {
           <div className="space-y-3">
             {messages.map((m, i) => (
               <div key={i} className={cn("flex", m.from === "agent" ? "justify-end" : "justify-start")}>
-                <div className={cn("max-w-[80%] rounded-xl px-4 py-2.5", m.from === "agent" ? "bg-blue text-white" : "bg-mist text-ink")}>
+                <div className={cn("max-w-[80%] rounded-xl px-4 py-2.5", m.from === "agent" ? "bg-navy text-white" : "bg-mist text-ink")}>
                   <p className="text-sm font-sans leading-relaxed">{m.text}</p>
                   <p className={cn("text-[10px] font-sans mt-1", m.from === "agent" ? "text-white/60" : "text-muted")}>{m.time}</p>
                 </div>
@@ -108,12 +108,12 @@ export function InquiryThread({ inquiry }: { inquiry: AdminInquiry }) {
             onChange={(e) => setReply(e.target.value)}
             rows={3}
             placeholder="Type your reply…"
-            className="w-full px-3 py-2.5 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue/20 focus:border-blue resize-none"
+            className="w-full px-3 py-2.5 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold resize-none"
           />
           <div className="flex items-center gap-2 mt-3 flex-wrap">
             <button
               onClick={() => send()}
-              className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-blue text-white text-sm font-semibold font-sans hover:bg-blue-hover transition-colors"
+              className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity"
             >
               <Send className="h-4 w-4" /> Send Reply
             </button>
@@ -135,12 +135,12 @@ export function InquiryThread({ inquiry }: { inquiry: AdminInquiry }) {
       <div className="space-y-6">
         {suggestedVisa && (
           <div className="rounded-xl bg-navy p-5 text-white">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-blue mb-2">Suggested Visa</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-gold mb-2">Suggested Visa</p>
             <p className="font-display font-bold text-xl">{suggestedVisa.name}</p>
             <p className="text-sm text-white/60 font-sans mt-1">{suggestedVisa.price}</p>
             <button
               onClick={() => send("I'd recommend our " + suggestedVisa!.name + ". Shall I send a quote?")}
-              className="mt-4 w-full h-11 rounded-lg bg-blue text-white text-sm font-semibold hover:bg-blue-hover transition-colors"
+              className="mt-4 w-full h-11 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold hover:opacity-90 transition-opacity"
             >
               Send quote to client
             </button>

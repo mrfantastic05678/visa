@@ -36,8 +36,8 @@ export function VisaCard({
     <div
       className={cn(
         "relative rounded-xl border bg-white transition-all duration-150",
-        "hover:shadow-md hover:border-blue/40",
-        selected && "border-blue ring-2 ring-blue/20 shadow-md",
+        "hover:shadow-md hover:border-gold/40",
+        selected && "border-gold ring-2 ring-gold/20 shadow-md",
         !selected && "border-line",
         onSelect && "cursor-pointer",
         compact ? "p-4" : "p-6",

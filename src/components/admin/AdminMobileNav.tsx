@@ -37,7 +37,7 @@ export function AdminMobileNav() {
                 <span
                   className={cn(
                     "absolute -top-4 h-12 w-12 rounded-full grid place-items-center shadow-lg",
-                    active ? "bg-blue" : "bg-blue"
+                    active ? "bg-navy" : "bg-navy"
                   )}
                 >
                   <Icon className="h-5 w-5 text-white" />
@@ -45,7 +45,7 @@ export function AdminMobileNav() {
                 <span
                   className={cn(
                     "text-[10px] font-sans font-medium mt-7",
-                    active ? "text-blue" : "text-muted"
+                    active ? "text-gold" : "text-muted"
                   )}
                 >
                   {label}
@@ -62,13 +62,13 @@ export function AdminMobileNav() {
               <Icon
                 className={cn(
                   "h-5 w-5",
-                  active ? "text-blue" : "text-muted"
+                  active ? "text-gold" : "text-muted"
                 )}
               />
               <span
                 className={cn(
                   "text-[10px] font-sans font-medium",
-                  active ? "text-blue" : "text-muted"
+                  active ? "text-gold" : "text-muted"
                 )}
               >
                 {label}

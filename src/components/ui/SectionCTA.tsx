@@ -23,7 +23,7 @@ interface SectionCTAProps {
 
 const variantStyles = {
   primary:
-    "bg-blue text-white hover:bg-blue-hover",
+    "bg-gradient-to-r from-gold to-[#F0C864] text-navy hover:opacity-90 transition-opacity",
   whatsapp:
     "bg-whatsapp text-white hover:bg-whatsapp-hover",
   outline:

@@ -94,7 +94,7 @@ export function UsersManager() {
                 <td className="px-3 py-3.5 font-sans text-ink">{u.appsHandled}</td>
                 <td className="px-3 py-3.5">
                   <div className="flex items-center justify-end gap-2">
-                    <button onClick={() => setActivityUser(u)} className="text-xs font-sans font-medium text-blue hover:underline">Activity</button>
+                    <button onClick={() => setActivityUser(u)} className="text-xs font-sans font-medium text-gold hover:underline">Activity</button>
                     {u.status === "pending" && (
                       <>
                         <button onClick={() => setStatus(u.id, "active")} className="inline-flex items-center gap-1 h-8 px-3 rounded-lg bg-emerald-50 text-emerald-600 text-xs font-semibold font-sans hover:bg-emerald-100">
@@ -178,7 +178,7 @@ export function UsersManager() {
             <ul className="space-y-4">
               {activityUser.activity.map((a, i) => (
                 <li key={i} className="flex gap-3">
-                  <span className="mt-1.5 h-2 w-2 rounded-full bg-blue flex-shrink-0" />
+                  <span className="mt-1.5 h-2 w-2 rounded-full bg-navy flex-shrink-0" />
                   <div className="min-w-0">
                     <p className="text-sm font-sans text-ink">{a.text}</p>
                     <p className="text-xs text-muted font-sans mt-0.5">{a.time}</p>

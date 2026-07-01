@@ -76,7 +76,7 @@ export function VisaPricingRow({ visa }: { visa: PricingVisa }) {
         <button
           onClick={save}
           disabled={!dirty || loading}
-          className="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-blue text-white text-sm font-sans font-semibold hover:bg-blue-hover transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-sans font-semibold hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
           {saved ? "Saved" : "Save"}

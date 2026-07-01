@@ -44,7 +44,7 @@ export default function AdminDashboard() {
             </div>
             <Link
               href="/admin/applications"
-              className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-blue text-white text-sm font-semibold whitespace-nowrap"
+              className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold whitespace-nowrap hover:opacity-90 transition-opacity"
             >
               Open Queue <ArrowRight className="h-4 w-4" />
             </Link>
@@ -85,7 +85,7 @@ export default function AdminDashboard() {
               </div>
               <Link
                 href="/admin/applications"
-                className="inline-flex items-center gap-1 text-sm text-blue font-sans font-medium hover:underline"
+                className="inline-flex items-center gap-1 text-sm text-gold font-sans font-medium hover:underline"
               >
                 View all <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -105,7 +105,7 @@ export default function AdminDashboard() {
                   {recent.map((a) => (
                     <tr key={a.id} className="hover:bg-mist transition-colors">
                       <td className="px-5 py-3.5">
-                        <Link href={`/admin/applications/${a.id}`} className="font-mono text-xs text-muted hover:text-blue">
+                        <Link href={`/admin/applications/${a.id}`} className="font-mono text-xs text-muted hover:text-gold">
                           {a.id}
                         </Link>
                       </td>
@@ -136,7 +136,7 @@ export default function AdminDashboard() {
               <p className="text-sm text-white/60 mt-1">Applications awaiting your action</p>
               <Link
                 href="/admin/applications"
-                className="mt-5 w-full inline-flex items-center justify-center gap-2 h-11 rounded-lg bg-blue text-white text-sm font-semibold hover:bg-blue-hover transition-colors"
+                className="mt-5 w-full inline-flex items-center justify-center gap-2 h-11 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold hover:opacity-90 transition-opacity"
               >
                 Open Queue <ArrowRight className="h-4 w-4" />
               </Link>

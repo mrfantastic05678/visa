@@ -58,7 +58,7 @@ interface ChipProps {
 }
 
 const chipVariants: Record<NonNullable<ChipProps["variant"]>, string> = {
-  popular: "bg-blue text-white",
+  popular: "bg-navy text-white",
   entry: "bg-mist-2 text-ink border border-line",
   duration: "bg-mist-2 text-ink border border-line",
   verified: "bg-success/10 text-success border border-success/20",
