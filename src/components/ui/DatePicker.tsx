@@ -477,7 +477,7 @@ export function DatePickerDark({
             "border-white/15 bg-white/5",
             !selected && "text-white/40",
             selected && "text-white",
-            open && "border-gold ring-2 ring-blue/30",
+            open && "border-gold ring-2 ring-gold/20",
             error && "border-danger",
             className
           )}
@@ -487,64 +487,64 @@ export function DatePickerDark({
         <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40 pointer-events-none" />
 
         {open && (
-          <div className="absolute z-[100] mt-1.5 w-72 rounded-xl border border-line bg-white shadow-xl p-4">
+          <div className="absolute z-[100] mt-1.5 w-72 rounded-xl border border-white/15 bg-navy shadow-xl p-4">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
               {viewMode === "days" && (
                 <>
-                  <button type="button" onClick={prevMonth} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-mist transition-colors">
-                    <ChevronLeft className="h-4 w-4 text-ink" />
+                  <button type="button" onClick={prevMonth} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <ChevronLeft className="h-4 w-4 text-white/60" />
                   </button>
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
                       onClick={() => setViewMode("months")}
-                      className="font-sans font-semibold text-sm text-ink hover:text-gold transition-colors px-2 py-1 rounded hover:bg-gold/5"
+                      className="font-sans font-semibold text-sm text-white hover:text-gold transition-colors px-2 py-1 rounded hover:bg-white/10"
                     >
                       {MONTHS_FULL[viewMonth]}
                     </button>
                     <button
                       type="button"
                       onClick={() => setViewMode("years")}
-                      className="font-sans font-semibold text-sm text-ink hover:text-gold transition-colors px-2 py-1 rounded hover:bg-gold/5"
+                      className="font-sans font-semibold text-sm text-white hover:text-gold transition-colors px-2 py-1 rounded hover:bg-white/10"
                     >
                       {viewYear}
                     </button>
                   </div>
-                  <button type="button" onClick={nextMonth} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-mist transition-colors">
-                    <ChevronRight className="h-4 w-4 text-ink" />
+                  <button type="button" onClick={nextMonth} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <ChevronRight className="h-4 w-4 text-white/60" />
                   </button>
                 </>
               )}
 
               {viewMode === "months" && (
                 <>
-                  <button type="button" onClick={() => setViewYear((y) => y - 1)} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-mist transition-colors">
-                    <ChevronLeft className="h-4 w-4 text-ink" />
+                  <button type="button" onClick={() => setViewYear((y) => y - 1)} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <ChevronLeft className="h-4 w-4 text-white/60" />
                   </button>
                   <button
                     type="button"
                     onClick={() => setViewMode("years")}
-                    className="font-sans font-semibold text-sm text-ink hover:text-gold transition-colors px-2 py-1 rounded hover:bg-gold/5"
+                    className="font-sans font-semibold text-sm text-white hover:text-gold transition-colors px-2 py-1 rounded hover:bg-white/10"
                   >
                     {viewYear}
                   </button>
-                  <button type="button" onClick={() => setViewYear((y) => y + 1)} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-mist transition-colors">
-                    <ChevronRight className="h-4 w-4 text-ink" />
+                  <button type="button" onClick={() => setViewYear((y) => y + 1)} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <ChevronRight className="h-4 w-4 text-white/60" />
                   </button>
                 </>
               )}
 
               {viewMode === "years" && (
                 <>
-                  <button type="button" onClick={() => setViewYear((y) => y - 12)} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-mist transition-colors">
-                    <ChevronLeft className="h-4 w-4 text-ink" />
+                  <button type="button" onClick={() => setViewYear((y) => y - 12)} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <ChevronLeft className="h-4 w-4 text-white/60" />
                   </button>
-                  <span className="font-sans font-semibold text-sm text-ink">
+                  <span className="font-sans font-semibold text-sm text-white">
                     {viewYear - 5}–{viewYear + 6}
                   </span>
-                  <button type="button" onClick={() => setViewYear((y) => y + 12)} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-mist transition-colors">
-                    <ChevronRight className="h-4 w-4 text-ink" />
+                  <button type="button" onClick={() => setViewYear((y) => y + 12)} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <ChevronRight className="h-4 w-4 text-white/60" />
                   </button>
                 </>
               )}
@@ -555,7 +555,7 @@ export function DatePickerDark({
               <>
                 <div className="grid grid-cols-7 mb-1">
                   {WEEKDAYS.map((d) => (
-                    <div key={d} className="text-center text-[11px] font-sans font-medium text-muted py-1">{d}</div>
+                    <div key={d} className="text-center text-[11px] font-sans font-medium text-white/40 py-1">{d}</div>
                   ))}
                 </div>
                 <div className="grid grid-cols-7">
@@ -574,9 +574,9 @@ export function DatePickerDark({
                         disabled={isDisabled ?? undefined}
                         className={cn(
                           "h-9 w-full flex items-center justify-center rounded-lg text-sm font-sans transition-colors",
-                          isDisabled && "text-muted/30 cursor-not-allowed",
-                          !isDisabled && !isSelected && "hover:bg-gold/5 text-ink",
-                          isSelected && "bg-gold text-white font-medium",
+                          isDisabled && "text-white/20 cursor-not-allowed",
+                          !isDisabled && !isSelected && "hover:bg-white/10 text-white/80",
+                          isSelected && "bg-gold text-navy font-medium",
                           isToday && !isSelected && "border border-gold text-gold font-medium"
                         )}
                       >
@@ -601,7 +601,7 @@ export function DatePickerDark({
                       onClick={() => { setViewMonth(i); setViewMode("days"); }}
                       className={cn(
                         "h-10 rounded-lg text-sm font-sans font-medium transition-colors",
-                        isSelected ? "bg-gold text-white" : "text-ink hover:bg-gold/5",
+                        isSelected ? "bg-gold text-navy" : "text-white/80 hover:bg-white/10",
                         isCurrentMonth && !isSelected && "border border-gold text-gold"
                       )}
                     >
@@ -625,7 +625,7 @@ export function DatePickerDark({
                       onClick={() => { setViewYear(y); setViewMode("months"); }}
                       className={cn(
                         "h-10 rounded-lg text-sm font-sans font-medium transition-colors",
-                        isSelected ? "bg-gold text-white" : "text-ink hover:bg-gold/5",
+                        isSelected ? "bg-gold text-navy" : "text-white/80 hover:bg-white/10",
                         isCurrentYear && !isSelected && "border border-gold text-gold"
                       )}
                     >
@@ -637,8 +637,8 @@ export function DatePickerDark({
             )}
 
             {/* Footer */}
-            <div className="flex items-center justify-between mt-3 pt-3 border-t border-line">
-              <button type="button" onClick={() => { onChange(""); setOpen(false); setViewMode("days"); }} className="text-xs font-sans text-muted hover:text-ink transition-colors">
+            <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
+              <button type="button" onClick={() => { onChange(""); setOpen(false); setViewMode("days"); }} className="text-xs font-sans text-white/40 hover:text-white transition-colors">
                 Clear
               </button>
               <button

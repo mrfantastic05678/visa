@@ -89,7 +89,7 @@ export async function getFaqs(): Promise<SanityFaq[]> {
 export async function getVisaTypes(): Promise<SanityVisaType[]> {
   return sanityClient.fetch(
     `*[_type == "visaTypeContent" && !(_id in path("drafts.**"))] | order(sort_order asc) {
-      slug, name, icon, tagline, description, features, badge_text,
+      "slug": slug.current, name, icon, tagline, description, features, badge_text,
       price_aed, duration_days, entry_type, processing_time, has_express, sort_order,
       seo { title, description }
     }`,
