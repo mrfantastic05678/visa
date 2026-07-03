@@ -55,9 +55,9 @@ function getArcPath(fromId: string, toId: string) {
 
 export function GlobalReach() {
   return (
-    <section className="bg-navy overflow-hidden">
+    <section className="bg-transparent overflow-hidden">
       <div className="max-w-[1400px] mx-auto py-12 lg:py-16 px-4 sm:px-6 lg:px-10">
-        <div className="rounded-3xl bg-[#0a1a3a]/60 backdrop-blur-sm p-8 lg:p-12 relative overflow-hidden min-h-[300px] lg:min-h-[380px]">
+        <div className="rounded-3xl bg-navy p-8 lg:p-12 relative overflow-hidden min-h-[300px] lg:min-h-[380px]">
 
           {/* --- Map + Pins overlay (full width behind text) --- */}
           <div className="absolute inset-0 py-4">
@@ -152,7 +152,7 @@ export function GlobalReach() {
               </p>
               <Link
                 href="/about"
-                className="mt-6 inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/[0.04] px-5 py-2.5 text-xs font-semibold text-white font-sans hover:bg-white/[0.08] transition-colors"
+                className="mt-6 inline-flex items-center gap-2 rounded-lg border border-gold/25 bg-gold/10 px-5 py-2.5 text-xs font-semibold text-gold font-sans hover:bg-gold/20 transition-colors"
               >
                 More About Us
               </Link>
