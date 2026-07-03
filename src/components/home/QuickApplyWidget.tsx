@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Lock, Zap } from "lucide-react";
 import { Dropdown } from "@/components/ui/Dropdown";
-import { DatePickerDark } from "@/components/ui/DatePicker";
+import { DatePicker } from "@/components/ui/DatePicker";
 import { NationalityDropdown } from "@/components/ui/NationalityDropdown";
 
 interface QuickApplyWidgetProps {
@@ -48,22 +48,19 @@ export function QuickApplyWidget({ visaTypes }: QuickApplyWidgetProps) {
     router.push(`/apply?${params.toString()}`);
   }
 
-  const labelCls =
-    "text-[11px] font-semibold uppercase tracking-widest text-white/50 font-sans";
-
   return (
-    <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 p-6 shadow-lg relative z-50">
+    <div className="rounded-2xl bg-white border border-ink/10 p-6 shadow-xl relative z-50">
       <div className="flex items-start justify-between gap-3 mb-5">
         <div className="min-w-0">
           <p className="text-[11px] font-semibold uppercase tracking-widest text-gold font-sans mb-1.5">
             Quick Apply
           </p>
-          <h3 className="font-display font-bold text-lg text-white leading-snug">
+          <h3 className="font-display font-bold text-lg text-navy leading-snug">
             Check eligibility in 30 sec
           </h3>
         </div>
-        <span className="h-9 w-9 grid place-items-center rounded-lg bg-white/10 flex-shrink-0">
-          <Zap className="h-4 w-4 text-white/70" />
+        <span className="h-9 w-9 grid place-items-center rounded-lg bg-gold/10 flex-shrink-0">
+          <Zap className="h-4 w-4 text-gold" />
         </span>
       </div>
 
@@ -78,7 +75,6 @@ export function QuickApplyWidget({ visaTypes }: QuickApplyWidgetProps) {
             }}
             placeholder="Select nationality"
             error={errors.nationality}
-            dark
           />
         </div>
 
@@ -94,12 +90,11 @@ export function QuickApplyWidget({ visaTypes }: QuickApplyWidgetProps) {
             }}
             placeholder="Select type"
             error={errors.visaType}
-            dark
           />
         </div>
 
         {/* Travel Date */}
-        <DatePickerDark
+        <DatePicker
           label="Travel Date"
           value={travelDate}
           onChange={(v) => {
@@ -118,7 +113,7 @@ export function QuickApplyWidget({ visaTypes }: QuickApplyWidgetProps) {
           <ArrowRight className="h-4 w-4 flex-shrink-0" />
         </button>
 
-        <p className="flex items-center justify-center gap-1.5 text-xs text-white/40 font-sans">
+        <p className="flex items-center justify-center gap-1.5 text-xs text-muted font-sans">
           <Lock className="h-3 w-3 flex-shrink-0" />
           Encrypted &amp; secure · No payment now
         </p>

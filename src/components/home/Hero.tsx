@@ -10,11 +10,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-/* Hallmark · component: hero-entrance · genre: modern-minimal · theme: existing-navy
- * states: load (staggered CSS @keyframes, no JS required)
- * contrast: pass · prefers-reduced-motion: collapse to 0.2s opacity
- */
-
 const TRUST_BADGES = ["Dubai Based", "Trusted Worldwide"];
 
 const TRUST_ICONS = [
@@ -27,40 +22,28 @@ const TRUST_ICONS = [
 export function Hero({ children }: { children?: React.ReactNode }) {
   return (
     <>
-      <section className="relative overflow-x-clip bg-navy">
-        {/* Background — slow zoom-in */}
+      <section className="relative overflow-x-clip bg-white">
+        {/* Background — subtle decorative elements */}
         <div
           className="absolute inset-0 hero-bg"
           style={{ animationDelay: "0ms" }}
           aria-hidden="true"
         >
-          {/* Base radial gradient */}
+          {/* Soft gold glow — top right */}
           <div
-            className="absolute inset-0 opacity-40"
-            style={{
-              background:
-                "radial-gradient(ellipse at 70% 30%, #C49A2C18 0%, transparent 70%)",
-            }}
-          />
-          {/* Blurred glow orbs — kept below the top edge */}
-          <div
-            className="absolute top-24 -right-24 w-[580px] h-[580px] rounded-full bg-gold opacity-[0.18]"
+            className="absolute top-24 -right-24 w-[580px] h-[580px] rounded-full bg-gold opacity-[0.07]"
             style={{ filter: "blur(130px)" }}
           />
+          {/* Subtle gold glow — bottom left */}
           <div
-            className="absolute top-1/4 left-[60%] w-[300px] h-[300px] rounded-full bg-gold opacity-[0.06]"
-            style={{ filter: "blur(100px)" }}
-          />
-          <div
-            className="absolute -bottom-24 -left-24 w-[440px] h-[440px] rounded-full bg-gold opacity-[0.09]"
+            className="absolute -bottom-24 -left-24 w-[440px] h-[440px] rounded-full bg-gold opacity-[0.05]"
             style={{ filter: "blur(110px)" }}
           />
+          {/* Very faint mist glow — center */}
           <div
-            className="absolute top-1/3 left-1/4 w-[320px] h-[200px] rounded-full bg-white opacity-[0.04]"
+            className="absolute top-1/3 left-1/4 w-[320px] h-[200px] rounded-full bg-mist opacity-[0.6]"
             style={{ filter: "blur(90px)" }}
           />
-          {/* Top-edge mask — fades to solid navy so header and hero blend seamlessly */}
-          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-navy via-navy/80 to-transparent" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 lg:pt-32 pb-16">
@@ -75,7 +58,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                 {TRUST_BADGES.map((label) => (
                   <span
                     key={label}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-sans font-medium text-white/80"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-navy/10 bg-navy/5 px-3 py-1 text-xs font-sans font-medium text-navy/70"
                   >
                     <span className="h-1.5 w-1.5 rounded-full bg-gold" />
                     {label}
@@ -83,8 +66,8 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                 ))}
               </div>
 
-              {/* Headline — each line staggered */}
-              <h1 className="font-display font-bold text-white leading-[0.95]">
+              {/* Headline */}
+              <h1 className="font-display font-bold text-navy leading-[0.95]">
                 <span
                   className="block text-5xl sm:text-6xl lg:text-7xl hero-enter"
                   style={{ animationDelay: "80ms" }}
@@ -99,13 +82,13 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                   <span className="bg-gradient-to-r from-gold to-[#F0C864] bg-clip-text text-transparent">
                     Simple
                   </span>
-                  <span className="text-[#F0C864]">.</span>
+                  <span className="text-gold">.</span>
                 </span>
               </h1>
 
               {/* Subheading */}
               <p
-                className="mt-6 text-lg text-white/70 font-sans max-w-lg leading-relaxed hero-enter"
+                className="mt-6 text-lg text-muted font-sans max-w-lg leading-relaxed hero-enter"
                 style={{ animationDelay: "340ms" }}
               >
                 Visa processing for residents worldwide. Dubai based, trusted
@@ -126,7 +109,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                 </Link>
                 <Link
                   href="/track"
-                  className="inline-flex items-center h-12 px-6 rounded-xl border border-white/20 text-white text-sm font-semibold font-sans hover:bg-white/10 transition-colors whitespace-nowrap"
+                  className="inline-flex items-center h-12 px-6 rounded-xl border border-navy/15 text-navy text-sm font-semibold font-sans hover:bg-navy/5 transition-colors whitespace-nowrap"
                 >
                   Track Application
                 </Link>
@@ -137,7 +120,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                 className="mt-7 flex items-center gap-4 flex-wrap hero-appear"
                 style={{ animationDelay: "580ms" }}
               >
-                <div className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+                <div className="inline-flex items-center gap-2 rounded-lg border border-navy/10 bg-navy/5 px-3 py-2">
                   <div className="flex">
                     {[1, 2, 3, 4, 5].map((i) => (
                       <Star
@@ -152,18 +135,18 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                     alt="Google"
                     className="h-4 w-auto"
                   />
-                  <span className="text-xs font-sans text-white/80 whitespace-nowrap">
-                    <span className="font-semibold text-white">
+                  <span className="text-xs font-sans text-navy/70 whitespace-nowrap">
+                    <span className="font-semibold text-navy">
                       {BRAND.rating}/5
                     </span>
                   </span>
                 </div>
-                <span className="text-sm font-sans text-white/60 whitespace-nowrap">
+                <span className="text-sm font-sans text-muted whitespace-nowrap">
                   {BRAND.clientCount} clients served
                 </span>
               </div>
 
-              {/* Trust icons row — staggered per icon */}
+              {/* Trust icons row */}
               <div
                 className="mt-8 flex items-center gap-x-6 gap-y-3 flex-wrap hero-appear"
                 style={{ animationDelay: "680ms" }}
@@ -171,17 +154,17 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                 {TRUST_ICONS.map(({ icon: Icon, label }, i) => (
                   <span
                     key={label}
-                    className="inline-flex items-center gap-2 text-xs font-sans text-white/80 whitespace-nowrap hero-appear"
+                    className="inline-flex items-center gap-2 text-xs font-sans text-navy/70 whitespace-nowrap hero-appear"
                     style={{ animationDelay: `${680 + i * 60}ms` }}
                   >
-                    <Icon className="h-4 w-4 text-white/60 flex-shrink-0" />
+                    <Icon className="h-4 w-4 text-gold flex-shrink-0" />
                     {label}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* Right column — Quick Apply widget slides in from right */}
+            {/* Right column — Quick Apply widget */}
             {children && (
               <div
                 className="lg:col-span-5 w-full hero-slide"
@@ -194,8 +177,8 @@ export function Hero({ children }: { children?: React.ReactNode }) {
         </div>
       </section>
 
-      {/* Stats bar */}
-      <section className="bg-navy-2 border-t border-white/5">
+      {/* Stats bar — navy accent section */}
+      <section className="bg-navy border-t border-white/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8">
             {HERO_STATS.map((stat, i) => (
