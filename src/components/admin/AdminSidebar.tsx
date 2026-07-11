@@ -9,6 +9,7 @@ import { Avatar } from "./ui";
 import { signOutAndRedirect } from "@/lib/admin-auth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useAvatar } from "@/hooks/useAvatar";
+import { useNavCounts } from "@/hooks/useNavCounts";
 import {
   LayoutDashboard,
   FileText,
@@ -25,20 +26,21 @@ import {
 } from "lucide-react";
 
 export const ADMIN_NAV = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, count: null, adminOnly: false },
-  { href: "/admin/applications", label: "Applications", icon: FileText, exact: false, count: 142, adminOnly: false },
-  { href: "/admin/inquiries", label: "Inquiries", icon: MessageSquare, exact: false, count: 38, adminOnly: false },
-  { href: "/admin/documents", label: "Documents", icon: FolderOpen, exact: false, count: null, adminOnly: false },
-  { href: "/admin/clients", label: "Clients", icon: Users, exact: false, count: null, adminOnly: false },
-  { href: "/admin/users", label: "Users", icon: ShieldCheck, exact: false, count: 2, adminOnly: true },
-  { href: "/admin/settings", label: "Settings", icon: Settings, exact: false, count: null, adminOnly: false },
-  { href: "/dashboard/cms", label: "CMS Studio", icon: PenLine, exact: false, count: null, adminOnly: true, external: true },
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, countKey: null, adminOnly: false },
+  { href: "/admin/applications", label: "Applications", icon: FileText, exact: false, countKey: "applications" as const, adminOnly: false },
+  { href: "/admin/inquiries", label: "Inquiries", icon: MessageSquare, exact: false, countKey: "inquiries" as const, adminOnly: false },
+  { href: "/admin/documents", label: "Documents", icon: FolderOpen, exact: false, countKey: null, adminOnly: false },
+  { href: "/admin/clients", label: "Clients", icon: Users, exact: false, countKey: null, adminOnly: false },
+  { href: "/admin/users", label: "Users", icon: ShieldCheck, exact: false, countKey: "pendingUsers" as const, adminOnly: true },
+  { href: "/admin/settings", label: "Settings", icon: Settings, exact: false, countKey: null, adminOnly: false },
+  { href: "/dashboard/cms", label: "CMS Studio", icon: PenLine, exact: false, countKey: null, adminOnly: true, external: true },
 ];
 
 export function AdminSidebar() {
   const pathname = usePathname();
   const currentUser = useCurrentUser();
   const { src: avatarSrc } = useAvatar();
+  const navCounts = useNavCounts();
   const [open, setOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -80,9 +82,10 @@ export function AdminSidebar() {
           Workspace
         </p>
         <div className="space-y-1">
-          {ADMIN_NAV.filter((item) => !item.adminOnly || isAdmin).map(({ href, label, icon: Icon, exact, count, external }) => {
+          {ADMIN_NAV.filter((item) => !item.adminOnly || isAdmin).map(({ href, label, icon: Icon, exact, countKey, external }) => {
             const active = exact ? pathname === href : pathname.startsWith(href);
             const linkProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+            const count = countKey ? navCounts[countKey] : null;
             return (
               <Link
                 key={href}

@@ -1,21 +1,15 @@
 import { AuthShell } from "@/components/admin/AuthShell";
 import { SignupForm } from "@/components/admin/SignupForm";
-import { requireAdminRole } from "@/lib/admin-guard";
 import Link from "next/link";
 
 export const metadata = { title: "Create account" };
 
-export default async function AdminSignupPage() {
-  // Staff accounts are created by an already-logged-in Administrator, not via
-  // open self-registration — the middleware requires a session to reach this
-  // page at all; this adds the role check on top.
-  await requireAdminRole();
-
+export default function AdminSignupPage() {
   return (
     <AuthShell
       eyebrow="Join the team"
       heading={"Built for visa\nexperts, by visa\nexperts."}
-      blurb="Your account is verified by your manager. Use your @visati.ae work email to register and get instant access to the dashboard."
+      blurb="Use your @visati.ae work email to register. An administrator will need to approve your account before you can sign in."
       bullets={[
         "Access all applications from one place",
         "Real-time status & document tracking",

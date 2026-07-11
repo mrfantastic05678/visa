@@ -89,6 +89,29 @@ export async function sendAdminNotificationEmail(params: {
   }
 }
 
+export async function sendInquiryReplyEmail(params: {
+  to: string;
+  inquiryName: string;
+  subject: string;
+  message: string;
+}): Promise<void> {
+  try {
+    await resend.emails.send({
+      from: FROM,
+      to: params.to,
+      subject: `Re: ${params.subject}`,
+      html: `
+        <p>Hi ${params.inquiryName},</p>
+        <p>${params.message.replace(/\n/g, "<br>")}</p>
+        <p>— The Visati Team</p>
+      `,
+    });
+  } catch (err) {
+    console.error("[resend] sendInquiryReplyEmail failed", err);
+    throw err;
+  }
+}
+
 export async function sendPasswordResetEmail(params: {
   to: string;
   userName: string;

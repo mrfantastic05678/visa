@@ -2,36 +2,22 @@
 
 import { Avatar } from "./ui";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useAvatar } from "@/hooks/useAvatar";
 import { Camera, Check, Trash2, Upload } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 const ROLES = ["Visa Consultant", "Senior Consultant", "Team Lead", "Administrator"];
-const STORAGE_KEY = "visati-admin-avatar";
-
-function getSavedAvatar(): string | null {
-  if (typeof window === "undefined") return null;
-  try {
-    return localStorage.getItem(STORAGE_KEY);
-  } catch {
-    return null;
-  }
-}
 
 export function ProfileSettings() {
   const currentUser = useCurrentUser();
+  const { src: avatarSrc, set: setAvatar } = useAvatar();
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
   const [role, setRole] = useState(currentUser.role);
   const [emailAlerts, setEmailAlerts] = useState(true);
-  const [whatsappAlerts, setWhatsappAlerts] = useState(true);
   const [saved, setSaved] = useState(false);
-  const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
-  const [ uploading, setUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    setAvatarSrc(getSavedAvatar());
-  }, []);
 
   const input =
     "w-full h-10 px-3 rounded-lg border border-line bg-white text-sm font-sans text-navy focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold";
@@ -47,12 +33,7 @@ export function ProfileSettings() {
     const reader = new FileReader();
     reader.onload = (ev) => {
       const result = ev.target?.result as string;
-      setAvatarSrc(result);
-      try {
-        localStorage.setItem(STORAGE_KEY, result);
-      } catch {
-        // localStorage full — silently ignore
-      }
+      setAvatar(result);
       setUploading(false);
     };
     reader.readAsDataURL(file);
@@ -62,12 +43,7 @@ export function ProfileSettings() {
   }
 
   function removeAvatar() {
-    setAvatarSrc(null);
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      // ignore
-    }
+    setAvatar(null);
   }
 
   function save() {
@@ -158,10 +134,6 @@ export function ProfileSettings() {
           <label className="flex items-center justify-between gap-3 py-2">
             <span className="text-sm font-sans text-ink">Email alerts for new applications</span>
             <input type="checkbox" checked={emailAlerts} onChange={(e) => setEmailAlerts(e.target.checked)} className="h-4 w-4 rounded border-line accent-gold" />
-          </label>
-          <label className="flex items-center justify-between gap-3 py-2">
-            <span className="text-sm font-sans text-ink">WhatsApp alerts for client replies</span>
-            <input type="checkbox" checked={whatsappAlerts} onChange={(e) => setWhatsappAlerts(e.target.checked)} className="h-4 w-4 rounded border-line accent-gold" />
           </label>
         </div>
 

@@ -1,14 +1,21 @@
 "use client";
 
-import { Check, Plus, X } from "lucide-react";
+import { Check, Loader2, Plus, Upload, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { SanityVisaType } from "@/lib/sanity/client";
+import { NationalityDropdown } from "@/components/ui/NationalityDropdown";
 
 export function NewApplicationButton() {
   const [open, setOpen] = useState(false);
   const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [visaTypes, setVisaTypes] = useState<SanityVisaType[]>([]);
   const [form, setForm] = useState({ name: "", email: "", nationality: "", visa: "" });
+  const [applicationId, setApplicationId] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploaded, setUploaded] = useState(false);
 
   useEffect(() => {
     fetch("/api/cms/visa-types")
@@ -21,15 +28,71 @@ export function NewApplicationButton() {
       .catch(() => {});
   }, []);
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    setDone(true);
+    setSubmitting(true);
+    setError(null);
+    try {
+      const [given_name, ...rest] = form.name.trim().split(/\s+/);
+      const res = await fetch("/api/admin/applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          given_name,
+          surname: rest.join(" ") || given_name,
+          applicant_email: form.email,
+          nationality: form.nationality,
+          visa_type_slug: form.visa,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? "Could not create application.");
+        return;
+      }
+      setApplicationId(data.application_id);
+      setDone(true);
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function uploadFile() {
+    if (!file || !applicationId) return;
+    setUploading(true);
+    setError(null);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("document_type", "passport");
+      const res = await fetch(`/api/applications/${applicationId}/documents`, {
+        method: "POST",
+        body: fd,
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error ?? "Upload failed.");
+        return;
+      }
+      setUploaded(true);
+      setFile(null);
+    } catch {
+      setError("Network error during upload.");
+    } finally {
+      setUploading(false);
+    }
   }
 
   function close() {
     setOpen(false);
     setTimeout(() => {
       setDone(false);
+      setError(null);
+      setApplicationId(null);
+      setFile(null);
+      setUploaded(false);
       setForm({ name: "", email: "", nationality: "", visa: visaTypes[0]?.slug ?? "" });
     }, 200);
   }
@@ -56,14 +119,40 @@ export function NewApplicationButton() {
             </button>
 
             {done ? (
-              <div className="py-8 text-center">
+              <div className="py-6 text-center">
                 <div className="h-12 w-12 rounded-full bg-emerald-50 grid place-items-center mx-auto mb-4">
                   <Check className="h-6 w-6 text-emerald-600" />
                 </div>
                 <h3 className="font-display font-bold text-xl text-navy">Application created</h3>
                 <p className="text-sm text-muted font-sans mt-1">
-                  {form.name || "New applicant"} · {visaTypes.find((v) => v.slug === form.visa)?.name}
+                  {applicationId} · {form.name || "New applicant"}
                 </p>
+
+                <div className="mt-6 text-left">
+                  <label className={label}>Passport document (optional)</label>
+                  {uploaded ? (
+                    <p className="text-sm text-emerald-600 font-sans">Document uploaded.</p>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="file"
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                        className="flex-1 text-xs font-sans"
+                      />
+                      <button
+                        onClick={uploadFile}
+                        disabled={!file || uploading}
+                        className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg bg-navy text-white text-xs font-semibold font-sans disabled:opacity-50"
+                      >
+                        {uploading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
+                        Upload
+                      </button>
+                    </div>
+                  )}
+                  {error && <p className="text-xs text-danger font-sans mt-2">{error}</p>}
+                </div>
+
                 <button onClick={close} className="mt-6 h-10 px-5 rounded-lg bg-navy text-white text-sm font-semibold font-sans">
                   Done
                 </button>
@@ -79,10 +168,11 @@ export function NewApplicationButton() {
                   <label className={label}>Email</label>
                   <input type="email" className={input} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="client@email.com" required />
                 </div>
-                <div>
-                  <label className={label}>Nationality</label>
-                  <input className={input} value={form.nationality} onChange={(e) => setForm({ ...form, nationality: e.target.value })} placeholder="e.g. British" />
-                </div>
+                <NationalityDropdown
+                  label="Nationality"
+                  value={form.nationality}
+                  onChange={(v) => setForm({ ...form, nationality: v })}
+                />
                 <div>
                   <label className={label}>Visa Type</label>
                   <select className={`${input} appearance-none`} value={form.visa} onChange={(e) => setForm({ ...form, visa: e.target.value })}>
@@ -91,7 +181,13 @@ export function NewApplicationButton() {
                     ))}
                   </select>
                 </div>
-                <button type="submit" className="w-full h-11 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity">
+                {error && <p className="text-sm text-danger font-sans">{error}</p>}
+                <button
+                  type="submit"
+                  disabled={submitting || !form.nationality}
+                  className="w-full h-11 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity disabled:opacity-50 inline-flex items-center justify-center gap-2"
+                >
+                  {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
                   Create Application
                 </button>
               </form>

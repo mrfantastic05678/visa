@@ -18,3 +18,18 @@ export async function requireAdminApi() {
   }
   return { session, response: null };
 }
+
+/** Stricter guard for sensitive API routes (e.g. user approval/bans) — requires the "admin" role, not just any signed-in staff account. */
+export async function requireAdminRoleApi() {
+  const { session, response } = await requireAdminApi();
+  if (response) return { session: null, response };
+
+  const role = (session!.user as Record<string, unknown>).role;
+  if (role !== "admin") {
+    return {
+      session: null,
+      response: NextResponse.json({ error: "Forbidden" }, { status: 403 }),
+    };
+  }
+  return { session, response: null };
+}

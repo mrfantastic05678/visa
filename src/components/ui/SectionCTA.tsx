@@ -1,6 +1,5 @@
 "use client";
 
-import { WHATSAPP_URL } from "@/lib/constants";
 import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -56,7 +55,7 @@ export function SectionCTA({
                 </p>
               )}
             </div>
-            <div className="flex items-center gap-3 flex-shrink-0">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto flex-shrink-0">
               {buttons.map((btn) => {
                 const styles = variantStyles[btn.variant ?? "primary"];
                 const icon = btn.icon ?? (btn.variant === "whatsapp" ? <FaWhatsapp className="h-4 w-4" /> : null);
@@ -68,7 +67,7 @@ export function SectionCTA({
                       href={btn.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 h-11 px-6 rounded-xl font-sans font-semibold text-sm transition-colors ${styles}`}
+                      className={`inline-flex items-center justify-center gap-2 h-11 px-6 rounded-xl font-sans font-semibold text-sm transition-colors w-full sm:w-auto ${styles}`}
                     >
                       {icon}
                       {btn.label}
@@ -80,7 +79,7 @@ export function SectionCTA({
                   <Link
                     key={btn.label}
                     href={btn.href ?? "#"}
-                    className={`inline-flex items-center gap-2 h-11 px-6 rounded-xl font-sans font-semibold text-sm transition-colors ${styles}`}
+                    className={`inline-flex items-center justify-center gap-2 h-11 px-6 rounded-xl font-sans font-semibold text-sm transition-colors w-full sm:w-auto ${styles}`}
                   >
                     {icon}
                     {btn.label}

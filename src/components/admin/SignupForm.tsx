@@ -2,29 +2,26 @@
 
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, CheckCircle, Eye, EyeOff, Loader2 } from "lucide-react";
 import { isAuthorizedStaffEmail } from "@/lib/staff-email";
 
 const inputCls =
   "w-full h-11 px-3.5 rounded-lg border border-line bg-white text-sm font-sans text-navy placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold transition-colors";
 const labelCls = "block text-sm font-sans font-semibold text-ink mb-1.5";
 
-const ROLES = ["Visa Consultant", "Senior Consultant", "Team Lead", "Administrator"];
-
 export function SignupForm() {
-  const router = useRouter();
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    role: ROLES[0],
     password: "",
     confirm: "",
   });
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -49,21 +46,44 @@ export function SignupForm() {
     setLoading(true);
     setError(null);
     try {
+      // autoSignIn is disabled server-side — new accounts start "pending"
+      // and can't sign in until an admin approves them (Users page).
       const { error: authError } = await authClient.signUp.email({
         email: form.email.trim(),
         password: form.password,
         name: `${form.firstName} ${form.lastName}`.trim(),
       });
       if (authError) {
-        setError("Could not create account. Try a different email.");
+        setError(authError.message ?? "Could not create account. Try a different email.");
         setLoading(false);
       } else {
-        router.push("/admin");
+        setSubmitted(true);
       }
     } catch {
       setError("Something went wrong. Please try again.");
       setLoading(false);
     }
+  }
+
+  if (submitted) {
+    return (
+      <div className="text-center py-4">
+        <div className="h-12 w-12 rounded-full bg-green-50 grid place-items-center mx-auto mb-4">
+          <CheckCircle className="h-6 w-6 text-green-600" />
+        </div>
+        <h3 className="font-display font-bold text-xl text-navy mb-2">Account requested</h3>
+        <p className="text-sm text-muted font-sans mb-6">
+          An administrator needs to approve your account before you can sign in. You&apos;ll be
+          notified once it&apos;s active.
+        </p>
+        <Link
+          href="/admin/login"
+          className="inline-flex items-center gap-2 text-sm font-sans font-semibold text-blue hover:underline"
+        >
+          Back to sign in
+        </Link>
+      </div>
+    );
   }
 
   return (
@@ -82,15 +102,6 @@ export function SignupForm() {
       <div>
         <label className={labelCls}>Work Email</label>
         <input type="email" value={form.email} onChange={(e) => set("email", e.target.value)} className={inputCls} placeholder="you@visati.ae" required />
-      </div>
-
-      <div>
-        <label className={labelCls}>Role</label>
-        <select value={form.role} onChange={(e) => set("role", e.target.value)} className={`${inputCls} appearance-none`}>
-          {ROLES.map((r) => (
-            <option key={r}>{r}</option>
-          ))}
-        </select>
       </div>
 
       <div className="grid grid-cols-2 gap-3">

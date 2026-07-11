@@ -8,7 +8,7 @@ export default function AdminInquiriesPage() {
     <>
       <AdminPageHeader
         title="Inquiries"
-        subtitle="38 total · 6 new"
+        subtitle="Contact form submissions"
         searchPlaceholder="Search inquiries…"
       />
       <InquiriesList />

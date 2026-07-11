@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Staff signup is intentionally NOT public — new accounts are created by an
-// already-logged-in admin, not via open self-registration.
+// Self-service staff signup — new accounts land as "pending" and need
+// admin approval (see auth.ts hooks + UsersManager) before they can sign in.
 const PUBLIC_ADMIN_PATHS = [
   "/admin/login",
+  "/admin/signup",
   "/admin/forgot-password",
   "/admin/reset-password",
 ];

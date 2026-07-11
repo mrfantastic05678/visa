@@ -139,6 +139,10 @@ export const user = pgTable("user", {
   emailVerified: boolean("email_verified").notNull().default(false),
   image: text("image"),
   role: text("role").notNull().default("consultant"),
+  // "pending" | "active" | "banned" — new self-service signups default to
+  // "pending" at the application level (see auth.ts); this DB-level default
+  // is "active" so the migration doesn't retroactively lock out existing rows.
+  status: text("status").notNull().default("active"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

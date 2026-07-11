@@ -32,7 +32,7 @@ export function LoginForm() {
         password,
       });
       if (authError) {
-        setError("Invalid email or password.");
+        setError(authError.message ?? "Invalid email or password.");
         setLoading(false);
       } else {
         router.push(callbackUrl);

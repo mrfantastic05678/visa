@@ -19,13 +19,16 @@ async function main() {
   }
 
   try {
-    // signUpEmail always creates the "consultant" default role (role is
-    // input: false — deliberately not settable via the public API). Promote
-    // to admin with a direct DB write afterward.
+    // signUpEmail always creates the "consultant" default role and "pending"
+    // status (both input: false — deliberately not settable via the public
+    // API). Promote to an active admin with a direct DB write afterward.
     await auth.api.signUpEmail({
       body: { email, password, name: name ?? "Visati Admin" },
     });
-    await db.update(user).set({ role: "admin" }).where(eq(user.email, email));
+    await db
+      .update(user)
+      .set({ role: "admin", status: "active" })
+      .where(eq(user.email, email));
     console.log(`✓ Admin user created: ${email}`);
     process.exit(0);
   } catch (err) {

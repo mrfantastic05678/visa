@@ -1,25 +1,56 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { INQUIRIES, type InquiryStatus } from "@/lib/admin-sample-data";
-import { Avatar, FlagIcon, InquiryBadge } from "./ui";
-import { Search } from "lucide-react";
+import { Avatar, InquiryBadge } from "./ui";
+import type { InquiryStatus } from "@/lib/admin-sample-data";
+import { Loader2, Search } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const FILTERS: { value: InquiryStatus | "all"; label: string; count: number }[] = [
-  { value: "all", label: "All", count: 38 },
-  { value: "new", label: "New", count: 6 },
-  { value: "replied", label: "Replied", count: 24 },
-  { value: "closed", label: "Closed", count: 8 },
-];
+interface Inquiry {
+  id: number;
+  name: string;
+  email: string;
+  phone: string | null;
+  subject: string;
+  message: string;
+  resolved: boolean;
+  created_at: string;
+}
+
+type Filter = "all" | "new" | "closed";
+
+function initialsFrom(name: string) {
+  const parts = name.trim().split(/\s+/);
+  return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase() || "?";
+}
+
+function timeAgo(iso: string) {
+  const diffMs = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 1) return "Just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  return `${Math.floor(hours / 24)}d ago`;
+}
 
 export function InquiriesList() {
-  const [filter, setFilter] = useState<InquiryStatus | "all">("all");
+  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<Filter>("all");
   const [q, setQ] = useState("");
 
-  const rows = INQUIRIES.filter((i) => {
-    if (filter !== "all" && i.status !== filter) return false;
+  useEffect(() => {
+    fetch("/api/admin/inquiries")
+      .then((r) => r.json())
+      .then((d) => setInquiries(d.inquiries ?? []))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const rows = inquiries.filter((i) => {
+    const status: InquiryStatus = i.resolved ? "closed" : "new";
+    if (filter !== "all" && status !== filter) return false;
     if (q.trim()) {
       const s = q.toLowerCase();
       return (
@@ -31,12 +62,26 @@ export function InquiriesList() {
     return true;
   });
 
+  const filters: { value: Filter; label: string; count: number }[] = [
+    { value: "all", label: "All", count: inquiries.length },
+    { value: "new", label: "New", count: inquiries.filter((i) => !i.resolved).length },
+    { value: "closed", label: "Closed", count: inquiries.filter((i) => i.resolved).length },
+  ];
+
+  if (loading) {
+    return (
+      <div className="px-4 lg:px-8 pb-10 flex items-center justify-center py-16 text-muted">
+        <Loader2 className="h-5 w-5 animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="px-4 lg:px-8 pb-10">
       {/* Filters + search */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
         <div className="flex items-center gap-2 overflow-x-auto pb-1 -mx-1 px-1">
-          {FILTERS.map((f) => (
+          {filters.map((f) => (
             <button
               key={f.value}
               onClick={() => setFilter(f.value)}
@@ -72,8 +117,7 @@ export function InquiriesList() {
             href={`/admin/inquiries/${inq.id}`}
             className="flex items-center gap-3 lg:gap-4 px-4 lg:px-5 py-4 hover:bg-mist transition-colors"
           >
-            <Avatar initials={inq.initials} color="bg-mist-2" className="h-10 w-10 text-xs flex-shrink-0 !text-muted" />
-            <FlagIcon country={inq.country} className="h-4 w-6 flex-shrink-0 hidden sm:block" />
+            <Avatar initials={initialsFrom(inq.name)} color="bg-mist-2" className="h-10 w-10 text-xs flex-shrink-0 !text-muted" />
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 min-w-0">
                 <p className="font-sans font-semibold text-ink truncate">{inq.name}</p>
@@ -82,10 +126,10 @@ export function InquiriesList() {
               <p className="text-sm font-sans text-muted truncate">{inq.subject}</p>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0">
-              <span className="text-xs font-sans text-muted hidden md:inline whitespace-nowrap">{inq.time}</span>
-              <InquiryBadge status={inq.status} />
+              <span className="text-xs font-sans text-muted hidden md:inline whitespace-nowrap">{timeAgo(inq.created_at)}</span>
+              <InquiryBadge status={inq.resolved ? "closed" : "new"} />
               <span className="h-8 px-3.5 rounded-lg border border-line text-sm font-sans font-medium text-ink hover:bg-mist transition-colors hidden sm:flex items-center">
-                Reply
+                Open
               </span>
             </div>
           </Link>
