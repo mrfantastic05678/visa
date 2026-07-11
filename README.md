@@ -62,3 +62,8 @@ Builds as a multi-stage Docker image (`Dockerfile`) with Next.js standalone
 output. `.github/workflows/deploy.yml` builds and pushes to GHCR on every push
 to `master`; Dokploy pulls the image and runs it behind Traefik, which
 provisions its own Let's Encrypt certificate per domain.
+
+## Author
+
+**Owais Abdullah**
+[LinkedIn](https://linkedin.com/in/mrowaisabdullah) · [Portfolio](https://owaisabdullah.dev)
