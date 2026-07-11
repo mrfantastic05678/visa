@@ -3,7 +3,7 @@
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
 import { isAuthorizedStaffEmail } from "@/lib/staff-email";
 
 const inputCls =
@@ -15,16 +15,18 @@ const ROLES = ["Visa Consultant", "Senior Consultant", "Team Lead", "Administrat
 export function SignupForm() {
   const router = useRouter();
   const [form, setForm] = useState({
-    firstName: "Aisha",
-    lastName: "Rahman",
-    email: "aisha@visati.ae",
+    firstName: "",
+    lastName: "",
+    email: "",
     role: ROLES[0],
     password: "",
     confirm: "",
   });
-  const [agree, setAgree] = useState(true);
+  const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   function set<K extends keyof typeof form>(k: K, v: string) {
     setForm((f) => ({ ...f, [k]: v }));
@@ -94,11 +96,47 @@ export function SignupForm() {
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className={labelCls}>Password</label>
-          <input type="password" value={form.password} onChange={(e) => set("password", e.target.value)} className={inputCls} placeholder="••••••••••" required />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={form.password}
+              onChange={(e) => set("password", e.target.value)}
+              className={`${inputCls} pr-10`}
+              placeholder="••••••••••"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-muted hover:text-ink"
+              tabIndex={-1}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
         </div>
         <div>
           <label className={labelCls}>Confirm Password</label>
-          <input type="password" value={form.confirm} onChange={(e) => set("confirm", e.target.value)} className={inputCls} placeholder="••••••••••" required />
+          <div className="relative">
+            <input
+              type={showConfirm ? "text" : "password"}
+              value={form.confirm}
+              onChange={(e) => set("confirm", e.target.value)}
+              className={`${inputCls} pr-10`}
+              placeholder="••••••••••"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirm((v) => !v)}
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-muted hover:text-ink"
+              tabIndex={-1}
+              aria-label={showConfirm ? "Hide password" : "Show password"}
+            >
+              {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
         </div>
       </div>
 

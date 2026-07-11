@@ -1,35 +1,29 @@
 import { auth } from "@/lib/auth";
-import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 /**
  * Server-side session guard for admin routes. Validates the session token
  * against the database — redirects to login if missing or invalid.
+ *
+ * Forwards the full request headers (not a manually-reconstructed cookie)
+ * so Better Auth sees whichever cookie name the browser actually sent —
+ * `__Secure-better-auth.session_token` on HTTPS, plain otherwise.
  */
 export async function requireAdminSession() {
-  const cookieStore = await cookies();
-  const sessionToken = cookieStore.get("better-auth.session_token")?.value;
-
-  if (!sessionToken) {
-    redirect("/admin/login");
-  }
-
+  let session;
   try {
-    const session = await auth.api.getSession({
-      headers: new Headers({
-        cookie: `better-auth.session_token=${sessionToken}`,
-      }),
-    });
-
-    if (!session) {
-      redirect("/admin/login");
-    }
-
-    return session;
+    session = await auth.api.getSession({ headers: await headers() });
   } catch {
     // Session validation failed — treat as unauthenticated
     redirect("/admin/login");
   }
+
+  if (!session) {
+    redirect("/admin/login");
+  }
+
+  return session;
 }
 
 /**

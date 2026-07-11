@@ -22,7 +22,7 @@ function formatDate(iso: string) {
 function getStatusLabel(status: string) {
   switch (status) {
     case "submitted": return "Submitted";
-    case "under_review": return "Under Review";
+    case "reviewing": return "Under Review";
     case "processing": return "Processing";
     case "approved": return "Approved";
     case "rejected": return "Rejected";

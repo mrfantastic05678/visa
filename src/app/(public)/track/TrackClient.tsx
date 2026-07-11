@@ -41,7 +41,7 @@ function getStatusColor(status: string) {
 function getStatusLabel(status: string) {
   switch (status) {
     case "submitted": return "Submitted";
-    case "under_review": return "Under Review";
+    case "reviewing": return "Under Review";
     case "processing": return "Processing";
     case "approved": return "Approved";
     case "rejected": return "Rejected";
@@ -282,29 +282,30 @@ export function TrackClient({ initialId }: TrackClientProps) {
                 {/* Divider */}
                 <div className="border-t border-line my-5" />
 
-                {/* Team note */}
-                {result.status_history && result.status_history.length > 0 && (
-                  <div className="flex items-start gap-3 mb-5">
-                    <div className="h-8 w-8 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-xs font-sans font-bold text-gold">A</span>
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-sans font-semibold text-ink">Aisha</span>
-                        <span className="text-xs font-sans text-muted">Visa Consultant</span>
-                        <span className="text-xs font-sans text-muted">&middot;</span>
-                        <span className="text-xs font-sans text-muted">
-                          {result.status_history[result.status_history.length - 1]?.created_at
-                            ? formatDateTime(result.status_history[result.status_history.length - 1].created_at)
-                            : ""}
-                        </span>
+                {/* Team note — only shown when a real note was left by staff */}
+                {(() => {
+                  const latest = result.status_history?.[result.status_history.length - 1];
+                  if (!latest?.note) return null;
+                  return (
+                    <div className="flex items-start gap-3 mb-5">
+                      <div className="h-8 w-8 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                        <span className="text-xs font-sans font-bold text-gold">V</span>
                       </div>
-                      <p className="text-sm font-sans text-ink leading-relaxed">
-                        Your application has cleared internal review and is now with the GDRFA. We expect a decision within 48 hours. We&apos;ll WhatsApp you the moment it lands.
-                      </p>
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-sm font-sans font-semibold text-ink">Visati Team</span>
+                          <span className="text-xs font-sans text-muted">&middot;</span>
+                          <span className="text-xs font-sans text-muted">
+                            {formatDateTime(latest.created_at)}
+                          </span>
+                        </div>
+                        <p className="text-sm font-sans text-ink leading-relaxed">
+                          {latest.note}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
 
                 {/* Footer */}
                 <div className="flex items-center justify-between gap-4 flex-wrap pt-4 border-t border-line">

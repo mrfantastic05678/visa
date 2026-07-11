@@ -59,16 +59,14 @@ export function OrderSummary({ visaType, processingTier }: OrderSummaryProps) {
 
   const price = visaType.standard_price_aed;
   const priceUsd = visaType.standard_price_usd;
-  const serviceFee = Math.round(price * 0.1);
-  const serviceFeeUsd = Math.round(priceUsd * 0.1);
   const total =
     processingTier === "express"
-      ? price + EXPRESS_SURCHARGE_AED + serviceFee
-      : price + serviceFee;
+      ? price + EXPRESS_SURCHARGE_AED
+      : price;
   const totalUsd =
     processingTier === "express"
-      ? priceUsd + EXPRESS_SURCHARGE_USD + serviceFeeUsd
-      : priceUsd + serviceFeeUsd;
+      ? priceUsd + EXPRESS_SURCHARGE_USD
+      : priceUsd;
 
   return (
     <div className="sticky top-6">
@@ -103,10 +101,6 @@ export function OrderSummary({ visaType, processingTier }: OrderSummaryProps) {
               </span>
             </div>
           )}
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-sm font-sans text-muted">Service Fee</span>
-            <span className="text-sm font-sans font-medium text-ink">{formatDualPrice(showUsd, serviceFee, serviceFeeUsd)}</span>
-          </div>
         </div>
 
         {/* Total */}
