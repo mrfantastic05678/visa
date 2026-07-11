@@ -1,6 +1,7 @@
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { Avatar, AppStatusBadge } from "@/components/admin/ui";
 import type { AdminAppStatus } from "@/lib/admin-sample-data";
+import { requireAdminSession } from "@/lib/admin-guard";
 import { db } from "@/lib/db";
 import { applications, visaTypes } from "@/lib/db/schema";
 import { desc, eq, ne } from "drizzle-orm";
@@ -9,6 +10,8 @@ import Link from "next/link";
 export const metadata = { title: "Clients" };
 
 export default async function AdminClientsPage() {
+  await requireAdminSession();
+
   const rows = await db
     .select()
     .from(applications)

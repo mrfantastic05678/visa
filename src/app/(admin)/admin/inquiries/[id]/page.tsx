@@ -1,5 +1,6 @@
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { InquiryThread } from "@/components/admin/InquiryThread";
+import { requireAdminSession } from "@/lib/admin-guard";
 import { db } from "@/lib/db";
 import { inquiries } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -12,6 +13,7 @@ export default async function InquiryDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  await requireAdminSession();
   const { id } = await params;
   const inquiryId = Number(id);
   if (!Number.isInteger(inquiryId)) notFound();

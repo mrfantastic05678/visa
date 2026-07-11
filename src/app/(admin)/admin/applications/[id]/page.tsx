@@ -1,5 +1,6 @@
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { ApplicationDetailClient } from "@/components/admin/ApplicationDetailClient";
+import { requireAdminSession } from "@/lib/admin-guard";
 import { db } from "@/lib/db";
 import { applications, documents, statusHistory, visaTypes } from "@/lib/db/schema";
 import { getDocumentSignedUrl } from "@/lib/r2";
@@ -11,6 +12,7 @@ export default async function ApplicationDetail({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  await requireAdminSession();
   const { id } = await params;
 
   const [row] = await db
