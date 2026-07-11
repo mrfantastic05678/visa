@@ -1,20 +1,27 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
-  APPLICATIONS,
-  CONSULTANTS,
-  type AdminAppStatus,
-  type AdminApplication,
-} from "@/lib/admin-sample-data";
-import { AppStatusBadge, Avatar, FlagIcon } from "./ui";
-import { ChevronDown, Download, MoreHorizontal, Search, X } from "lucide-react";
+import type { AdminAppStatus } from "@/lib/admin-sample-data";
+import { AppStatusBadge } from "./ui";
+import { ChevronDown, Download, Loader2, MoreHorizontal, Search, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+
+interface AdminApplicationRow {
+  id: string;
+  given_name: string;
+  surname: string;
+  nationality: string;
+  passport_number: string;
+  visa_type_name: string;
+  status: AdminAppStatus | "draft";
+  created_at: string;
+}
 
 const STATUS_FILTERS: { value: AdminAppStatus | "all"; label: string }[] = [
   { value: "all", label: "All" },
+  { value: "submitted", label: "Submitted" },
   { value: "reviewing", label: "Reviewing" },
   { value: "processing", label: "Processing" },
   { value: "approved", label: "Approved" },
@@ -28,19 +35,16 @@ const DATE_RANGES = [
   { label: "Last 90 days", days: 90 },
 ];
 
-function parseSubmitted(s: string): Date | null {
-  // "21 Feb · 2026" → Date
-  const clean = s.replace(" · ", " ");
-  const d = new Date(clean);
-  return isNaN(d.getTime()) ? null : d;
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString("en-AE", { day: "numeric", month: "short", year: "numeric" });
 }
 
-function exportCSV(rows: AdminApplication[]) {
-  const header = ["App ID", "Applicant", "Nationality", "Country", "Visa Type", "Submitted", "Status", "Passport No."];
+function exportCSV(rows: AdminApplicationRow[]) {
+  const header = ["App ID", "Applicant", "Nationality", "Visa Type", "Submitted", "Status", "Passport No."];
   const lines = [
     header.join(","),
     ...rows.map((r) =>
-      [r.id, `"${r.applicant}"`, r.nationality, r.country, `"${r.visaShort}"`, r.submitted, r.status, r.passportNo].join(",")
+      [r.id, `"${r.given_name} ${r.surname}"`, r.nationality, `"${r.visa_type_name}"`, formatDate(r.created_at), r.status, r.passport_number].join(",")
     ),
   ];
   const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
@@ -119,39 +123,47 @@ export function ApplicationsList() {
   const searchParams = useSearchParams();
   const urlQ = searchParams.get("q") ?? "";
 
+  const [applications, setApplications] = useState<AdminApplicationRow[]>([]);
+  const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<AdminAppStatus | "all">("all");
   const [q, setQ] = useState(urlQ);
   const [dateRange, setDateRange] = useState("");
   const [visaType, setVisaType] = useState("");
-  const [country, setCountry] = useState("");
+  const [syncedUrlQ, setSyncedUrlQ] = useState(urlQ);
 
-  // Sync URL search param when it changes (from global search bar)
-  useEffect(() => { setQ(urlQ); }, [urlQ]);
+  useEffect(() => {
+    fetch("/api/admin/applications")
+      .then((r) => r.json())
+      .then((d) => setApplications((d.applications ?? []).filter((a: AdminApplicationRow) => a.status !== "draft")))
+      .finally(() => setLoading(false));
+  }, []);
 
-  // Derive unique visa types and countries from sample data
-  const visaOptions = Array.from(new Set(APPLICATIONS.map((a) => a.visaShort))).map((v) => ({
-    label: v,
-    value: v,
-  }));
+  // Adjust local search state during render when the URL query param changes
+  // (global search bar navigation) — avoids the extra render an effect-based
+  // sync would cause.
+  if (urlQ !== syncedUrlQ) {
+    setSyncedUrlQ(urlQ);
+    setQ(urlQ);
+  }
 
-  const countryOptions = Array.from(new Set(APPLICATIONS.map((a) => a.nationality))).map((n) => {
-    const app = APPLICATIONS.find((a) => a.nationality === n)!;
-    return { label: n, value: app.country };
-  });
-
+  const visaOptions = useMemo(
+    () => Array.from(new Set(applications.map((a) => a.visa_type_name))).map((v) => ({ label: v, value: v })),
+    [applications]
+  );
   const dateOptions = DATE_RANGES.map((d) => ({ label: d.label, value: String(d.days) }));
 
   const now = new Date();
 
-  const rows = APPLICATIONS.filter((a) => {
+  const rows = applications.filter((a) => {
     if (filter !== "all" && a.status !== filter) return false;
 
     if (q.trim()) {
       const s = q.toLowerCase();
+      const name = `${a.given_name} ${a.surname}`.toLowerCase();
       if (
-        !a.applicant.toLowerCase().includes(s) &&
+        !name.includes(s) &&
         !a.id.toLowerCase().includes(s) &&
-        !a.passportNo.toLowerCase().includes(s) &&
+        !a.passport_number.toLowerCase().includes(s) &&
         !a.nationality.toLowerCase().includes(s)
       )
         return false;
@@ -159,28 +171,34 @@ export function ApplicationsList() {
 
     if (dateRange) {
       const days = Number(dateRange);
-      const d = parseSubmitted(a.submitted);
-      if (d && days > 0) {
+      const d = new Date(a.created_at);
+      if (days > 0) {
         const cutoff = new Date(now);
         cutoff.setDate(now.getDate() - days);
         if (d < cutoff) return false;
       }
     }
 
-    if (visaType && a.visaShort !== visaType) return false;
-    if (country && a.country !== country) return false;
+    if (visaType && a.visa_type_name !== visaType) return false;
 
     return true;
   });
 
-  const hasFilters = !!dateRange || !!visaType || !!country || filter !== "all" || !!q;
+  const hasFilters = !!dateRange || !!visaType || filter !== "all" || !!q;
 
   function clearAll() {
     setFilter("all");
     setQ("");
     setDateRange("");
     setVisaType("");
-    setCountry("");
+  }
+
+  if (loading) {
+    return (
+      <div className="px-4 lg:px-8 pb-10 flex items-center justify-center py-16 text-muted">
+        <Loader2 className="h-5 w-5 animate-spin" />
+      </div>
+    );
   }
 
   return (
@@ -189,7 +207,7 @@ export function ApplicationsList() {
       <div className="bg-white rounded-xl border border-line p-3 mb-5 space-y-3 lg:space-y-0 lg:flex lg:items-center lg:justify-between gap-3">
         <div className="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0 -mx-1 px-1">
           {STATUS_FILTERS.map((f) => {
-            const count = f.value === "all" ? APPLICATIONS.length : APPLICATIONS.filter((a) => a.status === f.value).length;
+            const count = f.value === "all" ? applications.length : applications.filter((a) => a.status === f.value).length;
             return (
               <button
                 key={f.value}
@@ -218,7 +236,6 @@ export function ApplicationsList() {
           <div className="hidden xl:flex items-center gap-2">
             <Dropdown label="Date Range" options={dateOptions} value={dateRange} onChange={setDateRange} />
             <Dropdown label="Visa Type" options={visaOptions} value={visaType} onChange={setVisaType} />
-            <Dropdown label="Country" options={countryOptions} value={country} onChange={setCountry} />
           </div>
           {hasFilters && (
             <button onClick={clearAll} className="text-xs font-sans font-medium text-muted hover:text-ink whitespace-nowrap">
@@ -239,46 +256,34 @@ export function ApplicationsList() {
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left text-[11px] uppercase tracking-wider text-muted font-sans border-b border-line">
-              <th className="pl-5 pr-2 py-3 w-8"><input type="checkbox" className="h-4 w-4 rounded border-line accent-gold" /></th>
-              <th className="px-3 py-3 font-semibold">App ID</th>
+              <th className="px-5 py-3 font-semibold">App ID</th>
               <th className="px-3 py-3 font-semibold">Applicant</th>
               <th className="px-3 py-3 font-semibold">Visa Type</th>
               <th className="px-3 py-3 font-semibold">Submitted</th>
-              <th className="px-3 py-3 font-semibold">Assigned</th>
               <th className="px-3 py-3 font-semibold">Status</th>
               <th className="px-3 py-3 w-8" />
             </tr>
           </thead>
           <tbody className="divide-y divide-line">
-            {rows.map((a) => {
-              const c = CONSULTANTS[a.assigned];
-              return (
-                <tr key={a.id} className="hover:bg-mist transition-colors group">
-                  <td className="pl-5 pr-2 py-3.5"><input type="checkbox" className="h-4 w-4 rounded border-line accent-gold" /></td>
-                  <td className="px-3 py-3.5">
-                    <Link href={`/admin/applications/${a.id}`} className="font-mono text-xs text-muted group-hover:text-gold">{a.id}</Link>
-                  </td>
-                  <td className="px-3 py-3.5">
-                    <Link href={`/admin/applications/${a.id}`} className="flex items-center gap-2.5 min-w-0">
-                      <FlagIcon country={a.country} className="h-4 w-6 flex-shrink-0" />
-                      <span className="font-sans font-medium text-ink truncate">{a.applicant}</span>
-                    </Link>
-                  </td>
-                  <td className="px-3 py-3.5 font-sans text-muted whitespace-nowrap">{a.visaShort}</td>
-                  <td className="px-3 py-3.5 font-sans text-muted whitespace-nowrap">{a.submitted}</td>
-                  <td className="px-3 py-3.5">
-                    <div className="flex items-center gap-2">
-                      <Avatar initials={c.initials} src={c.photo} color={c.color} className="h-6 w-6 text-[10px]" />
-                      <span className="font-sans text-ink">{c.name}</span>
-                    </div>
-                  </td>
-                  <td className="px-3 py-3.5"><AppStatusBadge status={a.status} /></td>
-                  <td className="px-3 py-3.5">
-                    <button className="text-muted hover:text-ink"><MoreHorizontal className="h-4 w-4" /></button>
-                  </td>
-                </tr>
-              );
-            })}
+            {rows.map((a) => (
+              <tr key={a.id} className="hover:bg-mist transition-colors group">
+                <td className="px-5 py-3.5">
+                  <Link href={`/admin/applications/${a.id}`} className="font-mono text-xs text-muted group-hover:text-gold">{a.id}</Link>
+                </td>
+                <td className="px-3 py-3.5">
+                  <Link href={`/admin/applications/${a.id}`} className="min-w-0 block">
+                    <span className="font-sans font-medium text-ink truncate">{a.given_name} {a.surname}</span>
+                    <p className="text-xs text-muted font-sans truncate">{a.nationality}</p>
+                  </Link>
+                </td>
+                <td className="px-3 py-3.5 font-sans text-muted whitespace-nowrap">{a.visa_type_name}</td>
+                <td className="px-3 py-3.5 font-sans text-muted whitespace-nowrap">{formatDate(a.created_at)}</td>
+                <td className="px-3 py-3.5"><AppStatusBadge status={a.status as AdminAppStatus} /></td>
+                <td className="px-3 py-3.5">
+                  <button className="text-muted hover:text-ink"><MoreHorizontal className="h-4 w-4" /></button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         {rows.length === 0 && (
@@ -295,19 +300,16 @@ export function ApplicationsList() {
       <div className="lg:hidden space-y-3">
         {rows.map((a) => (
           <Link key={a.id} href={`/admin/applications/${a.id}`} className="block bg-white rounded-xl border border-line p-4">
-            <div className="flex items-start gap-3">
-              <FlagIcon country={a.country} className="h-5 w-7 flex-shrink-0 mt-0.5" />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-start justify-between gap-2">
-                  <p className="font-sans font-semibold text-ink truncate">{a.applicant}</p>
-                  <AppStatusBadge status={a.status} />
-                </div>
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0">
+                <p className="font-sans font-semibold text-ink truncate">{a.given_name} {a.surname}</p>
                 <p className="font-mono text-xs text-muted mt-0.5">{a.id}</p>
-                <div className="flex items-center justify-between gap-2 mt-2">
-                  <span className="text-xs font-sans text-muted">{a.visaShort}</span>
-                  <span className="text-xs font-sans text-muted">Submitted {a.submitted.replace(" · 2026", "")}</span>
-                </div>
               </div>
+              <AppStatusBadge status={a.status as AdminAppStatus} />
+            </div>
+            <div className="flex items-center justify-between gap-2 mt-2">
+              <span className="text-xs font-sans text-muted">{a.visa_type_name}</span>
+              <span className="text-xs font-sans text-muted">Submitted {formatDate(a.created_at)}</span>
             </div>
           </Link>
         ))}

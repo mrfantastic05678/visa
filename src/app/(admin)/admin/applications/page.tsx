@@ -10,7 +10,7 @@ export default function AdminApplicationsPage() {
     <>
       <AdminPageHeader
         title="Applications"
-        subtitle="142 total · 23 awaiting action"
+        subtitle="All submitted visa applications"
         action={<NewApplicationButton />}
       />
       <Suspense>

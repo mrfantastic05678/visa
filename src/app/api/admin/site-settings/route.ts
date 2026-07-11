@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { siteSettings } from "@/lib/db/schema";
-import { requireAdminApi } from "@/lib/auth-guard";
+import { requireAdminApi, requireAdminRoleApi } from "@/lib/auth-guard";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -23,7 +23,7 @@ const UpdateSettingsSchema = z.object({
 });
 
 export async function PATCH(request: NextRequest) {
-  const { response } = await requireAdminApi();
+  const { response } = await requireAdminRoleApi();
   if (response) return response;
 
   let body: unknown;

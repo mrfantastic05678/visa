@@ -1,23 +1,31 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { Avatar } from "./ui";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useAvatar } from "@/hooks/useAvatar";
-import { Camera, Check, Trash2, Upload } from "lucide-react";
+import { Camera, Check, Loader2, Trash2, Upload } from "lucide-react";
 import { useState, useRef } from "react";
-
-const ROLES = ["Visa Consultant", "Senior Consultant", "Team Lead", "Administrator"];
 
 export function ProfileSettings() {
   const currentUser = useCurrentUser();
   const { src: avatarSrc, set: setAvatar } = useAvatar();
   const [name, setName] = useState(currentUser.name);
-  const [email, setEmail] = useState(currentUser.email);
-  const [role, setRole] = useState(currentUser.role);
+  const [syncedName, setSyncedName] = useState(currentUser.name);
   const [emailAlerts, setEmailAlerts] = useState(true);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  // currentUser.name arrives asynchronously (authClient.useSession() resolves
+  // after first render) — adjust during render once real data lands instead
+  // of getting stuck on the empty-string initial value.
+  if (currentUser.name && currentUser.name !== syncedName) {
+    setSyncedName(currentUser.name);
+    setName(currentUser.name);
+  }
 
   const input =
     "w-full h-10 px-3 rounded-lg border border-line bg-white text-sm font-sans text-navy focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold";
@@ -46,9 +54,22 @@ export function ProfileSettings() {
     setAvatar(null);
   }
 
-  function save() {
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+  async function save() {
+    setSaving(true);
+    setError(null);
+    try {
+      const { error: updateError } = await authClient.updateUser({ name });
+      if (updateError) {
+        setError(updateError.message ?? "Could not save changes.");
+        return;
+      }
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -81,7 +102,7 @@ export function ProfileSettings() {
 
           <div className="min-w-0">
             <p className="font-sans font-semibold text-ink">{name}</p>
-            <p className="text-sm text-muted font-sans">{role}</p>
+            <p className="text-sm text-muted font-sans">{currentUser.role}</p>
             <div className="flex items-center gap-2 mt-1.5">
               <button
                 onClick={() => fileRef.current?.click()}
@@ -119,13 +140,19 @@ export function ProfileSettings() {
           </div>
           <div>
             <label className={label}>Work Email</label>
-            <input className={input} value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              className={`${input} bg-mist text-muted cursor-not-allowed`}
+              value={currentUser.email}
+              disabled
+              title="Email can't be changed here — contact an administrator."
+            />
           </div>
           <div className="sm:col-span-2">
             <label className={label}>Role</label>
-            <select className={`${input} appearance-none`} value={role} onChange={(e) => setRole(e.target.value)}>
-              {ROLES.map((r) => <option key={r}>{r}</option>)}
-            </select>
+            {/* Role is server-controlled (set by an admin), not self-service — read-only. */}
+            <div className={`${input} flex items-center bg-mist text-ink cursor-not-allowed`}>
+              {currentUser.role}
+            </div>
           </div>
         </div>
 
@@ -137,12 +164,16 @@ export function ProfileSettings() {
           </label>
         </div>
 
+        {error && <p className="text-sm text-danger font-sans">{error}</p>}
+
         <button
           onClick={save}
-          className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity"
+          disabled={saving}
+          className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-gradient-to-r from-gold to-[#F0C864] text-navy text-sm font-semibold font-sans hover:opacity-90 transition-opacity disabled:opacity-60"
         >
-          {saved && <Check className="h-4 w-4" />}
-          {saved ? "Saved" : "Save Changes"}
+          {saving && <Loader2 className="h-4 w-4 animate-spin" />}
+          {!saving && saved && <Check className="h-4 w-4" />}
+          {saving ? "Saving…" : saved ? "Saved" : "Save Changes"}
         </button>
       </div>
     </div>

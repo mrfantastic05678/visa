@@ -150,6 +150,9 @@ export function NewApplicationButton() {
                       </button>
                     </div>
                   )}
+                  {!file && !uploaded && (
+                    <p className="text-xs text-muted font-sans mt-1.5">Choose a file above, then Upload.</p>
+                  )}
                   {error && <p className="text-xs text-danger font-sans mt-2">{error}</p>}
                 </div>
 

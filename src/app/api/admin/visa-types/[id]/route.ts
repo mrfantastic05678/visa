@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { visaTypes } from "@/lib/db/schema";
-import { requireAdminApi } from "@/lib/auth-guard";
+import { requireAdminRoleApi } from "@/lib/auth-guard";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -16,7 +16,7 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { response } = await requireAdminApi();
+  const { response } = await requireAdminRoleApi();
   if (response) return response;
 
   const { id } = await params;

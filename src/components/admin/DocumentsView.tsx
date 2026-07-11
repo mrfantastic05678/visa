@@ -1,37 +1,55 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ALL_DOCUMENTS } from "@/lib/admin-sample-data";
-import { DocBadge } from "./ui";
-import { FileText, LayoutGrid, List, Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Download, FileText, LayoutGrid, List, Loader2, Search } from "lucide-react";
+import Link from "next/link";
+import { useMemo, useState, useEffect } from "react";
+
+interface AdminDocument {
+  id: number;
+  document_type: string;
+  filename: string;
+  size_bytes: number;
+  uploaded_at: string;
+  application_id: string;
+  applicant: string;
+  signed_url: string;
+}
 
 const FILTERS = [
   { value: "all", label: "All" },
-  { value: "passport", label: "Passports" },
-  { value: "photo", label: "Photos" },
+  { value: "passport", label: "Passport" },
   { value: "supporting", label: "Supporting" },
-  { value: "pending", label: "Pending" },
-  { value: "rejected", label: "Rejected" },
 ];
 
+function formatSize(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 export function DocumentsView() {
+  const [allDocs, setAllDocs] = useState<AdminDocument[]>([]);
+  const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
-  const [view, setView] = useState<"grid" | "list">("grid");
+  const [view, setView] = useState<"grid" | "list">("list");
   const [applicant, setApplicant] = useState("all");
   const [q, setQ] = useState("");
 
+  useEffect(() => {
+    fetch("/api/admin/documents")
+      .then((r) => r.json())
+      .then((d) => setAllDocs(d.documents ?? []))
+      .finally(() => setLoading(false));
+  }, []);
+
   const applicants = useMemo(
-    () => Array.from(new Set(ALL_DOCUMENTS.map((d) => d.applicant))).sort(),
-    []
+    () => Array.from(new Set(allDocs.map((d) => d.applicant))).sort(),
+    [allDocs]
   );
 
-  const docs = ALL_DOCUMENTS.filter((d) => {
-    if (filter !== "all") {
-      if (filter === "pending" || filter === "rejected") {
-        if (d.status !== filter) return false;
-      } else if (d.type !== filter) return false;
-    }
+  const docs = allDocs.filter((d) => {
+    if (filter !== "all" && d.document_type !== filter) return false;
     if (applicant !== "all" && d.applicant !== applicant) return false;
     if (q.trim()) {
       const s = q.toLowerCase();
@@ -39,6 +57,14 @@ export function DocumentsView() {
     }
     return true;
   });
+
+  if (loading) {
+    return (
+      <div className="px-4 lg:px-8 pb-10 flex items-center justify-center py-16 text-muted">
+        <Loader2 className="h-5 w-5 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="px-4 lg:px-8 pb-10">
@@ -94,11 +120,15 @@ export function DocumentsView() {
       </div>
 
       {docs.length === 0 ? (
-        <p className="py-16 text-center text-sm text-muted font-sans">No documents match.</p>
+        <p className="py-16 text-center text-sm text-muted font-sans">
+          {allDocs.length === 0
+            ? "No documents uploaded yet. Documents are uploaded from within an application's detail page."
+            : "No documents match."}
+        </p>
       ) : view === "grid" ? (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {docs.map((d) => (
-            <div key={d.id} className="bg-white rounded-xl border border-line overflow-hidden">
+            <Link key={d.id} href={`/admin/applications/${d.application_id}`} className="bg-white rounded-xl border border-line overflow-hidden hover:border-gold transition-colors">
               <div className="aspect-[4/3] bg-mist grid place-items-center">
                 <FileText className="h-8 w-8 text-line" />
               </div>
@@ -106,26 +136,34 @@ export function DocumentsView() {
                 <p className="text-sm font-sans font-medium text-ink truncate">{d.filename}</p>
                 <p className="text-xs text-muted font-sans truncate">{d.applicant}</p>
                 <div className="flex items-center justify-between gap-2 mt-2.5">
-                  <DocBadge status={d.status} />
-                  <span className="text-xs text-muted font-sans">{d.size}</span>
+                  <span className="text-xs font-sans text-muted capitalize">{d.document_type}</span>
+                  <span className="text-xs text-muted font-sans">{formatSize(d.size_bytes)}</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       ) : (
         <div className="bg-white rounded-xl border border-line overflow-hidden divide-y divide-line">
           {docs.map((d) => (
             <div key={d.id} className="flex items-center gap-3 px-4 py-3">
-              <span className="h-9 w-9 rounded-lg bg-mist grid place-items-center flex-shrink-0">
-                <FileText className="h-4 w-4 text-muted" />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-sans font-medium text-ink truncate">{d.filename}</p>
-                <p className="text-xs text-muted font-sans truncate">{d.applicant} · {d.size}</p>
-              </div>
-              <DocBadge status={d.status} />
-              <button className="text-sm font-sans font-medium text-gold hover:underline flex-shrink-0 hidden sm:block">View</button>
+              <Link href={`/admin/applications/${d.application_id}`} className="flex items-center gap-3 min-w-0 flex-1">
+                <span className="h-9 w-9 rounded-lg bg-mist grid place-items-center flex-shrink-0">
+                  <FileText className="h-4 w-4 text-muted" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-sans font-medium text-ink truncate">{d.filename}</p>
+                  <p className="text-xs text-muted font-sans truncate">{d.applicant} · {formatSize(d.size_bytes)}</p>
+                </div>
+              </Link>
+              <a
+                href={d.signed_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm font-sans font-medium text-gold hover:underline flex-shrink-0 hidden sm:flex"
+              >
+                <Download className="h-3.5 w-3.5" /> Download
+              </a>
             </div>
           ))}
         </div>
