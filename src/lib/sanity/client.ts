@@ -39,21 +39,21 @@ export interface SanityFaq {
   sort_order: number;
 }
 
-export interface SanityHomepageCopy {
-  hero_headline: string;
-  hero_subtext: string;
-  trust_stats: { label: string; value: string }[];
-  process_steps: { title: string; description: string }[];
-  testimonials: { name: string; country: string; rating: number; text: string }[];
-  seo?: { title?: string; description?: string };
-}
-
 export interface SanityContactDetails {
   whatsapp_number: string;
   email: string;
   phone: string;
   address: string;
   hours: string;
+}
+
+export interface SanityTestimonial {
+  _id: string;
+  name: string;
+  country: string;
+  rating: number;
+  text: string;
+  sort_order: number;
 }
 
 export interface SanityBlogPost {
@@ -102,21 +102,20 @@ export async function getVisaTypes(): Promise<SanityVisaType[]> {
   );
 }
 
-export async function getHomepageCopy(): Promise<SanityHomepageCopy> {
-  return sanityClient.fetch(
-    `*[_type == "homepageCopy"][0] {
-      hero_headline, hero_subtext, trust_stats, process_steps, testimonials,
-      seo { title, description }
-    }`,
-    {},
-    { next: { revalidate: 60 } }
-  );
-}
-
 export async function getContactDetails(): Promise<SanityContactDetails | null> {
   return sanityClient.fetch(
     `*[_type == "contactDetails"][0] {
       whatsapp_number, email, phone, address, hours
+    }`,
+    {},
+    { next: { revalidate: 3600 } }
+  );
+}
+
+export async function getTestimonials(): Promise<SanityTestimonial[]> {
+  return sanityClient.fetch(
+    `*[_type == "testimonial" && !(_id in path("drafts.**"))] | order(sort_order asc) {
+      _id, name, country, rating, text, sort_order
     }`,
     {},
     { next: { revalidate: 3600 } }

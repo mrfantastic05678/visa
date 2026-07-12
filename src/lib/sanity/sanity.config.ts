@@ -15,15 +15,13 @@ export default defineConfig({
           .items([
             // Singletons
             S.listItem()
-              .title("Homepage Copy")
-              .child(S.document().schemaType("homepageCopy").documentId("homepageCopy")),
-            S.listItem()
               .title("Contact Details")
               .child(S.document().schemaType("contactDetails").documentId("contactDetails")),
             S.divider(),
             // Collections
             S.listItem().title("FAQ Items").child(S.documentTypeList("faqItem").title("FAQ Items")),
             S.listItem().title("Visa Types").child(S.documentTypeList("visaTypeContent").title("Visa Types")),
+            S.listItem().title("Testimonials").child(S.documentTypeList("testimonial").title("Testimonials")),
             S.listItem().title("Page SEO").child(S.documentTypeList("pageSeo").title("Page SEO")),
             S.divider(),
             // Blog

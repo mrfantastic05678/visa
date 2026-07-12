@@ -30,39 +30,7 @@ async function seed() {
     hours: "Sun–Thu 9:00 AM – 6:00 PM",
   });
 
-  // 2. Homepage Copy (singleton — upsert)
-  console.log("→ Homepage Copy");
-  await client.createOrReplace({
-    _id: "homepageCopy",
-    _type: "homepageCopy",
-    hero_headline: "Your UAE Visa, Simplified.",
-    hero_subtext: "Fast, reliable visa processing for the UAE. Apply online in minutes — 99% approval rate, trusted by 1,000+ travellers worldwide.",
-    trust_stats: [
-      { _type: "trustStat", _key: "s1", label: "Visas Processed", value: "1,000+" },
-      { _type: "trustStat", _key: "s2", label: "Approval Rate", value: "99%" },
-      { _type: "trustStat", _key: "s3", label: "Processing Time", value: "2–3 Days" },
-      { _type: "trustStat", _key: "s4", label: "Support", value: "24/7" },
-    ],
-    process_steps: [
-      { _type: "processStep", _key: "p1", title: "Choose Visa", description: "Select your visa type and duration from our options." },
-      { _type: "processStep", _key: "p2", title: "Upload Documents", description: "Upload your passport and photo — we handle the rest." },
-      { _type: "processStep", _key: "p3", title: "We Process", description: "Our team reviews and submits your application to GDRFA." },
-      { _type: "processStep", _key: "p4", title: "Receive Visa", description: "Get your e-visa via email within 2–3 business days." },
-    ],
-    testimonials: [
-      { _type: "testimonial", _key: "t1", name: "Sophie Laurent", country: "France", rating: 5, text: "Incredibly smooth process. Got my visa in 2 days! The team was very responsive on WhatsApp." },
-      { _type: "testimonial", _key: "t2", name: "James Whitfield", country: "United Kingdom", rating: 5, text: "Applied from London, received my visa before my flight. Highly recommend Visati for anyone visiting the UAE." },
-      { _type: "testimonial", _key: "t3", name: "Priya Sharma", country: "India", rating: 5, text: "Best visa service I've used. Clear pricing, fast processing, and excellent customer support." },
-      { _type: "testimonial", _key: "t4", name: "Chen Wei", country: "China", rating: 4, text: "Very professional service. The online application was straightforward and the team kept me updated." },
-      { _type: "testimonial", _key: "t5", name: "Maria Santos", country: "Brazil", rating: 5, text: "Visati made my Dubai trip possible. The 30-day visa was processed in just 48 hours!" },
-    ],
-    seo: {
-      title: "Visati — UAE Visa Online | Fast Processing, 99% Approval",
-      description: "Apply for your UAE tourist, transit, or business visa online. Fast processing, 99% approval rate. Trusted by 1,000+ travellers. Apply in minutes.",
-    },
-  });
-
-  // 3. Visa Type Content
+  // 2. Visa Type Content
   console.log("→ Visa Types");
   const visaTypes = [
     { slug: "14d-single", name: "14-Day Single Entry", icon: "Clock", tagline: "Quick visit visa for short trips, stopovers, or brief business travel.", description: "Perfect for short visits, layovers, and quick business trips to the UAE.", features: ["14-day stay", "Single entry", "Tourist & transit", "Processing: 1–2 days"], badge_text: null, price_aed: 459, price_usd: 125, duration_days: 14, entry_type: "single", processing_time: "24–72h", has_express: true, sort_order: 1 },
@@ -83,8 +51,9 @@ async function seed() {
       description: v.description,
       features: v.features,
       badge_text: v.badge_text,
-      price_aed: v.price_aed,
-      price_usd: v.price_usd,
+      // Price is not stored in Sanity — see visaTypeContent.ts and visa-data.ts
+      // for why Postgres (visa_types.standard_price_aed/usd) is the sole
+      // source of truth for pricing.
       duration_days: v.duration_days,
       entry_type: v.entry_type,
       processing_time: v.processing_time,

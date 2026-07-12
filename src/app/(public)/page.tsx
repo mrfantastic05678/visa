@@ -10,7 +10,7 @@ import { WhyChoose } from "@/components/home/WhyChoose";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { CurrencyProvider } from "@/components/CurrencyProvider";
 import { getDisplayVisaTypes } from "@/lib/visa-data";
-import { getPageSeo } from "@/lib/sanity/client";
+import { getPageSeo, getTestimonials } from "@/lib/sanity/client";
 import { getShowUsdSetting } from "@/lib/site-settings";
 import type { Metadata } from "next";
 
@@ -23,9 +23,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [visaTypes, showUsd] = await Promise.all([
+  const [visaTypes, showUsd, testimonials] = await Promise.all([
     getDisplayVisaTypes(),
     getShowUsdSetting().catch(() => false),
+    getTestimonials().catch(() => []),
   ]);
 
   return (
@@ -61,7 +62,7 @@ export default async function HomePage() {
 
       {/* 7 — Testimonials */}
       <FadeIn delay={100}>
-        <Testimonials />
+        <Testimonials testimonials={testimonials} />
       </FadeIn>
 
       {/* 8 — FAQ */}

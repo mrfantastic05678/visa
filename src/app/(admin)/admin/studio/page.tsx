@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Sanity Studio" };
 const SCHEMAS = [
   { name: "faqItem", label: "FAQ Items", desc: "Questions and answers, grouped by category" },
   { name: "visaTypeContent", label: "Visa Type Content", desc: "Names, descriptions, feature lists, badge text" },
-  { name: "homepageCopy", label: "Homepage Copy", desc: "Hero text, trust stats, process steps, testimonials" },
+  { name: "testimonial", label: "Testimonials", desc: "Customer name, country, rating, quote" },
   { name: "pageSeo", label: "Page SEO", desc: "Title, meta description, OG image per page" },
   { name: "contactDetails", label: "Contact Details", desc: "WhatsApp number, email, office address, hours" },
 ];
@@ -86,7 +86,7 @@ export default async function AdminStudioPage() {
                 <li className="flex gap-2.5"><span className="font-mono text-gold font-bold">1.</span> Run <code className="text-xs bg-white border border-line px-1.5 py-0.5 rounded font-mono">npx sanity@latest init</code> in the project root</li>
                 <li className="flex gap-2.5"><span className="font-mono text-gold font-bold">2.</span> Add the project ID and dataset to <code className="text-xs bg-white border border-line px-1.5 py-0.5 rounded font-mono">.env.local</code></li>
                 <li className="flex gap-2.5"><span className="font-mono text-gold font-bold">3.</span> Run <code className="text-xs bg-white border border-line px-1.5 py-0.5 rounded font-mono">/sp.adr sanity-setup</code> to document the CMS integration decision</li>
-                <li className="flex gap-2.5"><span className="font-mono text-gold font-bold">4.</span> Restart dev server — this page will switch to the "Studio ready" view</li>
+                <li className="flex gap-2.5"><span className="font-mono text-gold font-bold">4.</span> Restart dev server — this page will switch to the &ldquo;Studio ready&rdquo; view</li>
               </ol>
             </div>
           </>

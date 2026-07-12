@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     case "contactDetails":
       paths.add("/contact");
       break;
-    case "homepageCopy":
+    case "testimonial":
       paths.add("/");
       break;
     case "post":

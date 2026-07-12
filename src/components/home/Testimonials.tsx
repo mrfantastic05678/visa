@@ -1,51 +1,30 @@
 "use client";
 
 import { BRAND } from "@/lib/constants";
+import type { SanityTestimonial } from "@/lib/sanity/client";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
-import { IN, GB, FR, US, AE } from "country-flag-icons/react/3x2";
+import { AE, CA, CN, DE, FR, GB, IN, IT, JP, SA, US } from "country-flag-icons/react/3x2";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { useCallback, useEffect, useState } from "react";
 
-const TESTIMONIALS = [
-  {
-    name: "Priya Sharma",
-    country: "India",
-    Flag: IN,
-    initials: "PS",
-    text: "Got my 60-day visa in 26 hours. The WhatsApp updates kept me sane — I knew exactly where my application was at every step.",
-  },
-  {
-    name: "James Whitfield",
-    country: "United Kingdom",
-    Flag: GB,
-    initials: "JW",
-    text: "Booked a business trip on Monday, had my visa on Wednesday. Visati is a different league from the agencies I used before.",
-  },
-  {
-    name: "Sophie Laurent",
-    country: "France",
-    Flag: FR,
-    initials: "SL",
-    text: "A consultant called me before I even noticed my photo was the wrong size. That kind of attention is rare these days.",
-  },
-  {
-    name: "David Chen",
-    country: "United States",
-    Flag: US,
-    initials: "DC",
-    text: "The whole process took less time than booking my flight. Incredibly smooth experience from start to finish.",
-  },
-  {
-    name: "Fatima Al Marzouqi",
-    country: "UAE",
-    Flag: AE,
-    initials: "FA",
-    text: "I've used Visati three times now for family visitors. Every single time has been flawless. They just get it right.",
-  },
-];
+// Small explicit map (not the full 250+ country-flag-icons barrel) — extend as
+// testimonials from new countries get added in Sanity Studio. Falls back to a
+// plain initial-less badge for any code not listed here.
+const FLAGS: Record<string, React.ComponentType<{ className?: string; title?: string }>> = {
+  AE, CA, CN, DE, FR, GB, IN, IT, JP, SA, US,
+};
 
-export function Testimonials() {
+function initialsFrom(name: string) {
+  return name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
+export function Testimonials({ testimonials }: { testimonials: SanityTestimonial[] }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start", slidesToScroll: 1, containScroll: "trimSnaps" },
     [Autoplay({ delay: 5000, stopOnInteraction: true })]
@@ -62,6 +41,9 @@ export function Testimonials() {
 
   useEffect(() => {
     if (!emblaApi) return;
+    // Subscribing to an external library (embla) — sync the initial index
+    // once, then let the event listeners below handle every update after.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     onSelect();
     emblaApi.on("select", onSelect);
     emblaApi.on("reInit", onSelect);
@@ -70,6 +52,8 @@ export function Testimonials() {
       emblaApi.off("reInit", onSelect);
     };
   }, [emblaApi, onSelect]);
+
+  if (testimonials.length === 0) return null;
 
   return (
     <section id="testimonials" className="py-16 lg:py-24 bg-white overflow-hidden">
@@ -104,37 +88,40 @@ export function Testimonials() {
         <div className="relative">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex">
-              {TESTIMONIALS.map((t) => (
-                <div
-                  key={t.name}
-                  className="flex-none w-[85vw] sm:w-[calc(50%-10px)] lg:w-[calc((100%-40px)/3)] mr-5 rounded-2xl border border-line bg-white p-6 flex flex-col"
-                >
-                  <div className="flex mb-4">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="h-4 w-4 text-gold fill-gold" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-ink font-sans leading-relaxed flex-1">
-                    &ldquo;{t.text}&rdquo;
-                  </p>
-                  <div className="mt-6 pt-5 border-t border-line flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-mist-2 grid place-items-center flex-shrink-0">
-                      <span className="font-display font-bold text-xs text-navy">
-                        {t.initials}
-                      </span>
+              {testimonials.map((t) => {
+                const Flag = FLAGS[t.country.toUpperCase()];
+                return (
+                  <div
+                    key={t._id}
+                    className="flex-none w-[85vw] sm:w-[calc(50%-10px)] lg:w-[calc((100%-40px)/3)] mr-5 rounded-2xl border border-line bg-white p-6 flex flex-col"
+                  >
+                    <div className="flex mb-4">
+                      {Array.from({ length: t.rating }).map((_, i) => (
+                        <Star key={i} className="h-4 w-4 text-gold fill-gold" />
+                      ))}
                     </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-sans font-semibold text-ink truncate">
-                        {t.name}
-                      </p>
-                      <p className="text-xs font-sans text-muted flex items-center gap-1.5">
-                        <t.Flag className="h-3 w-4 rounded-[1px] flex-shrink-0" title={t.country} />
-                        {t.country}
-                      </p>
+                    <p className="text-sm text-ink font-sans leading-relaxed flex-1">
+                      &ldquo;{t.text}&rdquo;
+                    </p>
+                    <div className="mt-6 pt-5 border-t border-line flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-full bg-mist-2 grid place-items-center flex-shrink-0">
+                        <span className="font-display font-bold text-xs text-navy">
+                          {initialsFrom(t.name)}
+                        </span>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-sans font-semibold text-ink truncate">
+                          {t.name}
+                        </p>
+                        <p className="text-xs font-sans text-muted flex items-center gap-1.5">
+                          {Flag && <Flag className="h-3 w-4 rounded-[1px] flex-shrink-0" title={t.country} />}
+                          {t.country}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -148,7 +135,7 @@ export function Testimonials() {
             </button>
 
             <div className="flex items-center gap-2">
-              {TESTIMONIALS.map((_, i) => (
+              {testimonials.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => emblaApi?.scrollTo(i)}
